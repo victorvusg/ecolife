@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/dark_purple"
-    tools:context=".activities.Activity_EditBodyStats">
+    tools:context="com.ecolife.activities.Activity_EditBodyStats">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbarActivityAddStats"

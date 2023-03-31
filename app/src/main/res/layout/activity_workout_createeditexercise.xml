@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/dark_purple"
-    tools:context=".activities.Activity_Workout_CreateEditExercise">
+    tools:context="com.ecolife.activities.Activity_Workout_CreateEditExercise">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbarActivityCreateExercise"

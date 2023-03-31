@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/dark_purple"
     android:orientation="vertical"
-    tools:context=".fragments.Fragment_Settings">
+    tools:context="com.ecolife.fragments.Fragment_Settings">
 
     <ScrollView
         android:layout_width="match_parent"

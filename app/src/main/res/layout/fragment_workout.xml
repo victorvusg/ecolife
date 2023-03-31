@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/dark_purple"
-    tools:context=".fragments.Fragment_Workout">
+    tools:context="com.ecolife.fragments.Fragment_Workout">
 
     <LinearLayout
         android:layout_width="match_parent"
