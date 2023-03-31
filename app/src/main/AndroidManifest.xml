@@ -7,7 +7,7 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.GymtonicApp">
+        android:theme="@style/Theme.Ecolife">
 
         <activity
             android:name="com.ecolife.activities.Activity_Workout_EditRoutines"

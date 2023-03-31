@@ -16,7 +16,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
      */
 
     private Context context;
-    private static final String DATABASE_NAME = "gymtonicapp.db";
+    private static final String DATABASE_NAME = "ecolife_database";
     private static final int DATABASE_VERSION = 43;
 
     // Table foods

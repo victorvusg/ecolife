@@ -191,13 +191,4 @@
         android:background="@drawable/shape_box_round_light"
         android:textColor="@color/text_middle"
         android:text="@string/button_text_save" />
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
-        android:gravity="center"
-        android:text="\u00A9 2022 Falyrion"/>
-
-
 </LinearLayout>
