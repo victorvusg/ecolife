@@ -14,6 +14,7 @@ import android.view.MenuItem;
 import com.ecolife.fragments.FragmentNutrition;
 
 import com.ecolife.data.DatabaseHelper;
+import com.ecolife.fragments.FragmentStatistic;
 import com.ecolife.fragments.Fragment_Workout;
 import com.ecolife.fragments.Fragment_Settings;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -38,8 +39,12 @@ public class ActivityMain extends AppCompatActivity {
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, fragment).commit();
     }
 
-    private void setFragmentBodyStats() {
-        // Pass
+    private void setFragmentStatistic(String date) {
+        FragmentStatistic fragment = new FragmentStatistic();
+        Bundle args = new Bundle();
+        args.putString("date", date);
+        fragment.setArguments(args);
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, fragment).commit();
     }
 
     private void setFragmentWorkout() {
@@ -110,7 +115,7 @@ public class ActivityMain extends AppCompatActivity {
                 break;
 
             case 1:
-                setFragmentBodyStats();
+                setFragmentStatistic(date);
                 break;
 
             case 2:
@@ -141,7 +146,7 @@ public class ActivityMain extends AppCompatActivity {
 
                     case R.id.nav_bar_stats:
                         if (currentFragmentID != 1) {
-                            setFragmentBodyStats();
+                            setFragmentStatistic(date);
                             currentFragmentID = 1;
                         }
                         return true;

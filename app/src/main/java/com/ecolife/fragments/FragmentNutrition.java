@@ -86,14 +86,6 @@ public class FragmentNutrition extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // Get date from arguments
-        if (getArguments().containsKey("date")) {
-            date = getArguments().getString("date");
-        } else {
-            SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy", Locale.ENGLISH);
-            date = formatter.format(new Date());
-        }
-
         DateTimeFormatter date = DateTimeFormatter.ofPattern("dd-MM-yyyy");
         LocalDateTime now = LocalDateTime.now();
 
@@ -145,9 +137,6 @@ public class FragmentNutrition extends Fragment {
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        // Date
-        TextView textDate = view.findViewById(R.id.textViewDBNDate);
-        textDate.setText(date);
 
         // Set values for main-dashboard
         ProgressBar progressBarMain = getView().findViewById(R.id.progressBarDBNCaloriesMain);
@@ -216,17 +205,17 @@ public class FragmentNutrition extends Fragment {
             }
         });
 
-        ImageButton buttonCalendar = getView().findViewById(R.id.buttonDBNCalendar);
-        buttonCalendar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(view.getContext(), Activity_Calendar.class);
-                intent.putExtra("date", date);
-                intent.putExtra("fragmentID", 0);
-                intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);  // Start activity without animation
-                startActivity(intent);
-            }
-        });
+//        ImageButton buttonCalendar = getView().findViewById(R.id.buttonDBNCalendar);
+//        buttonCalendar.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent intent = new Intent(view.getContext(), Activity_Calendar.class);
+//                intent.putExtra("date", date);
+//                intent.putExtra("fragmentID", 0);
+//                intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);  // Start activity without animation
+//                startActivity(intent);
+//            }
+//        });
 
 //        ScrollView mainLayout = view.findViewById(R.id.scrollViewMainLayout);
 //        mainLayout.setVisibility(View.VISIBLE);

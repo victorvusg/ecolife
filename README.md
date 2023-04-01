@@ -1,25 +1,17 @@
 # Ecolife App
 
-An Android fitness app for nutrition tracking and workout plans
+An Android app for nutrition tracking
 
 # Features
 
-### Nutrient Tracker
+### Daily Nutrition Tracker
 - Track your daily meals and nutrition.
-- Get a detailed overview about your daily intake of macro-nutrients, vitamins, trace elements, etc.
-- Choose from many existing meal-presets in the database or create your own meal-presets.
+
+### Meal Statistics
+- View your meal history
 
 ### Workout Plans
-- Save your own custom workout plan with exercises.
-- Organise exercises within multiple plans and routines.
+- Coming soon
 
-### Body Stats *(coming soon)*
-- Track your body stats (like weight) over a period of time.
-
-# Translations
-
- The language will change depending on the users system settings. The app is currently translated to:
- - English (default)
- - German
-
-# Screenshots
+### Settings
+- Set daily nutrition figures
