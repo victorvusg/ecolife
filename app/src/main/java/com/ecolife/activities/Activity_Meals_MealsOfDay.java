@@ -18,7 +18,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.ecolife.Activity_Main;
+import com.ecolife.ActivityMain;
 import com.ecolife.R;
 import com.ecolife.data.DatabaseHelper;
 import com.ecolife.recyclerview.Adapter_MealPresets;
@@ -164,8 +164,8 @@ public class Activity_Meals_MealsOfDay extends AppCompatActivity implements Adap
         cancelButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // Start new activity Activity_Main (= go back to main screen)
-                Intent intent = new Intent(view.getContext(), Activity_Main.class);
+                // Start new activity ActivityMain (= go back to main screen)
+                Intent intent = new Intent(view.getContext(), ActivityMain.class);
                 if (date != null) {
                     intent.putExtra("date", date);
                 }

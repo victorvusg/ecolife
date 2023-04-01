@@ -19,7 +19,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.ecolife.Activity_Main;
+import com.ecolife.ActivityMain;
 import com.ecolife.R;
 import com.ecolife.activities.Activity_Workout_CreateEditExercise;
 import com.ecolife.activities.Activity_Workout_EditPlans;
@@ -59,7 +59,7 @@ public class Fragment_Workout extends Fragment implements Adapter_Workout_Routin
 
 
     private String[] loadPlansFromDatabase() {
-        Cursor cursor = ((Activity_Main) requireContext()).databaseHelper.getWorkoutPlans();
+        Cursor cursor = ((ActivityMain) requireContext()).databaseHelper.getWorkoutPlans();
         String[] loadedPlans = new String[0];
 
         if (cursor.getCount() > 0) {
@@ -78,7 +78,7 @@ public class Fragment_Workout extends Fragment implements Adapter_Workout_Routin
     }
 
     private ArrayList<Item_Workout_Routine> loadRoutinesFromDatabase(String workoutPlan) {
-        Cursor cursor = ((Activity_Main) requireContext()).databaseHelper.getWorkoutRoutines(workoutPlan);
+        Cursor cursor = ((ActivityMain) requireContext()).databaseHelper.getWorkoutRoutines(workoutPlan);
         ArrayList<Item_Workout_Routine> loadedRoutines = new ArrayList<Item_Workout_Routine>();
 
         if (cursor.getCount() > 0) {
@@ -94,7 +94,7 @@ public class Fragment_Workout extends Fragment implements Adapter_Workout_Routin
     }
 
     private ArrayList<Item_Workout_Exercise> loadExercisesFromDatabase(String workoutPlan, String workoutRoutine) {
-        Cursor cursor = ((Activity_Main) requireContext()).databaseHelper.getWorkoutExercises(workoutPlan, workoutRoutine);
+        Cursor cursor = ((ActivityMain) requireContext()).databaseHelper.getWorkoutExercises(workoutPlan, workoutRoutine);
         ArrayList<Item_Workout_Exercise> loadedExercises = new ArrayList<Item_Workout_Exercise>();
 
         if (cursor.getCount() > 0) {
@@ -238,7 +238,7 @@ public class Fragment_Workout extends Fragment implements Adapter_Workout_Routin
                 }
 
                 Intent intent = new Intent(view.getContext(), Activity_Workout_CreateEditExercise.class);
-                intent.putExtra("date", ((Activity_Main) requireContext()).date);
+                intent.putExtra("date", ((ActivityMain) requireContext()).date);
                 startActivity(intent);
             }
         });
@@ -365,7 +365,7 @@ public class Fragment_Workout extends Fragment implements Adapter_Workout_Routin
     @Override
     public void onExerciseItemClick(int itemPosition) {
         Intent intent = new Intent(getContext(), Activity_Workout_CreateEditExercise.class);
-        intent.putExtra("date", ((Activity_Main) requireContext()).date);
+        intent.putExtra("date", ((ActivityMain) requireContext()).date);
         intent.putExtra("mode", "edit");
         intent.putExtra("planName", workoutPlans[selectedPlanIdx]);
         intent.putExtra("routineName", workoutRoutines.get(selectedRoutineIdx).getTitle());

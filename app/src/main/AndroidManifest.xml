@@ -13,27 +13,27 @@
             android:name="com.ecolife.activities.Activity_Workout_EditRoutines"
             android:exported="false"
             android:screenOrientation="sensorPortrait"
-            android:parentActivityName="com.ecolife.Activity_Main" />
+            android:parentActivityName="com.ecolife.ActivityMain" />
         <activity
             android:name="com.ecolife.activities.Activity_Workout_EditPlans"
             android:exported="false"
             android:screenOrientation="sensorPortrait"
-            android:parentActivityName="com.ecolife.Activity_Main" />
+            android:parentActivityName="com.ecolife.ActivityMain" />
         <activity
             android:name="com.ecolife.activities.Activity_Meals_MealsOfDay"
             android:exported="false"
             android:screenOrientation="sensorPortrait"
-            android:parentActivityName="com.ecolife.Activity_Main" />
+            android:parentActivityName="com.ecolife.ActivityMain" />
         <activity
             android:name="com.ecolife.activities.Activity_Workout_CreateEditExercise"
             android:exported="false"
             android:screenOrientation="sensorPortrait"
-            android:parentActivityName="com.ecolife.Activity_Main" />
+            android:parentActivityName="com.ecolife.ActivityMain" />
         <activity
             android:name="com.ecolife.activities.Activity_Meals_AddDailyEntry"
             android:exported="false"
             android:screenOrientation="sensorPortrait"
-            android:parentActivityName="com.ecolife.Activity_Main" />
+            android:parentActivityName="com.ecolife.ActivityMain" />
         <activity
             android:name="com.ecolife.activities.Activity_Meals_CreateEditPreset"
             android:exported="false"
@@ -43,14 +43,14 @@
             android:name="com.ecolife.activities.Activity_Calendar"
             android:exported="false"
             android:screenOrientation="sensorPortrait"
-            android:parentActivityName="com.ecolife.Activity_Main" />
+            android:parentActivityName="com.ecolife.ActivityMain" />
         <activity
             android:name="com.ecolife.activities.Activity_EditBodyStats"
             android:exported="false"
             android:screenOrientation="sensorPortrait"
-            android:parentActivityName="com.ecolife.Activity_Main" />
+            android:parentActivityName="com.ecolife.ActivityMain" />
         <activity
-            android:name="com.ecolife.Activity_Main"
+            android:name="com.ecolife.ActivityMain"
             android:screenOrientation="sensorPortrait"
             android:exported="true">
             <intent-filter>

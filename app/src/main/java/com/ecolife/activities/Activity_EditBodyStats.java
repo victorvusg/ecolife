@@ -12,7 +12,7 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
-import com.ecolife.Activity_Main;
+import com.ecolife.ActivityMain;
 import com.ecolife.R;
 import com.ecolife.data.DatabaseHelper;
 
@@ -169,7 +169,7 @@ public class Activity_EditBodyStats extends AppCompatActivity {
         cancelButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(view.getContext(), Activity_Main.class);
+                Intent intent = new Intent(view.getContext(), ActivityMain.class);
                 intent.putExtra("date", date);
                 // intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);  // Start activity without animation
                 startActivity(intent);

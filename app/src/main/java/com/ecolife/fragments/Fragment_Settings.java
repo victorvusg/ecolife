@@ -16,7 +16,7 @@ import android.widget.Spinner;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import com.ecolife.Activity_Main;
+import com.ecolife.ActivityMain;
 import com.ecolife.R;
 
 
@@ -80,7 +80,7 @@ public class Fragment_Settings extends Fragment implements AdapterView.OnItemSel
         super.onCreate(savedInstanceState);
 
         // Load data from database
-        Cursor cursorGoals = ((Activity_Main) requireContext()).databaseHelper.getSettingsGoals();
+        Cursor cursorGoals = ((ActivityMain) requireContext()).databaseHelper.getSettingsGoals();
         if (cursorGoals.getCount() > 0) {
             cursorGoals.moveToFirst();
             dataGoals = new double[] {
@@ -146,8 +146,8 @@ public class Fragment_Settings extends Fragment implements AdapterView.OnItemSel
                     saveButton.setTextColor(getContext().getColor(R.color.text_middle));
                     saveButton.setVisibility(View.INVISIBLE);
 
-                    ((Activity_Main) requireContext()).databaseHelper.setSettingsGoals(dataGoals[0], dataGoals[1], dataGoals[2], dataGoals[3]);
-                    ((Activity_Main) requireContext()).databaseHelper.setSettingsLanguage(currentLanguage);
+                    ((ActivityMain) requireContext()).databaseHelper.setSettingsGoals(dataGoals[0], dataGoals[1], dataGoals[2], dataGoals[3]);
+                    ((ActivityMain) requireContext()).databaseHelper.setSettingsLanguage(currentLanguage);
 
                 }
             }

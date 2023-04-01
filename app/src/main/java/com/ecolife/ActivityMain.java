@@ -11,8 +11,7 @@ import android.database.Cursor;
 import android.os.Bundle;
 import android.view.MenuItem;
 
-import com.ecolife.fragments.Fragment_Nutrition;
-import com.ecolife.R;
+import com.ecolife.fragments.FragmentNutrition;
 
 import com.ecolife.data.DatabaseHelper;
 import com.ecolife.fragments.Fragment_Workout;
@@ -24,7 +23,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
-public class Activity_Main extends AppCompatActivity {
+public class ActivityMain extends AppCompatActivity {
 
     public String date;
     private int currentFragmentID = 0;
@@ -32,7 +31,7 @@ public class Activity_Main extends AppCompatActivity {
 
 
     private void setFragmentFood(String date) {
-        Fragment_Nutrition fragment = new Fragment_Nutrition();
+        FragmentNutrition fragment = new FragmentNutrition();
         Bundle args = new Bundle();
         args.putString("date", date);
         fragment.setArguments(args);
@@ -77,7 +76,7 @@ public class Activity_Main extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         // Database
-        databaseHelper = new DatabaseHelper(Activity_Main.this);
+        databaseHelper = new DatabaseHelper(ActivityMain.this);
 
         // Update language
         Cursor cursor = databaseHelper.getSettingsLanguage();

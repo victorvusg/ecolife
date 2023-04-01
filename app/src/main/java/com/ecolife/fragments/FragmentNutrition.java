@@ -16,7 +16,7 @@ import android.widget.TextView;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import com.ecolife.Activity_Main;
+import com.ecolife.ActivityMain;
 import com.ecolife.activities.Activity_Calendar;
 import com.ecolife.R;
 import com.ecolife.activities.Activity_Meals_AddDailyEntry;
@@ -24,27 +24,38 @@ import com.ecolife.activities.Activity_Meals_MealsOfDay;
 
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.Locale;
 
 
-public class Fragment_Nutrition extends Fragment {
-
-    // TODO: - Add more nutrition details (spurenelemente, metalle, vitamine, etc)
-    // - in Add_Meal_Actitvity funktion hinzufügen das man auf ein preset clicken kann und es bearbeiten und löschen
-    // - Noch mal schauen ob datum zwischen add_meal_activity und createmealactitvity richtig hin und her gegeben wird
-    // - Funktion zum löschen von bereits zum tag hinzugefügten meals
-    // - Progress bars schöner machen
-
+/**
+ * This class is fragment for Nutrition
+ */
+public class FragmentNutrition extends Fragment {
 
     private String date;
     private double[] dataFood;
     private double[] dataGoals;
 
+    /**
+     * This method uses to calculate percentage of a value
+     * @param current Current value to calculate percentage
+     * @param max Maximum value of value
+     * @return integer value of percentage
+     */
     private int percentOf(double current, double max) {
+        // If max is equal to 0, a invalid value then return 0
+        if (max == 0) return 0;
         return (int) ((current / max) * 100);
     }
 
+    /**
+     *
+     * @param value
+     * @return
+     */
     private String convertDataToDoubleText(double value) {
         // Convert given double to string.
         if (value % 1 == 0) {
@@ -57,11 +68,20 @@ public class Fragment_Nutrition extends Fragment {
         }
     }
 
+    /**
+     * This method uses to convert a floating number to rounded string number
+     * @param value
+     * @return
+     */
     private String convertDataToIntText(double value) {
         return String.valueOf((int) value);
     }
 
 
+    /**
+     *
+     * @param savedInstanceState
+     */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -74,8 +94,13 @@ public class Fragment_Nutrition extends Fragment {
             date = formatter.format(new Date());
         }
 
+        DateTimeFormatter date = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        LocalDateTime now = LocalDateTime.now();
+
         // Load data from database
-        Cursor cursorDataFood = ((Activity_Main) requireContext()).databaseHelper.getConsumedMealsSums(date);
+        Cursor cursorDataFood = ((ActivityMain) requireContext())
+                .databaseHelper
+                .getConsumedMealsSums(date.format(now));
         if (cursorDataFood.getCount() > 0) {
             cursorDataFood.moveToFirst();
             dataFood = new double[31];
@@ -88,7 +113,7 @@ public class Fragment_Nutrition extends Fragment {
         }
         cursorDataFood.close();
 
-        Cursor cursorSettings = ((Activity_Main) requireContext()).databaseHelper.getSettingsGoals();
+        Cursor cursorSettings = ((ActivityMain) requireContext()).databaseHelper.getSettingsGoals();
         if (cursorSettings.getCount() > 0) {
             cursorSettings.moveToFirst();
             dataGoals = new double[] {
@@ -104,6 +129,13 @@ public class Fragment_Nutrition extends Fragment {
 
     }
 
+    /**
+     *
+     * @param inflater
+     * @param container
+     * @param savedInstanceState
+     * @return
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -160,81 +192,6 @@ public class Fragment_Nutrition extends Fragment {
         TextView textViewDetailsProtein = getView().findViewById(R.id.textViewDBNDetailsProtein);
         textViewDetailsProtein.setText(convertDataToDoubleText(dataFood[5]));
 
-        TextView textViewDetailsSalt = getView().findViewById(R.id.textViewDBNDetailsSalt);
-        textViewDetailsSalt.setText(convertDataToDoubleText(dataFood[6]));
-
-        TextView textViewDetailsFiber = getView().findViewById(R.id.textViewDBNDetailsFiber);
-        textViewDetailsFiber.setText(convertDataToDoubleText(dataFood[7]));
-
-        TextView textViewDetailsChol = getView().findViewById(R.id.textViewDBNDetailsChol);
-        textViewDetailsChol.setText(convertDataToDoubleText(dataFood[8]));
-
-        TextView textViewDetailsCreatine = getView().findViewById(R.id.textViewDBNDetailsCreatine);
-        textViewDetailsCreatine.setText(convertDataToDoubleText(dataFood[9]));
-
-        TextView textViewDetailsCa = getView().findViewById(R.id.textViewDBNDetailsCa);
-        textViewDetailsCa.setText(convertDataToDoubleText(dataFood[10]));
-
-        TextView textViewDetailsFe = getView().findViewById(R.id.textViewDBNDetailsFe);
-        textViewDetailsFe.setText(convertDataToDoubleText(dataFood[11]));
-
-        TextView textViewDetailsKa = getView().findViewById(R.id.textViewDBNDetailsKa);
-        textViewDetailsKa.setText(convertDataToDoubleText(dataFood[12]));
-
-        TextView textViewDetailsMg = getView().findViewById(R.id.textViewDBNDetailsMg);
-        textViewDetailsMg.setText(convertDataToDoubleText(dataFood[13]));
-
-        TextView textViewDetailMn = getView().findViewById(R.id.textViewDBNDetailsMn);
-        textViewDetailMn.setText(convertDataToDoubleText(dataFood[14]));
-
-        TextView textViewDetailsNa = getView().findViewById(R.id.textViewDBNDetailsNa);
-        textViewDetailsNa.setText(convertDataToDoubleText(dataFood[15]));
-
-        TextView textViewDetailsP = getView().findViewById(R.id.textViewDBNDetailsP);
-        textViewDetailsP.setText(convertDataToDoubleText(dataFood[16]));
-
-        TextView textViewDetailsZn = getView().findViewById(R.id.textViewDBNDetailsZn);
-        textViewDetailsZn.setText(convertDataToDoubleText(dataFood[17]));
-
-        TextView textViewDetailsVitA = getView().findViewById(R.id.textViewDBNDetailsVitA);
-        textViewDetailsVitA.setText(convertDataToDoubleText(dataFood[18]));
-
-        TextView textViewDetailsVitB1 = getView().findViewById(R.id.textViewDBNDetailsVitB1);
-        textViewDetailsVitB1.setText(convertDataToDoubleText(dataFood[19]));
-
-        TextView textViewDetailsVitB2 = getView().findViewById(R.id.textViewDBNDetailsVitB2);
-        textViewDetailsVitB2.setText(convertDataToDoubleText(dataFood[20]));
-
-        TextView textViewDetailsVitB3 = getView().findViewById(R.id.textViewDBNDetailsVitB3);
-        textViewDetailsVitB3.setText(convertDataToDoubleText(dataFood[21]));
-
-        TextView textViewDetailsVitB5 = getView().findViewById(R.id.textViewDBNDetailsVitB5);
-        textViewDetailsVitB5.setText(convertDataToDoubleText(dataFood[22]));
-
-        TextView textViewDetailsVitB6 = getView().findViewById(R.id.textViewDBNDetailsVitB6);
-        textViewDetailsVitB6.setText(convertDataToDoubleText(dataFood[23]));
-
-        TextView textViewDetailsVitB7 = getView().findViewById(R.id.textViewDBNDetailsVitB7);
-        textViewDetailsVitB7.setText(convertDataToDoubleText(dataFood[24]));
-
-        TextView textViewDetailsVitB11 = getView().findViewById(R.id.textViewDBNDetailsVitB11);
-        textViewDetailsVitB11.setText(convertDataToDoubleText(dataFood[25]));
-
-        TextView textViewDetailsVitB12 = getView().findViewById(R.id.textViewDBNDetailsVitB12);
-        textViewDetailsVitB12.setText(convertDataToDoubleText(dataFood[26]));
-
-        TextView textViewDetailsVitC = getView().findViewById(R.id.textViewDBNDetailsVitC);
-        textViewDetailsVitC.setText(convertDataToDoubleText(dataFood[27]));
-
-        TextView textViewDetailsVitE = getView().findViewById(R.id.textViewDBNDetailsVitE);
-        textViewDetailsVitE.setText(convertDataToDoubleText(dataFood[28]));
-
-        TextView textViewDetailsVitK = getView().findViewById(R.id.textViewDBNDetailsVitK);
-        textViewDetailsVitK.setText(convertDataToDoubleText(dataFood[29]));
-
-        TextView textViewDetailsVitH = getView().findViewById(R.id.textViewDBNDetailsVitH);
-        textViewDetailsVitH.setText(convertDataToDoubleText(dataFood[30]));
-
         // Set buttons
         Button buttonAddMeal = getView().findViewById(R.id.buttonDashboardNutritionAddMeal);
         buttonAddMeal.setOnClickListener(new View.OnClickListener() {
@@ -268,22 +225,6 @@ public class Fragment_Nutrition extends Fragment {
                 intent.putExtra("fragmentID", 0);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);  // Start activity without animation
                 startActivity(intent);
-            }
-        });
-
-        TableLayout tableLayoutDetails = view.findViewById(R.id.tableLayoutDashboardNutritionDetails);
-
-        ImageButton buttonToggleDetails = view.findViewById(R.id.buttonExpandNutritionDetails);
-        buttonToggleDetails.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (tableLayoutDetails.getVisibility() == View.GONE) {
-                    tableLayoutDetails.setVisibility(View.VISIBLE);
-                    buttonToggleDetails.setImageResource(R.drawable.ic_baseline_expand_less_24);
-                    return;
-                }
-                tableLayoutDetails.setVisibility(View.GONE);
-                buttonToggleDetails.setImageResource(R.drawable.ic_baseline_expand_more_24);
             }
         });
 

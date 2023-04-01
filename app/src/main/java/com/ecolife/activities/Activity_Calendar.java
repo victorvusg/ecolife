@@ -10,7 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
-import com.ecolife.Activity_Main;
+import com.ecolife.ActivityMain;
 import com.ecolife.R;
 
 import java.text.SimpleDateFormat;
@@ -20,7 +20,7 @@ import java.util.Locale;
 public class Activity_Calendar extends AppCompatActivity {
 
     /**
-     * This activity is called by pressing the calendar-button in the Fragment_Nutrition. It will display
+     * This activity is called by pressing the calendar-button in the FragmentNutrition. It will display
      * a calendar to choose a date and return this new date to the main activity.
      */
 
@@ -54,7 +54,7 @@ public class Activity_Calendar extends AppCompatActivity {
         buttonConfirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(view.getContext(), Activity_Main.class);
+                Intent intent = new Intent(view.getContext(), ActivityMain.class);
                 intent.putExtra("date", newDate);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);  // Start activity without animation
                 startActivity(intent);
@@ -65,7 +65,7 @@ public class Activity_Calendar extends AppCompatActivity {
         buttonCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(view.getContext(), Activity_Main.class);
+                Intent intent = new Intent(view.getContext(), ActivityMain.class);
                 intent.putExtra("date", date);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);  // Start activity without animation
                 startActivity(intent);

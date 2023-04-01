@@ -15,7 +15,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.ecolife.Activity_Main;
+import com.ecolife.ActivityMain;
 import com.ecolife.R;
 import com.ecolife.data.DatabaseHelper;
 import com.ecolife.recyclerview.Adapter_Workout_Plans;
@@ -390,10 +390,10 @@ public class Activity_Workout_CreateEditExercise extends AppCompatActivity imple
 
         cancelButton = findViewById(R.id.buttonCancelNewExercise);
         cancelButton.setOnClickListener(new View.OnClickListener() {
-            // -> This method starts Activity_Main
+            // -> This method starts ActivityMain
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(view.getContext(), Activity_Main.class);
+                Intent intent = new Intent(view.getContext(), ActivityMain.class);
                 if (date != null) { intent.putExtra("date", date); }
                 intent.putExtra("fragmentID", 1);
                 startActivity(intent);

@@ -197,7 +197,7 @@ public class Activity_Workout_EditRoutines extends AppCompatActivity implements 
 //        buttonCancel.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View view) {
-//                Intent intent = new Intent(view.getContext(), Activity_Main.class);
+//                Intent intent = new Intent(view.getContext(), ActivityMain.class);
 //                intent.putExtra("fragmentID", 2);
 //                startActivity(intent);
 //            }
