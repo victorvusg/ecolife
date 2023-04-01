@@ -7,11 +7,8 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Spinner;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -21,7 +18,7 @@ import com.ecolife.R;
 
 
 
-public class FragmentSettings extends Fragment implements AdapterView.OnItemSelectedListener {
+public class FragmentSettings extends Fragment {
 
     private double[] dataGoals;
     private String currentLanguage;
@@ -86,10 +83,12 @@ public class FragmentSettings extends Fragment implements AdapterView.OnItemSele
                     cursorGoals.getDouble(0),
                     cursorGoals.getDouble(1),
                     cursorGoals.getDouble(2),
-                    cursorGoals.getDouble(3)
+                    cursorGoals.getDouble(3),
+                    cursorGoals.getDouble(4),
+                    cursorGoals.getDouble(5)
             };
         } else {
-            dataGoals = new double[] {0, 0, 0, 0};
+            dataGoals = new double[] {0, 0, 0, 0, 0, 0};
         }
         cursorGoals.close();
     }
@@ -103,22 +102,32 @@ public class FragmentSettings extends Fragment implements AdapterView.OnItemSele
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+
         // Nutrition goal settings
         EditText editTextCalories = getView().findViewById(R.id.editTextSettingsGoalsCal);
         editTextCalories.setText(convertDataToText(dataGoals[0]));
         editTextCalories.addTextChangedListener(new textWatcher(0));
 
+        EditText editTextProtein = getView().findViewById(R.id.editTextSettingsGoalsProtein);
+        editTextProtein.setText(convertDataToText(dataGoals[1]));
+        editTextProtein.addTextChangedListener(new textWatcher(1));
+
         EditText editTextFat = getView().findViewById(R.id.editTextSettingsGoalsFat);
-        editTextFat.setText(convertDataToText(dataGoals[1]));
-        editTextFat.addTextChangedListener(new textWatcher(1));
+        editTextFat.setText(convertDataToText(dataGoals[2]));
+        editTextFat.addTextChangedListener(new textWatcher(2));
+
+        EditText editTextSatFat = getView().findViewById(R.id.editTextSettingsGoalsSatFat);
+        editTextSatFat.setText(convertDataToText(dataGoals[3]));
+        editTextSatFat.addTextChangedListener(new textWatcher(3));
 
         EditText editTextCarbs = getView().findViewById(R.id.editTextSettingsGoalsCarbs);
-        editTextCarbs.setText(convertDataToText(dataGoals[2]));
-        editTextCarbs.addTextChangedListener(new textWatcher(2));
+        editTextCarbs.setText(convertDataToText(dataGoals[4]));
+        editTextCarbs.addTextChangedListener(new textWatcher(4));
 
-        EditText editTextProtein = getView().findViewById(R.id.editTextSettingsGoalsProtein);
-        editTextProtein.setText(convertDataToText(dataGoals[3]));
-        editTextProtein.addTextChangedListener(new textWatcher(3));
+        EditText editWater = getView().findViewById(R.id.editTextSettingsGoalsWater);
+        editWater.setText(convertDataToText(dataGoals[5]));
+        editWater.addTextChangedListener(new textWatcher(5));
+
 
         // Button
         saveButton = getView().findViewById(R.id.buttonSaveSettings);
@@ -139,27 +148,4 @@ public class FragmentSettings extends Fragment implements AdapterView.OnItemSele
         });
     }
 
-    // Methods from imported spinner interface -----------------------------------------------------
-    @Override
-    public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
-        // Guard clause against the automatic item select on creation
-        if (firstSelect) {
-            firstSelect = false;
-            return;
-        }
-
-        // Set value
-        switch (position) {
-            case 0: currentLanguage = "de"; break;
-            case 1: currentLanguage = "en"; break;
-        }
-
-        // Update button
-        enableSaveButton();
-    }
-
-    @Override
-    public void onNothingSelected(AdapterView<?> adapterView) {
-        // Pass
-    }
 }
