@@ -1,6 +1,6 @@
 package com.ecolife.recyclerview;
 
-public class Item_MealPreset {
+public class ItemMealPreset {
 
     /*
     Item for Adapter_MealPreset.
@@ -11,7 +11,7 @@ public class Item_MealPreset {
     private int _calories;
     private double _amount;
 
-    public Item_MealPreset(String mealTitle, String uuid, int calories, double amount){
+    public ItemMealPreset(String mealTitle, String uuid, int calories, double amount){
         this._mealTitle = mealTitle;
         this._uuid = uuid;
         this._calories = calories;

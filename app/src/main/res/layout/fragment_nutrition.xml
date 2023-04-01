@@ -17,8 +17,8 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginVertical="24dp"
-                android:layout_marginHorizontal="24dp"
+                android:layout_marginVertical="16dp"
+                android:layout_marginHorizontal="16dp"
                 android:text="@string/welcome_section_title"
                 android:textColor="@color/text_low"
                 android:textSize="20sp" />
@@ -210,19 +210,6 @@
                 android:orientation="horizontal">
 
                 <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/buttonDashboardNutritionAddMeal"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:background="@drawable/shape_box_round_light"
-                    android:text="@string/dn_button_add"
-                    android:textColor="@color/text_high" />
-
-                <Space
-                    android:layout_width="10dp"
-                    android:layout_height="match_parent" />
-
-                <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/buttonEatenMeals"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -299,6 +286,38 @@
                             android:textColor="@color/text_middle"
                             android:layout_marginEnd="20dp"/>
 
+                    </TableRow>
+
+                    <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="30dp"
+                            android:layout_weight="1"
+                            android:text="@string/protein"
+                            android:textAlignment="viewStart"
+                            android:textColor="@color/text_middle"
+                            android:layout_marginStart="20dp"/>
+
+                        <TextView
+                            android:id="@+id/textViewDBNDetailsProtein"
+                            android:layout_width="match_parent"
+                            android:layout_height="30dp"
+                            android:layout_weight="2"
+                            android:text="0"
+                            android:textAlignment="center"
+                            android:textColor="@color/text_middle"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="30dp"
+                            android:layout_weight="1"
+                            android:text="g"
+                            android:textAlignment="textEnd"
+                            android:textColor="@color/text_middle"
+                            android:layout_marginEnd="20dp"/>
                     </TableRow>
 
                     <TableRow
@@ -406,45 +425,13 @@
                             android:layout_width="wrap_content"
                             android:layout_height="30dp"
                             android:layout_weight="1"
-                            android:text="@string/sugar"
+                            android:text="@string/water"
                             android:textAlignment="viewStart"
                             android:textColor="@color/text_middle"
                             android:layout_marginStart="20dp"/>
 
                         <TextView
-                            android:id="@+id/textViewDBNDetailsSugar"
-                            android:layout_width="match_parent"
-                            android:layout_height="30dp"
-                            android:layout_weight="2"
-                            android:text="0"
-                            android:textAlignment="center"
-                            android:textColor="@color/text_middle"/>
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="30dp"
-                            android:layout_weight="1"
-                            android:text="g"
-                            android:textAlignment="textEnd"
-                            android:textColor="@color/text_middle"
-                            android:layout_marginEnd="20dp"/>
-                    </TableRow>
-
-                    <TableRow
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="30dp"
-                            android:layout_weight="1"
-                            android:text="@string/protein"
-                            android:textAlignment="viewStart"
-                            android:textColor="@color/text_middle"
-                            android:layout_marginStart="20dp"/>
-
-                        <TextView
-                            android:id="@+id/textViewDBNDetailsProtein"
+                            android:id="@+id/textViewDBNDetailsWater"
                             android:layout_width="match_parent"
                             android:layout_height="30dp"
                             android:layout_weight="2"

@@ -139,25 +139,25 @@ public class ActivityMealsCreateEditPreset extends AppCompatActivity {
         editTextCalories.setHint(convertDataToText(mealData[0]));
         editTextCalories.addTextChangedListener(new textWatcher(1));
 
+        EditText editTextProtein = findViewById(R.id.editTextProtein);
+        editTextProtein.setHint(convertDataToText(mealData[1]));
+        editTextProtein.addTextChangedListener(new textWatcher(2));
+
         EditText editTextFat = findViewById(R.id.editTextFat);
-        editTextFat.setHint(convertDataToText(mealData[1]));
-        editTextFat.addTextChangedListener(new textWatcher(2));
+        editTextFat.setHint(convertDataToText(mealData[2]));
+        editTextFat.addTextChangedListener(new textWatcher(3));
 
         EditText editTexFatSat = findViewById(R.id.editTextFatSat);
-        editTexFatSat.setHint(convertDataToText(mealData[2]));
-        editTexFatSat.addTextChangedListener(new textWatcher(3));
+        editTexFatSat.setHint(convertDataToText(mealData[3]));
+        editTexFatSat.addTextChangedListener(new textWatcher(4));
 
         EditText editTextCarbs = findViewById(R.id.editTextCarbs);
-        editTextCarbs.setHint(convertDataToText(mealData[3]));
-        editTextCarbs.addTextChangedListener(new textWatcher(4));
+        editTextCarbs.setHint(convertDataToText(mealData[4]));
+        editTextCarbs.addTextChangedListener(new textWatcher(5));
 
-        EditText editTextSugar = findViewById(R.id.editTextSugar);
-        editTextSugar.setHint(convertDataToText(mealData[4]));
-        editTextSugar.addTextChangedListener(new textWatcher(5));
-
-        EditText editTextProtein = findViewById(R.id.editTextProtein);
-        editTextProtein.setHint(convertDataToText(mealData[5]));
-        editTextProtein.addTextChangedListener(new textWatcher(6));
+        EditText editTextSugar = findViewById(R.id.editTextWater);
+        editTextSugar.setHint(convertDataToText(mealData[5]));
+        editTextSugar.addTextChangedListener(new textWatcher(6));
 
         // -----------------------------------------------------------------------------------------
         // Set up toolbar

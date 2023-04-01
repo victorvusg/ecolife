@@ -168,8 +168,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
      * @return
      */
     public Cursor getPresetMealDetailByID(String id) {
-        // -> Returns all Details for a preset meal with given UUID
-
         SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
         Cursor cursor = null;
 
@@ -208,8 +206,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     public Cursor getConsumedMealsSums(String date) {
-        // -> Returns sum of all details of all consumed meals for a given date
-
         SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
         Cursor cursor = null;
 
@@ -252,7 +248,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             contentValues.put(nutritionNames[i], nutritionData[i]);
         }
 
-        contentValues.put(DATABASE_COLUMN_INDEX, id);
+        if (id !=0 ) {
+            contentValues.put(DATABASE_COLUMN_INDEX, id);
+        }
+
         contentValues.put(PRESET_MEALS_COLUMN_MEAL_NAME, name);
 
         // Insert data into database

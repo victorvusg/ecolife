@@ -22,8 +22,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.ecolife.ActivityMain;
 import com.ecolife.R;
 import com.ecolife.data.DatabaseHelper;
-import com.ecolife.recyclerview.Adapter_MealPresets;
-import com.ecolife.recyclerview.Item_MealPreset;
+import com.ecolife.recyclerview.AdapterMealPresets;
+import com.ecolife.recyclerview.ItemMealPreset;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.text.DecimalFormat;
@@ -33,7 +33,7 @@ import java.util.Date;
 import java.util.Locale;
 
 
-public class ActivityMealsAddDailyEntry extends AppCompatActivity implements Adapter_MealPresets.mealPresetItemInterface {
+public class ActivityMealsAddDailyEntry extends AppCompatActivity implements AdapterMealPresets.mealPresetItemInterface {
 
     /**
      * This activity displays all meal-presets and lets the user add them to the database
@@ -48,8 +48,8 @@ public class ActivityMealsAddDailyEntry extends AppCompatActivity implements Ada
     TextView noEntries;
     RecyclerView recyclerViewMeals;
 
-    private ArrayList<Item_MealPreset> mealsPresetList;
-    private Adapter_MealPresets adapterPresets;
+    private ArrayList<ItemMealPreset> mealsPresetList;
+    private AdapterMealPresets adapterPresets;
 
     private DatabaseHelper databaseHelper;
 
@@ -65,15 +65,15 @@ public class ActivityMealsAddDailyEntry extends AppCompatActivity implements Ada
         }
     }
 
-    private ArrayList<Item_MealPreset> loadPresetMealsFromDatabase() {
+    private ArrayList<ItemMealPreset> loadPresetMealsFromDatabase() {
         Cursor cursor = databaseHelper.getAllPresetMeals();
 
-        ArrayList<Item_MealPreset> loadedPresets = new ArrayList<Item_MealPreset>();
+        ArrayList<ItemMealPreset> loadedPresets = new ArrayList<ItemMealPreset>();
 
         if (cursor.getCount() > 0) {
             while (cursor.moveToNext()) {
-                // Create new Item_MealPreset and add it to meals-list
-                loadedPresets.add(cursor.getPosition(), new Item_MealPreset(
+                // Create new ItemMealPreset and add it to meals-list
+                loadedPresets.add(cursor.getPosition(), new ItemMealPreset(
                         cursor.getString(1),  // Title
                         cursor.getString(0),  // UUID
                         (int) cursor.getDouble(2),  // Calories
@@ -122,7 +122,7 @@ public class ActivityMealsAddDailyEntry extends AppCompatActivity implements Ada
         mealsPresetList = loadPresetMealsFromDatabase();
 
         // Set adapters and recycler views
-        adapterPresets = new Adapter_MealPresets(mealsPresetList, this, getApplicationContext());
+        adapterPresets = new AdapterMealPresets(mealsPresetList, this, getApplicationContext());
         recyclerViewMeals = findViewById(R.id.recyclerViewMealsPreset);
         recyclerViewMeals.setAdapter(adapterPresets);
         recyclerViewMeals.setLayoutManager(new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false));
@@ -159,7 +159,7 @@ public class ActivityMealsAddDailyEntry extends AppCompatActivity implements Ada
                 if (savePossible) {
                     savePossible = false;
 
-                    for (Item_MealPreset currentMeal : mealsPresetList) {
+                    for (ItemMealPreset currentMeal : mealsPresetList) {
                         if (currentMeal.getAmount() > 0) {
                             databaseHelper.addOrReplaceConsumedMeal(date, currentMeal.getMealUUID(), currentMeal.getAmount());
                         }

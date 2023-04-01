@@ -5,31 +5,38 @@
     <!-- Meal Data -->
     <string name="calories">Calories</string>
     <string name="calories_kcal">Calories [kcal]</string>
-    <string name="fat">Fat</string>
-    <string name="fat_g">Fat [g]</string>
-    <string name="fat_sat">Saturated fats</string>
-    <string name="fat_sat_g">Saturated fats [g]</string>
-    <string name="carbs">Carbohydrates</string>
-    <string name="carbs_g">Carbohydrates [g]</string>
-    <string name="sugar">Sugar</string>
-    <string name="sugar_g">Sugar [g]</string>
+
     <string name="protein">Protein</string>
     <string name="protein_g">Protein [g]</string>
 
+    <string name="fat">Fat</string>
+    <string name="fat_g">Fat [g]</string>
+
+    <string name="fat_sat">Saturated fats</string>
+    <string name="fat_sat_g">Saturated fats [g]</string>
+
+    <string name="carbs">Carbohydrates</string>
+    <string name="carbs_g">Carbohydrates [g]</string>
+
+    <string name="water">Water</string>
+    <string name="water_ml">Water(ml)</string>
+
+
     <!-- Welcome Section -->
-    <string name="welcome_section_title">Have a good day!</string>
+    <string name="welcome_section_title">Hi Victor, Have a good day!</string>
 
     <!-- Dashboard Nutrition -->
     <string name="dn_header_01">Today\'s Overview</string>
     <string name="dn_header_02">Details</string>
-    <string name="dn_button_add">Add Meal</string>
+
+    <string name="dn_button_add">Add your meal</string>
     <string name="dn_button_edit">Today Meals</string>
 
     <!-- UI -->
     <string name="button_text_back">Back</string>
     <string name="button_text_save">Save</string>
     <string name="button_text_cancel">Cancel</string>
-    <string name="button_text_create_meal">Create new custom meal</string>
+    <string name="button_text_create_meal">Add custom meal</string>
     <string name="title_meal_name">Meal Name</string>
     <string name="title_name">Name</string>
     <string name="title_general_data">General Data</string>

@@ -168,34 +168,20 @@ public class FragmentNutrition extends Fragment {
         TextView textViewDetailsCal = getView().findViewById(R.id.textViewDBNDetailsCalories);
         textViewDetailsCal.setText(convertDataToDoubleText(dataFood[0]));
 
+        TextView textViewDetailsProtein = getView().findViewById(R.id.textViewDBNDetailsProtein);
+        textViewDetailsProtein.setText(convertDataToDoubleText(dataFood[1]));
+
         TextView textViewDetailsFat = getView().findViewById(R.id.textViewDBNDetailsFat);
-        textViewDetailsFat.setText(convertDataToDoubleText(dataFood[1]));
+        textViewDetailsFat.setText(convertDataToDoubleText(dataFood[2]));
 
         TextView textViewDetailsFatSat = getView().findViewById(R.id.textViewDBNDetailsFatSat);
-        textViewDetailsFatSat.setText(convertDataToDoubleText(dataFood[2]));
+        textViewDetailsFatSat.setText(convertDataToDoubleText(dataFood[3]));
 
         TextView textViewDetailsCarbs = getView().findViewById(R.id.textViewDBNDetailsCarbs);
-        textViewDetailsCarbs.setText(convertDataToDoubleText(dataFood[3]));
+        textViewDetailsCarbs.setText(convertDataToDoubleText(dataFood[4]));
 
-        TextView textViewDetailsSugar = getView().findViewById(R.id.textViewDBNDetailsSugar);
-        textViewDetailsSugar.setText(convertDataToDoubleText(dataFood[4]));
-
-        TextView textViewDetailsProtein = getView().findViewById(R.id.textViewDBNDetailsProtein);
-        textViewDetailsProtein.setText(convertDataToDoubleText(dataFood[5]));
-
-        /**
-         * Add meal button
-         */
-        Button buttonAddMeal = getView().findViewById(R.id.buttonDashboardNutritionAddMeal);
-        buttonAddMeal.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(view.getContext(), ActivityMealsAddDailyEntry.class);
-                intent.putExtra("date", date);
-                intent.putExtra("fragmentID", 0);
-                startActivity(intent);
-            }
-        });
+        TextView textViewDetailsSugar = getView().findViewById(R.id.textViewDBNDetailsWater);
+        textViewDetailsSugar.setText(convertDataToDoubleText(dataFood[5]));
 
         /**
          * Today meals button
