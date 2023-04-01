@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.ecolife.activities.Activity_Meals_CreateEditPreset"
+    tools:context="com.ecolife.activities.ActivityMealsCreateEditPreset"
     android:background="@color/dark_purple">
 
     <androidx.appcompat.widget.Toolbar
@@ -66,33 +66,6 @@
                     android:textColorHint="@color/text_low"
                     android:textAlignment="center"
                     android:textColor="@color/text_middle" />
-            </LinearLayout>
-
-            <Space
-                android:layout_width="match_parent"
-                android:layout_height="20dp" />
-
-            <!-- Meal category -->
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:text="@string/title_category"
-                android:textColor="@color/text_low"
-                android:textSize="20sp"/>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:background="@drawable/shape_box_round_middle">
-
-                <Spinner
-                    android:id="@+id/spinnerMealCategory"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginStart="20dp"
-                    android:tooltipText="Select category" />
-
             </LinearLayout>
 
             <Space

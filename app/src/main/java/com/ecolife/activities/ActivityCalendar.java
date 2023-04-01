@@ -17,7 +17,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
-public class Activity_Calendar extends AppCompatActivity {
+public class ActivityCalendar extends AppCompatActivity {
 
     /**
      * This activity is called by pressing the calendar-button in the FragmentNutrition. It will display
@@ -32,7 +32,9 @@ public class Activity_Calendar extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calendar);
 
-        // Get current date
+        /**
+         * Get current date
+         */
         Intent intent = getIntent();
         if (getIntent().hasExtra("date")) {
             date = intent.getStringExtra("date");
@@ -42,14 +44,18 @@ public class Activity_Calendar extends AppCompatActivity {
         }
         newDate = date;
 
-        // Set up toolbar
+        /**
+         * Set up toolbar
+         */
         Toolbar toolbarActivityAddStats = findViewById(R.id.toolbarActivityCalendar);
         toolbarActivityAddStats.setTitle("Change date");
         setSupportActionBar(toolbarActivityAddStats);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
-        // Buttons
+        /**
+         * Buttons
+         */
         Button buttonConfirm = findViewById(R.id.buttonConfirmSetDate);
         buttonConfirm.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -61,6 +67,9 @@ public class Activity_Calendar extends AppCompatActivity {
             }
         });
 
+        /**
+         * Cancel button
+         */
         Button buttonCancel = findViewById(R.id.buttonCancelSetDate);
         buttonCancel.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -72,7 +81,9 @@ public class Activity_Calendar extends AppCompatActivity {
             }
         });
 
-        // Set up calendar item
+        /**
+         * Set up calendar item
+         */
         CalendarView calendarView = findViewById(R.id.calendarView);
         calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override

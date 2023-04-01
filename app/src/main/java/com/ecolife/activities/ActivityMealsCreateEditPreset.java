@@ -6,11 +6,8 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -20,22 +17,17 @@ import com.ecolife.R;
 import com.ecolife.data.DatabaseHelper;
 
 import java.text.DecimalFormat;
-import java.util.Arrays;
-import java.util.List;
-import java.util.UUID;
 
 
-public class Activity_Meals_CreateEditPreset extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
+public class ActivityMealsCreateEditPreset extends AppCompatActivity {
 
     /**
      * This activity lets the user create new meal-presets or edit already existing ones.
      */
 
     private String mealName;
-    private String mealUUID;
-    private String[] mealCategories;
-    private String selectedMealCategory;
-    private double[] mealData = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+    private int id;
+    private double[] mealData = {0, 0, 0, 0, 0, 0, 0};
     private boolean savePossible = false;
     private String date;
     private String mode = "create";
@@ -104,15 +96,8 @@ public class Activity_Meals_CreateEditPreset extends AppCompatActivity implement
         setContentView(R.layout.activity_meals_createeditpreset);
 
         // Connect to database
-        databaseHelper = new DatabaseHelper(Activity_Meals_CreateEditPreset.this);
+        databaseHelper = new DatabaseHelper(ActivityMealsCreateEditPreset.this);
 
-        Spinner spinner = findViewById(R.id.spinnerMealCategory);
-        spinner.setOnItemSelectedListener(this);
-        ArrayAdapter adapterCategories = new ArrayAdapter(getApplicationContext(), R.layout.spinner_item_purple_middle, mealCategories);
-        adapterCategories.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(adapterCategories);
-
-        // -----------------------------------------------------------------------------------------
         Intent intent = getIntent();
         if (getIntent().hasExtra("date")) {
             date = intent.getStringExtra("date");
@@ -126,26 +111,18 @@ public class Activity_Meals_CreateEditPreset extends AppCompatActivity implement
                 Cursor cursorData = databaseHelper.getPresetMealDetailByID(uuid);
                 if (cursorData.getCount() > 0) {
                     cursorData.moveToFirst();
-                    mealUUID = cursorData.getString(0);
+                    id = cursorData.getInt(0);
                     mealName = cursorData.getString(1);
-                    selectedMealCategory = cursorData.getString(2);
                     mealData = new double[]{
-                            cursorData.getDouble(3), cursorData.getDouble(4),
-                            cursorData.getDouble(5), cursorData.getDouble(6), cursorData.getDouble(7), cursorData.getDouble(8),
-                            cursorData.getDouble(9), cursorData.getDouble(10), cursorData.getDouble(11), cursorData.getDouble(12),
-                            cursorData.getDouble(13), cursorData.getDouble(14), cursorData.getDouble(15), cursorData.getDouble(16),
-                            cursorData.getDouble(17), cursorData.getDouble(18), cursorData.getDouble(19), cursorData.getDouble(20),
-                            cursorData.getDouble(21), cursorData.getDouble(22), cursorData.getDouble(23), cursorData.getDouble(24),
-                            cursorData.getDouble(25), cursorData.getDouble(26), cursorData.getDouble(27), cursorData.getDouble(28),
-                            cursorData.getDouble(29), cursorData.getDouble(30), cursorData.getDouble(31), cursorData.getDouble(32),
-                            cursorData.getDouble(33)
+                            cursorData.getDouble(2),
+                            cursorData.getDouble(3),
+                            cursorData.getDouble(4),
+                            cursorData.getDouble(5),
+
                     };
                 }
                 cursorData.close();
 
-                // Set spinner item
-                List<String> mealsList = Arrays.asList(mealCategories);
-                spinner.setSelection(mealsList.indexOf(selectedMealCategory));
             }
         }
 
@@ -210,15 +187,12 @@ public class Activity_Meals_CreateEditPreset extends AppCompatActivity implement
 
                     savePossible = false;
 
-                    // If UUID does not exist, create one
-                    if (mealUUID == null) {
-                        // Get only first 8 digits from UUID (no need for long "123e4567-e89b-42d3-a456-556642440000")
-                        mealUUID = UUID.randomUUID().toString().substring(0, 8);
+                    if (id == 0) {
+                        id = 1;
                     }
 
-
                     // Save data to database
-                    databaseHelper.addOrReplacePresetMeal(mealUUID, mealName, mealData);
+                    databaseHelper.addOrReplacePresetMeal(id, mealName, mealData);
                     databaseHelper.close();
 
                     // Change button color
@@ -233,7 +207,7 @@ public class Activity_Meals_CreateEditPreset extends AppCompatActivity implement
         cancelButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(view.getContext(), Activity_Meals_AddDailyEntry.class);
+                Intent intent = new Intent(view.getContext(), ActivityMealsAddDailyEntry.class);
                 if (date != null) {
                     intent.putExtra("date", date);
                 }
@@ -248,17 +222,5 @@ public class Activity_Meals_CreateEditPreset extends AppCompatActivity implement
     protected void onDestroy() {
         databaseHelper.close();
         super.onDestroy();
-    }
-
-    // Methods from imported spinner interface -----------------------------------------------------
-    @Override
-    public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
-        selectedMealCategory = mealCategories[position];
-        savePossible = true;
-    }
-
-    @Override
-    public void onNothingSelected(AdapterView<?> adapterView) {
-        // Pass
     }
 }

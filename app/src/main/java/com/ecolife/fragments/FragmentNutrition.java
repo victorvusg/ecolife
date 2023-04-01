@@ -8,27 +8,20 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.ProgressBar;
-import android.widget.TableLayout;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.ecolife.ActivityMain;
-import com.ecolife.activities.Activity_Calendar;
 import com.ecolife.R;
-import com.ecolife.activities.Activity_Meals_AddDailyEntry;
-import com.ecolife.activities.Activity_Meals_MealsOfDay;
+import com.ecolife.activities.ActivityMealsAddDailyEntry;
+import com.ecolife.activities.ActivityMealsOfDay;
 
 import java.text.DecimalFormat;
-import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Date;
-import java.util.Locale;
-
 
 /**
  * This class is fragment for Nutrition
@@ -77,7 +70,6 @@ public class FragmentNutrition extends Fragment {
         return String.valueOf((int) value);
     }
 
-
     /**
      *
      * @param savedInstanceState
@@ -111,18 +103,21 @@ public class FragmentNutrition extends Fragment {
             cursorSettings.moveToFirst();
             dataGoals = new double[] {
                     cursorSettings.getDouble(0),  // Goal Calories
-                    cursorSettings.getDouble(1),  // Goal Fat
-                    cursorSettings.getDouble(2),  // Goal Carbohydrates
-                    cursorSettings.getDouble(3)  // Goal Protein
+                    cursorSettings.getDouble(1),  // Goal Protein
+                    cursorSettings.getDouble(2),  // Goal Fat
+                    cursorSettings.getDouble(3),  // Goal Sat Fat
+                    cursorSettings.getDouble(4),  // Goal Carbohydrates
+                    cursorSettings.getDouble(5),  // Goal Water
             };
         } else {
-            dataGoals = new double[] {2000, 2000, 2000, 2000};
+            dataGoals = new double[] {2000, 2000, 2000, 2000, 2000, 2000};
         }
         cursorSettings.close();
 
     }
 
     /**
+     *
      * @param inflater
      * @param container
      * @param savedInstanceState
@@ -141,31 +136,35 @@ public class FragmentNutrition extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
 
-        // Set values for main-dashboard
+        /**
+         * Set values for main-dashboard
+         */
         ProgressBar progressBarMain = getView().findViewById(R.id.progressBarDBNCaloriesMain);
         TextView textProgressMain = getView().findViewById(R.id.textViewDNCaloriesMain);
         ObjectAnimator.ofInt(progressBarMain, "progress", percentOf(dataFood[0], dataGoals[0])).start();
         textProgressMain.setText(convertDataToIntText(dataFood[0]));
 
-        ProgressBar progressBarFat = getView().findViewById(R.id.progressBarDBNFatMain);
-        TextView textProgressFat = getView().findViewById(R.id.textViewProgressDBNFatMain);
-        ObjectAnimator.ofInt(progressBarFat, "progress", percentOf(dataFood[1], dataGoals[1])).start();
-        String textFat = convertDataToIntText(dataFood[1]) + " g";
-        textProgressFat.setText(textFat);
-
         ProgressBar progressBarCarbohydrates = getView().findViewById(R.id.progressBarDBNCarbsMain);
         TextView textProgressCarbohydrates = getView().findViewById(R.id.textViewProgressCarbohydrates);
-        ObjectAnimator.ofInt(progressBarCarbohydrates, "progress", percentOf(dataFood[3], dataGoals[2])).start();
-        String textCarbohydrates = convertDataToIntText(dataFood[3]) + " g";
+        ObjectAnimator.ofInt(progressBarCarbohydrates, "progress", percentOf(dataFood[1], dataGoals[1])).start();
+        String textCarbohydrates = convertDataToIntText(dataFood[1]) + " g";
         textProgressCarbohydrates.setText(textCarbohydrates);
+
+        ProgressBar progressBarFat = getView().findViewById(R.id.progressBarDBNFatMain);
+        TextView textProgressFat = getView().findViewById(R.id.textViewProgressDBNFatMain);
+        ObjectAnimator.ofInt(progressBarFat, "progress", percentOf(dataFood[2], dataGoals[2])).start();
+        String textFat = convertDataToIntText(dataFood[2]) + " g";
+        textProgressFat.setText(textFat);
 
         ProgressBar progressBarProtein = getView().findViewById(R.id.progressBarDBNProteinMain);
         TextView textProgressProtein = getView().findViewById(R.id.textViewProgressDBNProteinMain);
-        ObjectAnimator.ofInt(progressBarProtein, "progress", percentOf(dataFood[5], dataGoals[3])).start();
-        String textProtein = convertDataToIntText(dataFood[5]) + " g";
+        ObjectAnimator.ofInt(progressBarProtein, "progress", percentOf(dataFood[5], dataGoals[5])).start();
+        String textProtein = convertDataToIntText(dataFood[5]) + " ml";
         textProgressProtein.setText(textProtein);
 
-        // Set values for details-dashboard
+        /**
+         * Set values for details-dashboard
+         */
         TextView textViewDetailsCal = getView().findViewById(R.id.textViewDBNDetailsCalories);
         textViewDetailsCal.setText(convertDataToDoubleText(dataFood[0]));
 
@@ -184,47 +183,33 @@ public class FragmentNutrition extends Fragment {
         TextView textViewDetailsProtein = getView().findViewById(R.id.textViewDBNDetailsProtein);
         textViewDetailsProtein.setText(convertDataToDoubleText(dataFood[5]));
 
-        // Set buttons
+        /**
+         * Add meal button
+         */
         Button buttonAddMeal = getView().findViewById(R.id.buttonDashboardNutritionAddMeal);
         buttonAddMeal.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(view.getContext(), Activity_Meals_AddDailyEntry.class);
+                Intent intent = new Intent(view.getContext(), ActivityMealsAddDailyEntry.class);
                 intent.putExtra("date", date);
                 intent.putExtra("fragmentID", 0);
-                // intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);  // Start activity without animation
                 startActivity(intent);
             }
         });
 
+        /**
+         * Today meals button
+         */
         Button buttonShowEatenMeals = getView().findViewById(R.id.buttonEatenMeals);
         buttonShowEatenMeals.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(view.getContext(), Activity_Meals_MealsOfDay.class);
+                Intent intent = new Intent(view.getContext(), ActivityMealsOfDay.class);
                 intent.putExtra("date", date);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);  // Start activity without animation
                 startActivity(intent);
             }
         });
-
-//        ImageButton buttonCalendar = getView().findViewById(R.id.buttonDBNCalendar);
-//        buttonCalendar.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Intent intent = new Intent(view.getContext(), Activity_Calendar.class);
-//                intent.putExtra("date", date);
-//                intent.putExtra("fragmentID", 0);
-//                intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);  // Start activity without animation
-//                startActivity(intent);
-//            }
-//        });
-
-//        ScrollView mainLayout = view.findViewById(R.id.scrollViewMainLayout);
-//        mainLayout.setVisibility(View.VISIBLE);
-//
-//        FrameLayout loadingLayout = view.findViewById(R.id.loadingLayout);
-//        loadingLayout.setVisibility(View.GONE);
     }
 
 }

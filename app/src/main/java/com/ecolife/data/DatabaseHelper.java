@@ -232,7 +232,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return cursor;
     }
 
-    public void addOrReplacePresetMeal(String id, String name, double[] nutritionData) {
+    public void addOrReplacePresetMeal(int id, String name, double[] nutritionData) {
         // Get database
         SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
 

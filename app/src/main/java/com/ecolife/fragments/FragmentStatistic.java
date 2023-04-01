@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
@@ -14,10 +13,8 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.ecolife.ActivityMain;
-import com.ecolife.activities.Activity_Calendar;
+import com.ecolife.activities.ActivityCalendar;
 import com.ecolife.R;
-import com.ecolife.activities.Activity_Meals_AddDailyEntry;
-import com.ecolife.activities.Activity_Meals_MealsOfDay;
 
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
@@ -37,18 +34,6 @@ public class FragmentStatistic extends Fragment {
     private double[] dataGoals;
 
     /**
-     * This method uses to calculate percentage of a value
-     * @param current Current value to calculate percentage
-     * @param max Maximum value of value
-     * @return integer value of percentage
-     */
-    private int percentOf(double current, double max) {
-        // If max is equal to 0, a invalid value then return 0
-        if (max == 0) return 0;
-        return (int) ((current / max) * 100);
-    }
-
-    /**
      *
      * @param value
      * @return
@@ -63,15 +48,6 @@ public class FragmentStatistic extends Fragment {
             DecimalFormat df = new DecimalFormat("#####.##");
             return String.valueOf(df.format(value));
         }
-    }
-
-    /**
-     * This method uses to convert a floating number to rounded string number
-     * @param value
-     * @return
-     */
-    private String convertDataToIntText(double value) {
-        return String.valueOf((int) value);
     }
 
 
@@ -100,13 +76,13 @@ public class FragmentStatistic extends Fragment {
                 .getConsumedMealsSums(date.format(now));
         if (cursorDataFood.getCount() > 0) {
             cursorDataFood.moveToFirst();
-            dataFood = new double[31];
-            for (int i = 0; i <= 30; i++) {
+            dataFood = new double[6];
+            for (int i = 0; i < 6; i++) {
                 dataFood[i] = cursorDataFood.getDouble(i);
             }
 
         } else {
-            dataFood = new double[] {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+            dataFood = new double[] {0, 0, 0, 0, 0, 0};
         }
         cursorDataFood.close();
 
@@ -117,7 +93,9 @@ public class FragmentStatistic extends Fragment {
                     cursorSettings.getDouble(0),  // Goal Calories
                     cursorSettings.getDouble(1),  // Goal Fat
                     cursorSettings.getDouble(2),  // Goal Carbohydrates
-                    cursorSettings.getDouble(3)  // Goal Protein
+                    cursorSettings.getDouble(3), // Goal Protein
+                    cursorSettings.getDouble(4),  // Goal Protein
+                    cursorSettings.getDouble(5),  // Goal Protein
             };
         } else {
             dataGoals = new double[] {2000, 2000, 2000, 2000};
@@ -170,7 +148,7 @@ public class FragmentStatistic extends Fragment {
         buttonCalendar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(view.getContext(), Activity_Calendar.class);
+                Intent intent = new Intent(view.getContext(), ActivityCalendar.class);
                 intent.putExtra("date", date);
                 intent.putExtra("fragmentID", 0);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);  // Start activity without animation

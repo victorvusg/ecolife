@@ -33,7 +33,7 @@ import java.util.HashMap;
 import java.util.Locale;
 
 
-public class Activity_Meals_MealsOfDay extends AppCompatActivity implements Adapter_MealPresets.mealPresetItemInterface {
+public class ActivityMealsOfDay extends AppCompatActivity implements Adapter_MealPresets.mealPresetItemInterface {
 
     /**
      * This activity displays all meals that have been eaten at the selected date.
@@ -91,7 +91,7 @@ public class Activity_Meals_MealsOfDay extends AppCompatActivity implements Adap
         // Load data from database -----------------------------------------------------------------
         mealsList = new ArrayList<Item_MealPreset>();
 
-        databaseHelper = new DatabaseHelper(Activity_Meals_MealsOfDay.this);
+        databaseHelper = new DatabaseHelper(ActivityMealsOfDay.this);
         Cursor cursor = databaseHelper.getConsumedMealsByDate(date);
 
         if (cursor.getCount() > 0) {
@@ -178,7 +178,7 @@ public class Activity_Meals_MealsOfDay extends AppCompatActivity implements Adap
         buttonAddMeal.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), Activity_Meals_AddDailyEntry.class);
+                Intent intent = new Intent(getApplicationContext(), ActivityMealsAddDailyEntry.class);
                 if (date != null) {
                     intent.putExtra("date", date);
                 }

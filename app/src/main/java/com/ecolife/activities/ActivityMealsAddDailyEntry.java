@@ -8,11 +8,9 @@ import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
-import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AlertDialog;
@@ -35,7 +33,7 @@ import java.util.Date;
 import java.util.Locale;
 
 
-public class Activity_Meals_AddDailyEntry extends AppCompatActivity implements Adapter_MealPresets.mealPresetItemInterface, AdapterView.OnItemSelectedListener {
+public class ActivityMealsAddDailyEntry extends AppCompatActivity implements Adapter_MealPresets.mealPresetItemInterface {
 
     /**
      * This activity displays all meal-presets and lets the user add them to the database
@@ -50,9 +48,6 @@ public class Activity_Meals_AddDailyEntry extends AppCompatActivity implements A
     TextView noEntries;
     RecyclerView recyclerViewMeals;
 
-    private String[] mealCategories;
-    private int currentCategoryIndex = 0;
-    private static final String allCategories = "All";
     private ArrayList<Item_MealPreset> mealsPresetList;
     private Adapter_MealPresets adapterPresets;
 
@@ -121,7 +116,7 @@ public class Activity_Meals_AddDailyEntry extends AppCompatActivity implements A
 
         // Set up categories spinner ---------------------------------------------------------------
 
-        databaseHelper = new DatabaseHelper(Activity_Meals_AddDailyEntry.this);
+        databaseHelper = new DatabaseHelper(ActivityMealsAddDailyEntry.this);
 
         // Load preset meals from database
         mealsPresetList = loadPresetMealsFromDatabase();
@@ -149,7 +144,7 @@ public class Activity_Meals_AddDailyEntry extends AppCompatActivity implements A
             @Override
             public void onClick(View view) {
                 // Start new activity Activity_CreateMeal
-                Intent intent = new Intent(view.getContext(), Activity_Meals_CreateEditPreset.class);
+                Intent intent = new Intent(view.getContext(), ActivityMealsCreateEditPreset.class);
                 if (date != null) {
                     intent.putExtra("date", date);
                 }
@@ -215,7 +210,7 @@ public class Activity_Meals_AddDailyEntry extends AppCompatActivity implements A
     @Override
     public void onItemClick(String mealUUID) {
         // Start new activity Activity_CreateMeal
-        Intent intent = new Intent(getApplicationContext(), Activity_Meals_CreateEditPreset.class);
+        Intent intent = new Intent(getApplicationContext(), ActivityMealsCreateEditPreset.class);
         if (date != null) {
             intent.putExtra("date", date);
         }
@@ -265,39 +260,4 @@ public class Activity_Meals_AddDailyEntry extends AppCompatActivity implements A
         alertDialog.show();
     }
 
-
-    // Methods from imported spinner interface -----------------------------------------------------
-
-    @Override
-    public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
-        if (position == currentCategoryIndex) {
-            return;
-        }
-
-        currentCategoryIndex = position;
-
-        // Clear data
-        mealsPresetList.clear();
-        adapterPresets.notifyDataSetChanged();
-
-        // Load new data
-        mealsPresetList = loadPresetMealsFromDatabase();
-
-        if (mealsPresetList.isEmpty()) {
-            noEntries.setVisibility(View.VISIBLE);
-            return;
-        }
-        noEntries.setVisibility(View.INVISIBLE);
-
-        // Update recycler view
-        adapterPresets = new Adapter_MealPresets(mealsPresetList, this, getApplicationContext());
-        recyclerViewMeals = findViewById(R.id.recyclerViewMealsPreset);
-        recyclerViewMeals.setAdapter(adapterPresets);
-        recyclerViewMeals.setLayoutManager(new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false));
-    }
-
-    @Override
-    public void onNothingSelected(AdapterView<?> adapterView) {
-        // Pass
-    }
 }
