@@ -93,15 +93,16 @@ public class FragmentNutrition extends Fragment {
         Cursor cursorDataFood = ((ActivityMain) requireContext())
                 .databaseHelper
                 .getConsumedMealsSums(date.format(now));
+
         if (cursorDataFood.getCount() > 0) {
             cursorDataFood.moveToFirst();
-            dataFood = new double[31];
-            for (int i = 0; i <= 30; i++) {
+            dataFood = new double[6];
+            for (int i = 0; i < 6; i++) {
                 dataFood[i] = cursorDataFood.getDouble(i);
             }
 
         } else {
-            dataFood = new double[] {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+            dataFood = new double[] {0, 0, 0, 0, 0, 0};
         }
         cursorDataFood.close();
 

@@ -18,72 +18,45 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private Context context;
     private static final String DATABASE_NAME = "ecolife_database";
     private static final int DATABASE_VERSION = 43;
+    private static final String DATABASE_COLUMN_INDEX = "id";
 
-    // Table foods
-    private static final String TABLE_PM = "preset_meals";
-    private static final String COL_PM_INDEX = "meal_index";
-    private static final String COL_PM_NAME = "name";
-    private static final String COL_PM_CATEGORY = "category";
-    private static final String COL_PM_CALORIES = "calories";
-    private static final String COL_PM_FAT = "fat";
-    private static final String COL_PM_FAT_SAT = "fat_sat";
-    private static final String COL_PM_CARBS = "carbs";
-    private static final String COL_PM_SUGAR = "sugar";
-    private static final String COL_PM_PROTEIN = "protein";
-    private static final String COL_PM_SALT = "salt";
-    private static final String COL_PM_FIBER = "fiber";
-    private static final String COL_PM_CHOL = "cholesterin";  // in mg
-    private static final String COL_PM_CREATINE = "creatine";
-    private static final String COL_PM_CA = "calcium";  // in mg
-    private static final String COL_PM_FE = "iron";  // in mg
-    private static final String COL_PM_K = "kalium";  // in mg
-    private static final String COL_PM_MG = "magnesium";  // in mg
-    private static final String COL_PM_MN = "mangan";  // in mg
-    private static final String COL_PM_NA = "natrium";  // in mg
-    private static final String COL_PM_P = "phosphor";  // in mg
-    private static final String COL_PM_ZN = "zinc";  // in mg
-    private static final String COL_PM_VIT_A = "vit_a"; // in mg
-    private static final String COL_PM_VIT_B1 = "vit_b1"; // in mg
-    private static final String COL_PM_VIT_B2 = "vit_b2"; // in mg
-    private static final String COL_PM_VIT_B3 = "vit_b3";  // (Niacin) in mg
-    private static final String COL_PM_VIT_B5 = "vit_b5";  // (Pantothensäure) in mg
-    private static final String COL_PM_VIT_B6 = "vit_b6";  // in mg
-    private static final String COL_PM_VIT_B7 = "vit_b7";  // (Biotin) in mg
-    private static final String COL_PM_VIT_B11 = "vit_b11";  // (Folsäure, B9) in mg
-    private static final String COL_PM_VIT_B12 = "vit_b12";  // in mg
-    private static final String COL_PM_VIT_C = "vit_c";  // in mg
-    private static final String COL_PM_VIT_E = "vit_e";  // in mg
-    private static final String COL_PM_VIT_K = "vit_k";  // in mg
-    private static final String COL_PM_VIT_H = "vit_h";  // (Biotin) in mg
+    /**
+     * Table "Preset Meals"
+     */
+    private static final String PRESET_MEALS_TABLE_NAME = "preset_meals";
 
-    private static final String TABLE_PMC = "meal_categories";
-    private static final String COL_PMC_NAME = "name";
+    private static final String PRESET_MEALS_COLUMN_MEAL_NAME = "name";
 
-    // Table meals per day
-    private static final String TABLE_CM = "consumed_meals";
-    private static final String COL_CM_DATE = "date";
-    private static final String COL_CM_INDEX = "meal_index";  // Refers to uuid-index of a food from foods-table
-    private static final String COL_CM_AMOUNT = "amount";
+    private static final String PRESET_MEALS_COLUMN_CALORIES = "calories";
+    private static final String PRESET_MEALS_COLUMN_PROTEIN = "protein";
+    private static final String PRESET_MEALS_COLUMN_FAT = "total_fat";
+    private static final String PRESET_MEALS_COLUMN_SAT_FAT = "sat_fat";
+    private static final String PRESET_MEALS_COLUMN_CARBOHYDRATES = "carbohydrates";
+    private static final String PRESET_MEALS_COLUMN_WATER = "water";
 
-    // Table settings
-    private static final String TABLE_S_GOAL = "settings_goals";
-    private static final String COL_S_INDEX = "settings_index";
-    private static final String COL_S_GOAL_CALORIES = "goal_calories";
-    private static final String COL_S_GOAL_FAT = "goal_fat";
-    private static final String COL_S_GOAL_CARBS = "goal_carbs";
-    private static final String COL_S_GOAL_PROTEIN = "goal_protein";
+    /**
+     * Table: "Daily meals"
+     */
+    private static final String CONSUMED_MEAL_TABLE_NAME = "consumed_meals";
+    private static final String CONSUMED_MEAL_COLUMN_DATE = "date";
+    private static final String CONSUMED_MEAL_COLUMN_AMOUNT = "amount";
+    private static final String CONSUMED_MEAL_COLUMN_PRESET_ID = "preset_id";
 
-    private static final String TABLE_S_LANG = "settings_lang";
-    private static final String COL_S_LANG = "language";
-
-
+    /**
+     * Table: "Settings"
+     */
+    private static final String SETTINGS_TABLE_NAME = "settings_goals";
+    private static final String SETTINGS_COLUMN_CALORIES_GOAL = "calories_goal";
+    private static final String SETTINGS_COLUMN_PROTEIN_GOAL = "protein_goal";
+    private static final String SETTINGS_COLUMN_FAT_GOAL = "fat_goal";
+    private static final String SETTINGS_COLUMN_SAT_FAT_GOAL = "sat_fat_goal";
+    private static final String SETTINGS_COLUMN_CARBOHYDRATES_GOAL = "carbohydrates_goal";
+    private static final String SETTINGS_COLUMN_WATER_GOAL = "water_goal";
     // Constructor ---------------------------------------------------------------------------------
     public DatabaseHelper(@Nullable Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
         this.context = context;
     }
-
-    // Class default overwrite methods -------------------------------------------------------------
 
     /** This method will be called upon creation of the database. This method will create all the
      * necessary tables inside the database and prepopulate some tables.
@@ -92,97 +65,64 @@ public class DatabaseHelper extends SQLiteOpenHelper {
      */
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
-        // Create table food-data
+
+        /**
+         * Create table meal preset
+         */
+
         sqLiteDatabase.execSQL(
-                "CREATE TABLE " + TABLE_PM + " ("
-                 + COL_PM_INDEX + " TEXT PRIMARY KEY, "
-                 + COL_PM_NAME + " TEXT, "
-                 + COL_PM_CATEGORY + " TEXT, "
-                 + COL_PM_CALORIES + " REAL, "
-                 + COL_PM_FAT + " REAL, "
-                 + COL_PM_FAT_SAT + " REAL, "
-                 + COL_PM_CARBS + " REAL, "
-                 + COL_PM_SUGAR + " REAL, "
-                 + COL_PM_PROTEIN + " REAL, "
-                 + COL_PM_SALT + " REAL, "
-                 + COL_PM_FIBER + " REAL, "
-                 + COL_PM_CHOL + " REAL, "
-                 + COL_PM_CREATINE + " REAL, "
-                 + COL_PM_CA + " REAL, "
-                 + COL_PM_FE + " REAL, "
-                 + COL_PM_K + " REAL, "
-                 + COL_PM_MG + " REAL, "
-                 + COL_PM_MN + " REAL, "
-                 + COL_PM_NA + " REAL, "
-                 + COL_PM_P + " REAL, "
-                 + COL_PM_ZN + " REAL, "
-                 + COL_PM_VIT_A + " REAL, "
-                 + COL_PM_VIT_B1 + " REAL, "
-                 + COL_PM_VIT_B2 + " REAL, "
-                 + COL_PM_VIT_B3 + " REAL, "
-                 + COL_PM_VIT_B5 + " REAL, "
-                 + COL_PM_VIT_B6 + " REAL, "
-                 + COL_PM_VIT_B7 + " REAL, "
-                 + COL_PM_VIT_B11 + " REAL, "
-                 + COL_PM_VIT_B12 + " REAL, "
-                 + COL_PM_VIT_C + " REAL, "
-                 + COL_PM_VIT_E + " REAL, "
-                 + COL_PM_VIT_K + " REAL, "
-                 + COL_PM_VIT_H + " REAL);"
+                "CREATE TABLE " + PRESET_MEALS_TABLE_NAME + " ("
+                 + DATABASE_COLUMN_INDEX + " INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "
+                 + PRESET_MEALS_COLUMN_MEAL_NAME + " TEXT, "
+                 + PRESET_MEALS_COLUMN_CALORIES + " REAL, "
+                 + PRESET_MEALS_COLUMN_PROTEIN + " REAL, "
+                 + PRESET_MEALS_COLUMN_FAT + " REAL, "
+                + PRESET_MEALS_COLUMN_SAT_FAT + " REAL, "
+                + PRESET_MEALS_COLUMN_CARBOHYDRATES + " REAL, "
+                + PRESET_MEALS_COLUMN_WATER + " REAL);"
         );
 
-        sqLiteDatabase.execSQL("CREATE TABLE " + TABLE_PMC + " (" + COL_PMC_NAME + " TEXT PRIMARY KEY);");
+        /**
+         * Create table consumed meal
+         */
+        sqLiteDatabase.execSQL("CREATE TABLE " + CONSUMED_MEAL_TABLE_NAME + " ("
+                + DATABASE_COLUMN_INDEX + " INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "
+                + CONSUMED_MEAL_COLUMN_DATE + " TEXT, "
+                + CONSUMED_MEAL_COLUMN_AMOUNT + " REAL);");
 
-        // Create table daily meals
-        sqLiteDatabase.execSQL("CREATE TABLE " + TABLE_CM + " ("
-                + COL_CM_DATE + " TEXT, "
-                + COL_CM_INDEX + " TEXT, "
-                + COL_CM_AMOUNT + " REAL, " +
-                "PRIMARY KEY (" + COL_CM_INDEX + ", " + COL_CM_AMOUNT + "));"
-        );
+        /**
+         * Create table settings
+         */
+        sqLiteDatabase.execSQL("CREATE TABLE " + SETTINGS_TABLE_NAME + " ("
+                + DATABASE_COLUMN_INDEX + " INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "
+                + SETTINGS_COLUMN_CALORIES_GOAL + " REAL, "
+                + SETTINGS_COLUMN_PROTEIN_GOAL + " REAL, "
+                + SETTINGS_COLUMN_FAT_GOAL + " REAL, "
+                + SETTINGS_COLUMN_SAT_FAT_GOAL + " REAL, "
+                + SETTINGS_COLUMN_CARBOHYDRATES_GOAL + " REAL, "
+                + SETTINGS_COLUMN_WATER_GOAL + " REAL);");
 
-        // Create table settings
-        sqLiteDatabase.execSQL("CREATE TABLE " + TABLE_S_GOAL + " ("
-                + COL_S_INDEX + " INTEGER PRIMARY KEY, "
-                + COL_S_GOAL_CALORIES + " REAL, "
-                + COL_S_GOAL_FAT + " REAL, "
-                + COL_S_GOAL_CARBS + " REAL, "
-                + COL_S_GOAL_PROTEIN + " REAL);");
-
-        sqLiteDatabase.execSQL("CREATE TABLE " + TABLE_S_LANG + " ("
-                + COL_S_INDEX + " INTEGER PRIMARY KEY, "
-                + COL_S_LANG + " TEXT);");
-
-        // Add preset data to tables ---------------------------------------------------------------
-
+        /**
+         * Seed some preset data to tables
+         */
         // Preset meals
         // -> Format: index + name + 6 main values + 22 optional values
-        // -> ('index', 'name', 'category', cal, fat, fat, sat, carbs, sugar, protein, salt, fiber, cholesteron, creatine, ca, fe, k_potassium, mg, mn, na_sodium, phosphor, zn, vita, vitb1, b2, b3, b5, b6, b7, b11, b12, c, e, k, h)
+        // -> ('name', calories, protein, fat, sat_fat, carbs, water)
         // -> Preset meals indices have always 1 digit more (7 digits in total) than user created meals to prevent overlaps
-        sqLiteDatabase.execSQL("INSERT INTO " + TABLE_PM + " VALUES('000000000', 'Apple (100 g)', 'Fruits and Vegetables', 52, 0.17, 0, 13.81, 10.39, 0.26, 0, 2.4, 0, 0, 6, 0.12, 107, 5, 0.035, 1, 11, 0.04, 0.003, 0.017, 0.026, 0.091, 0.061, 0.041, 0, 0, 0, 4.6, 0.18, 0.022, 0)");
-        sqLiteDatabase.execSQL("INSERT INTO " + TABLE_PM + " VALUES('000000001', 'Banana (100 g)', 'Fruits and Vegetables', 95.0, 0.33, 0.0, 22.84, 12.23, 1.0, 0.0, 2.6, 0.0, 0.0, 5.0, 0.26, 358.0, 27.0, 0.0, 0.0, 22.0, 0.15, 0.003, 0.031, 0.073, 0.665, 0.334, 0.367, 0.0, 0.0, 0.0, 8.7, 0.0, 0.0, 0.0)");
-
-        // Add meal categories
-        sqLiteDatabase.execSQL("INSERT INTO " + TABLE_PMC + " VALUES('Fruits and Vegetables');");
-        sqLiteDatabase.execSQL("INSERT INTO " + TABLE_PMC + " VALUES('Drinks');");
-        sqLiteDatabase.execSQL("INSERT INTO " + TABLE_PMC + " VALUES('Grains and Cereals');");
-        sqLiteDatabase.execSQL("INSERT INTO " + TABLE_PMC + " VALUES('Spices, Sauces, Oils');");
-        sqLiteDatabase.execSQL("INSERT INTO " + TABLE_PMC + " VALUES('Veggie Products');");
-        sqLiteDatabase.execSQL("INSERT INTO " + TABLE_PMC + " VALUES('Sweets and Spread');");
-        sqLiteDatabase.execSQL("INSERT INTO " + TABLE_PMC + " VALUES('Animal Products');");
-        sqLiteDatabase.execSQL("INSERT INTO " + TABLE_PMC + " VALUES('Convenience Foods');");
-        sqLiteDatabase.execSQL("INSERT INTO " + TABLE_PMC + " VALUES('Supplements');");
-        sqLiteDatabase.execSQL("INSERT INTO " + TABLE_PMC + " VALUES('Custom');");
+        sqLiteDatabase.execSQL("INSERT INTO " + PRESET_MEALS_TABLE_NAME +
+                " VALUES(1, 'Apple (100 g)'," +
+                "100, 0.17, 0, 13.81, 10.39, 100)");
+        sqLiteDatabase.execSQL("INSERT INTO " + PRESET_MEALS_TABLE_NAME +
+                " VALUES(2, 'Banana (100 g)'," +
+                "95.0, 0.33, 0.0, 22.84, 12.23, 100)");
 
         // Settings
         // -> (index, calories, carbs, fat, protein). First value is index. Must always be 0.
-        sqLiteDatabase.execSQL("INSERT INTO " + TABLE_S_GOAL + " VALUES(0, 2500, 200, 100, 160)");
-
-        sqLiteDatabase.execSQL("INSERT INTO " + TABLE_S_LANG + " VALUES(0, 'system')");
+        sqLiteDatabase.execSQL("INSERT INTO " + SETTINGS_TABLE_NAME + " VALUES(1, 2500, 100, 50, 20, 100, 160)");
     }
 
-    /** This method will be called upon upgrading the database from one version to a higher one.
-     *
+    /**
+     * This method will be called upon upgrading the database from one version to a higher one.
      * @param sqLiteDatabase: SQLiteDatabase; The SQLiteDatabase to upgrade.
      * @param oldVersion: Integer; The old version number of the database to upgrade from.
      * @param newVersion: Integer; The new version number of the database to upgrade to.
@@ -190,28 +130,31 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int oldVersion, int newVersion) {
         // Delete old tables
-        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + TABLE_PM);
-        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + TABLE_PMC);
-        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + TABLE_CM);
-        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + TABLE_S_GOAL);
-        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + TABLE_S_LANG);
+        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + PRESET_MEALS_TABLE_NAME);
+        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + CONSUMED_MEAL_TABLE_NAME);
+        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + SETTINGS_TABLE_NAME);
 
         // Create new database
         onCreate(sqLiteDatabase);
     }
 
 
-    // Meals Query's -------------------------------------------------------------------------------
+    /**
+     * Meals Query's -------------------------------------------------------------------------------
+     */
 
-    public Cursor getPresetMealsSimpleAllCategories() {
-        // -> Return index, name, calories from table "foods" in ascending order by name
 
+    /**
+     * Get all preset meals
+     * @return
+     */
+    public Cursor getAllPresetMeals() {
         SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
         Cursor cursor = null;
 
         if (sqLiteDatabase != null) {
             cursor = sqLiteDatabase.rawQuery(
-                    "SELECT " + COL_PM_INDEX + ", " + COL_PM_NAME + ", " + COL_PM_CALORIES + " FROM " + TABLE_PM + " ORDER BY " + COL_PM_NAME +  " ASC LIMIT 100;",
+                    "SELECT *  FROM " + PRESET_MEALS_TABLE_NAME + " ORDER BY " + DATABASE_COLUMN_INDEX +  " ASC LIMIT 100;",
                     null
             );
         }
@@ -219,62 +162,45 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return cursor;
     }
 
-    public Cursor getPresetMealsSimpleFromCategory(String category) {
-        // -> Return index, name, calories from specified category table "foods" in ascending order by name
-
-        SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
-        Cursor cursor = null;
-
-        if (sqLiteDatabase != null) {
-            cursor = sqLiteDatabase.rawQuery(
-                    "SELECT " + COL_PM_INDEX + ", " + COL_PM_NAME + ", " + COL_PM_CALORIES + " FROM " + TABLE_PM + " WHERE " + COL_PM_CATEGORY + "='" + category + "'" + " ORDER BY " + COL_PM_NAME +  " ASC;",
-                    null
-            );
-        }
-
-        return cursor;
-    }
-
-    public Cursor getPresetMealDetails(String foodUUID) {
+    /**
+     *
+     * @param id
+     * @return
+     */
+    public Cursor getPresetMealDetailByID(String id) {
         // -> Returns all Details for a preset meal with given UUID
 
         SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
         Cursor cursor = null;
 
         if (sqLiteDatabase != null) {
-            cursor = sqLiteDatabase.rawQuery("SELECT * FROM " + TABLE_PM + " WHERE " + COL_PM_INDEX + "='" + foodUUID + "';", null);
+            cursor = sqLiteDatabase.rawQuery("SELECT * FROM "
+                    + PRESET_MEALS_TABLE_NAME + " WHERE " + DATABASE_COLUMN_INDEX + "='" + id + "';", null);
         }
 
         return cursor;
     }
 
-    public Cursor getPresetMealCategories() {
-        // -> Returns all Details for a preset meal with given UUID
-
-        SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
-        Cursor cursor = null;
-
-        if (sqLiteDatabase != null) {
-            cursor = sqLiteDatabase.rawQuery("SELECT DISTINCT " + COL_PMC_NAME + " FROM " + TABLE_PMC + " ORDER BY " + COL_PMC_NAME + " ASC;", null);
-        }
-
-        return cursor;
-    }
-
-    public Cursor getConsumedMeals(String date) {
+    /**
+     *
+     * @param date
+     * @return
+     */
+    public Cursor getConsumedMealsByDate(String date) {
         // -> Returns index, name, calories, amount for all consumed meals for a given date
 
         SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
         Cursor cursor = null;
 
         if (sqLiteDatabase != null) {
-            // SELECT food.food_index, food.name, food.calories, dailymeals.amount FROM dailymeals LEFT JOIN food ON dailymeals.food_index=food.food_index WHERE dailymeals.date=date;
-            // Returns -> | food.food_index | food.name | food.cal | dailymeals.amount |
             cursor = sqLiteDatabase.rawQuery(
-                    "SELECT " + TABLE_PM + "." + COL_PM_INDEX + ", " + TABLE_PM + "." + COL_PM_NAME + ", " + TABLE_PM + "." + COL_PM_CALORIES + ", " + TABLE_CM + "." + COL_CM_AMOUNT + " " +
-                            "FROM " + TABLE_CM + " " +
-                            "LEFT JOIN " + TABLE_PM + " ON " + TABLE_CM + "." + COL_CM_INDEX + "=" + TABLE_PM + "." + COL_PM_INDEX + " " +
-                            "WHERE " + TABLE_CM + "." + COL_CM_DATE + "='" + date + "';",
+                    "SELECT * " +
+                            "FROM " + CONSUMED_MEAL_TABLE_NAME +
+                            " LEFT JOIN " + PRESET_MEALS_TABLE_NAME +
+                            " ON " + CONSUMED_MEAL_TABLE_NAME + "."
+                            + DATABASE_COLUMN_INDEX + "="
+                            + PRESET_MEALS_TABLE_NAME + "." + DATABASE_COLUMN_INDEX +
+                            " WHERE " + CONSUMED_MEAL_TABLE_NAME + "." + CONSUMED_MEAL_COLUMN_DATE + "='" + date + "';",
                     null);
         }
 
@@ -288,101 +214,50 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         Cursor cursor = null;
 
         if (sqLiteDatabase != null) {
-
-            // SELECT (food.calories * dailymeals.amount) [other columns here] FROM dailymeals LEFT JOIN food ON dailymeals.food_index=food.food_index WHERE dailymeals.date=date;
-            // Returns -> | food.food_index | food.name | food.cal | food.fat | food.fat_sat | food.carbs | food.sugar | food.protein | dailymeals.amount |
             cursor = sqLiteDatabase.rawQuery(
                     "SELECT " +
-                            "SUM (" + TABLE_PM + "." + COL_PM_CALORIES + " * " + TABLE_CM + "." + COL_CM_AMOUNT + "), " +
-                            "SUM (" + TABLE_PM + "." + COL_PM_FAT + " * " + TABLE_CM + "." + COL_CM_AMOUNT + "), " +
-                            "SUM (" + TABLE_PM + "." + COL_PM_FAT_SAT + " * " + TABLE_CM + "." + COL_CM_AMOUNT + "), " +
-                            "SUM (" + TABLE_PM + "." + COL_PM_CARBS + " * " + TABLE_CM + "." + COL_CM_AMOUNT + "), " +
-                            "SUM (" + TABLE_PM + "." + COL_PM_SUGAR + " * " + TABLE_CM + "." + COL_CM_AMOUNT + "), " +
-                            "SUM (" + TABLE_PM + "." + COL_PM_PROTEIN + " * " + TABLE_CM + "." + COL_CM_AMOUNT + "), " +
+                            "SUM (" + PRESET_MEALS_TABLE_NAME + "." + PRESET_MEALS_COLUMN_CALORIES + " * " + CONSUMED_MEAL_TABLE_NAME + "." + CONSUMED_MEAL_COLUMN_AMOUNT + "), " +
+                            "SUM (" + PRESET_MEALS_TABLE_NAME + "." + PRESET_MEALS_COLUMN_PROTEIN + " * " + CONSUMED_MEAL_TABLE_NAME + "." + CONSUMED_MEAL_COLUMN_AMOUNT + "), " +
+                            "SUM (" + PRESET_MEALS_TABLE_NAME + "." + PRESET_MEALS_COLUMN_SAT_FAT + " * " + CONSUMED_MEAL_TABLE_NAME + "." + CONSUMED_MEAL_COLUMN_AMOUNT + "), " +
+                            "SUM (" + PRESET_MEALS_TABLE_NAME + "." + PRESET_MEALS_COLUMN_SAT_FAT + " * " + CONSUMED_MEAL_TABLE_NAME + "." + CONSUMED_MEAL_COLUMN_AMOUNT + "), " +
+                            "SUM (" + PRESET_MEALS_TABLE_NAME + "." + PRESET_MEALS_COLUMN_CARBOHYDRATES + " * " + CONSUMED_MEAL_TABLE_NAME + "." + CONSUMED_MEAL_COLUMN_AMOUNT + "), " +
+                            "SUM (" + PRESET_MEALS_TABLE_NAME + "." + PRESET_MEALS_COLUMN_WATER + " * " + CONSUMED_MEAL_TABLE_NAME + "." + CONSUMED_MEAL_COLUMN_AMOUNT + ") " +
 
-                            "SUM (" + TABLE_PM + "." + COL_PM_SALT + " * " + TABLE_CM + "." + COL_CM_AMOUNT + "), " +
-                            "SUM (" + TABLE_PM + "." + COL_PM_FIBER + " * " + TABLE_CM + "." + COL_CM_AMOUNT + "), " +
-                            "SUM (" + TABLE_PM + "." + COL_PM_CHOL + " * " + TABLE_CM + "." + COL_CM_AMOUNT + "), " +
-                            "SUM (" + TABLE_PM + "." + COL_PM_CREATINE + " * " + TABLE_CM + "." + COL_CM_AMOUNT + "), " +
-
-                            "SUM (" + TABLE_PM + "." + COL_PM_CA + " * " + TABLE_CM + "." + COL_CM_AMOUNT + "), " +
-                            "SUM (" + TABLE_PM + "." + COL_PM_FE + " * " + TABLE_CM + "." + COL_CM_AMOUNT + "), " +
-                            "SUM (" + TABLE_PM + "." + COL_PM_K + " * " + TABLE_CM + "." + COL_CM_AMOUNT + "), " +
-                            "SUM (" + TABLE_PM + "." + COL_PM_MG + " * " + TABLE_CM + "." + COL_CM_AMOUNT + "), " +
-                            "SUM (" + TABLE_PM + "." + COL_PM_MN + " * " + TABLE_CM + "." + COL_CM_AMOUNT + "), " +
-                            "SUM (" + TABLE_PM + "." + COL_PM_NA + " * " + TABLE_CM + "." + COL_CM_AMOUNT + "), " +
-                            "SUM (" + TABLE_PM + "." + COL_PM_P + " * " + TABLE_CM + "." + COL_CM_AMOUNT + "), " +
-                            "SUM (" + TABLE_PM + "." + COL_PM_ZN + " * " + TABLE_CM + "." + COL_CM_AMOUNT + "), " +
-
-                            "SUM (" + TABLE_PM + "." + COL_PM_VIT_A + " * " + TABLE_CM + "." + COL_CM_AMOUNT + "), " +
-                            "SUM (" + TABLE_PM + "." + COL_PM_VIT_B1 + " * " + TABLE_CM + "." + COL_CM_AMOUNT + "), " +
-                            "SUM (" + TABLE_PM + "." + COL_PM_VIT_B2 + " * " + TABLE_CM + "." + COL_CM_AMOUNT + "), " +
-                            "SUM (" + TABLE_PM + "." + COL_PM_VIT_B3 + " * " + TABLE_CM + "." + COL_CM_AMOUNT + "), " +
-                            "SUM (" + TABLE_PM + "." + COL_PM_VIT_B5 + " * " + TABLE_CM + "." + COL_CM_AMOUNT + "), " +
-                            "SUM (" + TABLE_PM + "." + COL_PM_VIT_B6 + " * " + TABLE_CM + "." + COL_CM_AMOUNT + "), " +
-                            "SUM (" + TABLE_PM + "." + COL_PM_VIT_B7 + " * " + TABLE_CM + "." + COL_CM_AMOUNT + "), " +
-                            "SUM (" + TABLE_PM + "." + COL_PM_VIT_B11 + " * " + TABLE_CM + "." + COL_CM_AMOUNT + "), " +
-                            "SUM (" + TABLE_PM + "." + COL_PM_VIT_B12 + " * " + TABLE_CM + "." + COL_CM_AMOUNT + "), " +
-                            "SUM (" + TABLE_PM + "." + COL_PM_VIT_C + " * " + TABLE_CM + "." + COL_CM_AMOUNT + "), " +
-                            "SUM (" + TABLE_PM + "." + COL_PM_VIT_E + " * " + TABLE_CM + "." + COL_CM_AMOUNT + "), " +
-                            "SUM (" + TABLE_PM + "." + COL_PM_VIT_K + " * " + TABLE_CM + "." + COL_CM_AMOUNT + "), " +
-                            "SUM (" + TABLE_PM + "." + COL_PM_VIT_H + " * " + TABLE_CM + "." + COL_CM_AMOUNT + ") " +
-
-                            "FROM " + TABLE_CM + " " +
-                            "LEFT JOIN " + TABLE_PM + " ON " + TABLE_CM + "." + COL_CM_INDEX + "=" + TABLE_PM + "." + COL_PM_INDEX + " " +
-                            "WHERE " + TABLE_CM + "." + COL_CM_DATE + "='" + date + "';",
+                            "FROM " + CONSUMED_MEAL_TABLE_NAME + " " +
+                            "LEFT JOIN " + PRESET_MEALS_TABLE_NAME + " ON " + CONSUMED_MEAL_TABLE_NAME + "." + DATABASE_COLUMN_INDEX + "=" + PRESET_MEALS_TABLE_NAME + "." + DATABASE_COLUMN_INDEX + " " +
+                            "WHERE " + CONSUMED_MEAL_TABLE_NAME + "." + CONSUMED_MEAL_COLUMN_DATE + "='" + date + "';",
                     null);
         }
 
         return cursor;
     }
 
-    public void addOrReplacePresetMeal(String uuid, String name, String category, double[] data) {
-        // -> Inserts new preset meal to database
-
+    public void addOrReplacePresetMeal(String id, String name, double[] nutritionData) {
         // Get database
         SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
 
         // Create content values to put into the database
-        ContentValues cv = new ContentValues();
+        ContentValues contentValues = new ContentValues();
 
-        cv.put(COL_PM_INDEX, uuid);
-        cv.put(COL_PM_NAME, name);
-        cv.put(COL_PM_CATEGORY, category);
-        cv.put(COL_PM_CALORIES, data[0]);
-        cv.put(COL_PM_FAT, data[1]);
-        cv.put(COL_PM_FAT_SAT, data[2]);
-        cv.put(COL_PM_CARBS, data[3]);
-        cv.put(COL_PM_SUGAR, data[4]);
-        cv.put(COL_PM_PROTEIN, data[5]);
-        cv.put(COL_PM_SALT, data[6]);
-        cv.put(COL_PM_FIBER, data[7]);
-        cv.put(COL_PM_CHOL, data[8]);
-        cv.put(COL_PM_CREATINE, data[9]);
-        cv.put(COL_PM_CA, data[10]);
-        cv.put(COL_PM_FE, data[11]);
-        cv.put(COL_PM_K, data[12]);
-        cv.put(COL_PM_MG, data[13]);
-        cv.put(COL_PM_MN, data[14]);
-        cv.put(COL_PM_NA, data[15]);
-        cv.put(COL_PM_P, data[16]);
-        cv.put(COL_PM_ZN, data[17]);
-        cv.put(COL_PM_VIT_A, data[18]);
-        cv.put(COL_PM_VIT_B1, data[19]);
-        cv.put(COL_PM_VIT_B2, data[20]);
-        cv.put(COL_PM_VIT_B3, data[21]);
-        cv.put(COL_PM_VIT_B5, data[22]);
-        cv.put(COL_PM_VIT_B6, data[23]);
-        cv.put(COL_PM_VIT_B7, data[24]);
-        cv.put(COL_PM_VIT_B11, data[25]);
-        cv.put(COL_PM_VIT_B12, data[26]);
-        cv.put(COL_PM_VIT_C, data[27]);
-        cv.put(COL_PM_VIT_E, data[28]);
-        cv.put(COL_PM_VIT_K, data[29]);
-        cv.put(COL_PM_VIT_H, data[30]);
+        String[] nutritionNames = {
+                PRESET_MEALS_COLUMN_CALORIES,
+                PRESET_MEALS_COLUMN_PROTEIN,
+                PRESET_MEALS_COLUMN_FAT,
+                PRESET_MEALS_COLUMN_SAT_FAT,
+                PRESET_MEALS_COLUMN_CARBOHYDRATES,
+                PRESET_MEALS_COLUMN_WATER
+        };
+
+        for (int i = 0; i < nutritionNames.length; i++) {
+            contentValues.put(nutritionNames[i], nutritionData[i]);
+        }
+
+        contentValues.put(DATABASE_COLUMN_INDEX, id);
+        contentValues.put(PRESET_MEALS_COLUMN_MEAL_NAME, name);
 
         // Insert data into database
-        long result = sqLiteDatabase.replaceOrThrow(TABLE_PM, null, cv);
+        long result = sqLiteDatabase.replaceOrThrow(PRESET_MEALS_TABLE_NAME, null, contentValues);
+
         if (result == -1) {
             Toast.makeText(context, "Failed to save data", Toast.LENGTH_SHORT).show();
         } else {
@@ -391,84 +266,89 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     }
 
-    public void addOrReplaceConsumedMeal(String date, String mealUUID, double amount) {
+    /**
+     *
+     * @param date
+     * @param id
+     * @param amount
+     */
+    public void addOrReplaceConsumedMeal(String date, String id, double amount) {
         SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
-        ContentValues cv = new ContentValues();
+        ContentValues contentValues = new ContentValues();
 
-        cv.put(COL_CM_INDEX, mealUUID);
-        cv.put(COL_CM_DATE, date);
-        cv.put(COL_CM_AMOUNT, amount);
+        contentValues.put(DATABASE_COLUMN_INDEX, id);
+        contentValues.put(CONSUMED_MEAL_COLUMN_DATE, date);
+        contentValues.put(CONSUMED_MEAL_COLUMN_AMOUNT, amount);
 
-        sqLiteDatabase.replaceOrThrow(TABLE_CM, null, cv);
+        sqLiteDatabase.replaceOrThrow(CONSUMED_MEAL_TABLE_NAME, null, contentValues);
     }
 
-    public void removeConsumedMeal(String date, String mealUUID) {
+    /**
+     *
+     * @param id
+     */
+    public void removeConsumedMealById(String id) {
         // Remove entry from DailyMealsTable with date and UUID
         SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
         if (sqLiteDatabase != null) {
-            sqLiteDatabase.delete(TABLE_CM, COL_CM_INDEX + "= ? AND " + COL_CM_DATE + "= ?", new String[] {mealUUID, date});
-            // sqLiteDatabase.delete(TABLE_NAME_M, COLUMN_M_INDEX + "='" + mealUUID + "' AND " + COLUMN_M_DATE + "='" + date + "'", null);
-            // sqLiteDatabase.rawQuery("DELETE FROM " + TABLE_NAME_M + " WHERE " + COLUMN_M_INDEX + "='" + mealUUID + "' AND " + COLUMN_M_DATE + "='" + date + "';", null);
+            sqLiteDatabase.delete(CONSUMED_MEAL_TABLE_NAME, DATABASE_COLUMN_INDEX + "= ?", new String[] {id});
         }
     }
 
-
-    // Settings Query's ----------------------------------------------------------------------------
-
+    /**
+     * Get settings
+     * @return
+     */
     public Cursor getSettingsGoals() {
-        // -> Read settings from table "settings_goals"
-
         SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
         Cursor cursor = null;
 
         if (sqLiteDatabase != null) {
             cursor = sqLiteDatabase.rawQuery(
-                    "SELECT " + COL_S_GOAL_CALORIES + ", " + COL_S_GOAL_FAT + ", " + COL_S_GOAL_CARBS + ", " + COL_S_GOAL_PROTEIN +
-                    " FROM " + TABLE_S_GOAL +
-                    " WHERE " + COL_S_INDEX + "=0;",
+                    "SELECT *" +
+                    " FROM " + SETTINGS_TABLE_NAME +
+                    " WHERE " + DATABASE_COLUMN_INDEX + "=0;",
                     null);
         }
 
         return cursor;
     }
 
-    public void setSettingsGoals(double goalCalories, double goalFat, double goalCarbs, double goalProtein) {
+    /**
+     *
+     * @param goals include
+     * SETTINGS_COLUMN_CALORIES_GOAL,
+     * SETTINGS_COLUMN_PROTEIN_GOAL,
+     * SETTINGS_COLUMN_FAT_GOAL,
+     * SETTINGS_COLUMN_SAT_FAT_GOAL,
+     * SETTINGS_COLUMN_CARBOHYDRATES_GOAL,
+     * SETTINGS_COLUMN_WATER_GOAL,
+     */
+    public void setSettingsGoals(double[] goals) {
         // Get database
         SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
 
         // Create content values to put into the database
-        ContentValues cv = new ContentValues();
+        ContentValues contentValues = new ContentValues();
 
-        cv.put(COL_S_INDEX, 0);
-        cv.put(COL_S_GOAL_CALORIES, goalCalories);
-        cv.put(COL_S_GOAL_FAT, goalFat);
-        cv.put(COL_S_GOAL_CARBS, goalCarbs);
-        cv.put(COL_S_GOAL_PROTEIN, goalProtein);
+        String[] goalNames = {
+            SETTINGS_COLUMN_CALORIES_GOAL,
+            SETTINGS_COLUMN_PROTEIN_GOAL,
+            SETTINGS_COLUMN_FAT_GOAL,
+            SETTINGS_COLUMN_SAT_FAT_GOAL,
+            SETTINGS_COLUMN_CARBOHYDRATES_GOAL,
+            SETTINGS_COLUMN_WATER_GOAL,
+        };
 
-        long result = sqLiteDatabase.replaceOrThrow(TABLE_S_GOAL, null, cv);
+        for (int i = 0; i < goalNames.length; i++) {
+            contentValues.put(goalNames[i], goals[i]);
+        }
+
+        long result = sqLiteDatabase.replaceOrThrow(SETTINGS_TABLE_NAME, null, contentValues);
         if (result == -1) {
             Toast.makeText(context, "Failed to save settings", Toast.LENGTH_SHORT).show();
         } else {
             Toast.makeText(context, "Saved settings", Toast.LENGTH_SHORT).show();
         }
     }
-
-    public void setSettingsLanguage(String language) {
-        // Get database
-        SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
-
-        // Create content values to put into the database
-        ContentValues cv = new ContentValues();
-
-        cv.put(COL_S_INDEX, 0);
-        cv.put(COL_S_LANG, language);
-
-        long result = sqLiteDatabase.replaceOrThrow(TABLE_S_LANG, null, cv);
-        if (result == -1) {
-            Toast.makeText(context, "Failed to save settings", Toast.LENGTH_SHORT).show();
-        } else {
-            Toast.makeText(context, "Saved settings. Close App to apply changes.", Toast.LENGTH_SHORT).show();
-        }
-    }
-
 }

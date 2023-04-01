@@ -92,7 +92,7 @@ public class Activity_Meals_MealsOfDay extends AppCompatActivity implements Adap
         mealsList = new ArrayList<Item_MealPreset>();
 
         databaseHelper = new DatabaseHelper(Activity_Meals_MealsOfDay.this);
-        Cursor cursor = databaseHelper.getConsumedMeals(date);
+        Cursor cursor = databaseHelper.getConsumedMealsByDate(date);
 
         if (cursor.getCount() > 0) {
             while (cursor.moveToNext()) {
@@ -141,12 +141,12 @@ public class Activity_Meals_MealsOfDay extends AppCompatActivity implements Adap
 
                         if ((currentAmount > 0) && (currentAmount != startAmount)) {
                             // Delete entry
-                            databaseHelper.removeConsumedMeal(date, currentUUID);
+                            databaseHelper.removeConsumedMealById(currentUUID);
                             // Add entry with new amount
                             databaseHelper.addOrReplaceConsumedMeal(date, currentUUID, currentAmount);
                         } else if (currentAmount <= 0) {
                             // Delete entry
-                            databaseHelper.removeConsumedMeal(date, currentUUID);
+                            databaseHelper.removeConsumedMealById(currentUUID);
                         }
 
                         mealsStart.replace(currentUUID, currentAmount);

@@ -70,33 +70,8 @@ public class Activity_Meals_AddDailyEntry extends AppCompatActivity implements A
         }
     }
 
-    private String[] loadMealCategoriesFromDatabase() {
-        Cursor cursorCat = databaseHelper.getPresetMealCategories();
-        String[] loadedCategories = new String[0];
-
-        if (cursorCat.getCount() > 0) {
-            loadedCategories = new String[cursorCat.getCount() + 1];
-            loadedCategories[0] = allCategories;
-
-            int i = 1;
-            while (cursorCat.moveToNext()) {
-                loadedCategories[i] = cursorCat.getString(0);
-                i++;
-            }
-        }
-        cursorCat.close();
-
-        return loadedCategories;
-    }
-
-    private ArrayList<Item_MealPreset> loadPresetMealsFromDatabase(String category) {
-        Cursor cursor;
-
-        if (category.equals(allCategories)) {
-            cursor = databaseHelper.getPresetMealsSimpleAllCategories();
-        } else {
-            cursor = databaseHelper.getPresetMealsSimpleFromCategory(category);
-        }
+    private ArrayList<Item_MealPreset> loadPresetMealsFromDatabase() {
+        Cursor cursor = databaseHelper.getAllPresetMeals();
 
         ArrayList<Item_MealPreset> loadedPresets = new ArrayList<Item_MealPreset>();
 
@@ -148,20 +123,8 @@ public class Activity_Meals_AddDailyEntry extends AppCompatActivity implements A
 
         databaseHelper = new DatabaseHelper(Activity_Meals_AddDailyEntry.this);
 
-        // Load categories from database
-        mealCategories = loadMealCategoriesFromDatabase();
-
-        // Set up spinner
-        Spinner spinner = findViewById(R.id.spinnerMealPresetCategory);
-        spinner.setOnItemSelectedListener(this);
-        ArrayAdapter adapterCategories = new ArrayAdapter(getApplicationContext(), R.layout.spinner_item_purple_dark, mealCategories);
-        adapterCategories.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(adapterCategories);
-
-        // Create meals for recycler view ----------------------------------------------------------
-
         // Load preset meals from database
-        mealsPresetList = loadPresetMealsFromDatabase(mealCategories[currentCategoryIndex]);
+        mealsPresetList = loadPresetMealsFromDatabase();
 
         // Set adapters and recycler views
         adapterPresets = new Adapter_MealPresets(mealsPresetList, this, getApplicationContext());
@@ -318,7 +281,7 @@ public class Activity_Meals_AddDailyEntry extends AppCompatActivity implements A
         adapterPresets.notifyDataSetChanged();
 
         // Load new data
-        mealsPresetList = loadPresetMealsFromDatabase(mealCategories[position]);
+        mealsPresetList = loadPresetMealsFromDatabase();
 
         if (mealsPresetList.isEmpty()) {
             noEntries.setVisibility(View.VISIBLE);

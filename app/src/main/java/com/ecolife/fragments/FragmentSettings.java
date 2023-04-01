@@ -132,8 +132,7 @@ public class FragmentSettings extends Fragment implements AdapterView.OnItemSele
                     saveButton.setTextColor(getContext().getColor(R.color.text_middle));
                     saveButton.setVisibility(View.INVISIBLE);
 
-                    ((ActivityMain) requireContext()).databaseHelper.setSettingsGoals(dataGoals[0], dataGoals[1], dataGoals[2], dataGoals[3]);
-                    ((ActivityMain) requireContext()).databaseHelper.setSettingsLanguage(currentLanguage);
+                    ((ActivityMain) requireContext()).databaseHelper.setSettingsGoals(dataGoals);
 
                 }
             }

@@ -85,23 +85,6 @@ public class Activity_Meals_CreateEditPreset extends AppCompatActivity implement
         }
     }
 
-    private String[] loadMealCategoriesFromDatabase() {
-        Cursor cursorCat = databaseHelper.getPresetMealCategories();
-        String[] loadedCategories = new String[0];
-
-        if (cursorCat.getCount() > 0) {
-            loadedCategories = new String[cursorCat.getCount()];
-            int i = 0;
-            while (cursorCat.moveToNext()) {
-                loadedCategories[i] = cursorCat.getString(0);
-                i++;
-            }
-        }
-        cursorCat.close();
-
-        return loadedCategories;
-    }
-
     private String convertDataToText(double value) {
         // Convert given double to string.
         if (value % 1 == 0) {
@@ -123,10 +106,6 @@ public class Activity_Meals_CreateEditPreset extends AppCompatActivity implement
         // Connect to database
         databaseHelper = new DatabaseHelper(Activity_Meals_CreateEditPreset.this);
 
-        // Set up spinner for categories -----------------------------------------------------------
-        mealCategories = loadMealCategoriesFromDatabase();
-        selectedMealCategory = mealCategories[0];
-
         Spinner spinner = findViewById(R.id.spinnerMealCategory);
         spinner.setOnItemSelectedListener(this);
         ArrayAdapter adapterCategories = new ArrayAdapter(getApplicationContext(), R.layout.spinner_item_purple_middle, mealCategories);
@@ -144,7 +123,7 @@ public class Activity_Meals_CreateEditPreset extends AppCompatActivity implement
                 mode = "edit";
 
                 String uuid = intent.getStringExtra("uuid");
-                Cursor cursorData = databaseHelper.getPresetMealDetails(uuid);
+                Cursor cursorData = databaseHelper.getPresetMealDetailByID(uuid);
                 if (cursorData.getCount() > 0) {
                     cursorData.moveToFirst();
                     mealUUID = cursorData.getString(0);
@@ -239,7 +218,7 @@ public class Activity_Meals_CreateEditPreset extends AppCompatActivity implement
 
 
                     // Save data to database
-                    databaseHelper.addOrReplacePresetMeal(mealUUID, mealName, selectedMealCategory, mealData);
+                    databaseHelper.addOrReplacePresetMeal(mealUUID, mealName, mealData);
                     databaseHelper.close();
 
                     // Change button color
