@@ -65,35 +65,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String COL_CM_INDEX = "meal_index";  // Refers to uuid-index of a food from foods-table
     private static final String COL_CM_AMOUNT = "amount";
 
-    // Table body-data
-    private static final String TABLE_BD = "bodydata";
-    private static final String COLUMN_BD_DATE = "date";
-    private static final String COLUMN_BD_WEIGHT = "weight";
-    private static final String COLUMN_BD_CHEST = "chest";
-    private static final String COLUMN_BD_BELLY = "belly";
-    private static final String COLUMN_BD_BUTT = "butt";
-    private static final String COLUMN_BD_WAIST = "waist";
-    private static final String COLUMN_BD_ARM_R = "arm_right";
-    private static final String COLUMN_BD_ARM_L = "arm_left";
-    private static final String COLUMN_BD_LEG_R = "leg_right";
-    private static final String COLUMN_BD_LEG_L = "leg_left";
-
-    // Table exercises
-    private static final String TABLE_WP = "workout_plans";
-    private static final String COL_WP_NAME = "plan_name";
-
-    private static final String TABLE_WR = "workout_routines";
-    private static final String COL_WR_PLAN_NAME = "plan_name";
-    private static final String COL_WR_ROUTINE_NAME = "routine_name";
-
-    private static final String TABLE_WE = "exercises";
-    private static final String COL_WE_PLAN_NAME = "plan_name";
-    private static final String COL_WE_ROUTINE_NAME = "routine";
-    private static final String COL_WE_EXERCISE_NAME = "exercise_name";
-    private static final String COL_WE_SETS = "sets";
-    private static final String COL_WE_REPETITIONS = "repetitions";
-    private static final String COL_WE_WEIGHT = "weight";
-
     // Table settings
     private static final String TABLE_S_GOAL = "settings_goals";
     private static final String COL_S_INDEX = "settings_index";
@@ -121,21 +92,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
      */
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
-        // Create table body-data
-        sqLiteDatabase.execSQL(
-                "CREATE TABLE " + TABLE_BD + " ("
-                + COLUMN_BD_DATE + " TEXT PRIMARY KEY, "
-                + COLUMN_BD_WEIGHT + " REAL, "
-                + COLUMN_BD_CHEST + " REAL, "
-                + COLUMN_BD_BELLY + " REAL, "
-                + COLUMN_BD_BUTT + " REAL, "
-                + COLUMN_BD_WAIST + " REAL, "
-                + COLUMN_BD_ARM_R + " REAL, "
-                + COLUMN_BD_ARM_L + " REAL, "
-                + COLUMN_BD_LEG_R + " REAL, "
-                + COLUMN_BD_LEG_L + " REAL);"
-        );
-
         // Create table food-data
         sqLiteDatabase.execSQL(
                 "CREATE TABLE " + TABLE_PM + " ("
@@ -177,26 +133,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         sqLiteDatabase.execSQL("CREATE TABLE " + TABLE_PMC + " (" + COL_PMC_NAME + " TEXT PRIMARY KEY);");
 
-        // Create table dailymeals
+        // Create table daily meals
         sqLiteDatabase.execSQL("CREATE TABLE " + TABLE_CM + " ("
                 + COL_CM_DATE + " TEXT, "
                 + COL_CM_INDEX + " TEXT, "
                 + COL_CM_AMOUNT + " REAL, " +
                 "PRIMARY KEY (" + COL_CM_INDEX + ", " + COL_CM_AMOUNT + "));"
         );
-
-        // Create tables exercises
-        sqLiteDatabase.execSQL("CREATE TABLE " + TABLE_WE + " ("
-                + COL_WE_PLAN_NAME + " TEXT, "
-                + COL_WE_ROUTINE_NAME + " TEXT, "
-                + COL_WE_EXERCISE_NAME + " TEXT, "
-                + COL_WE_SETS + " INTEGER, "
-                + COL_WE_REPETITIONS + " INTEGER, "
-                + COL_WE_WEIGHT + " REAL"
-                + ");");
-
-        sqLiteDatabase.execSQL("CREATE TABLE " + TABLE_WP + " ("+ COL_WP_NAME + " TEXT PRIMARY KEY);");
-        sqLiteDatabase.execSQL("CREATE TABLE " + TABLE_WR + " ("+ COL_WR_PLAN_NAME + " TEXT, " + COL_WR_ROUTINE_NAME + " TEXT, PRIMARY KEY (" + COL_WR_PLAN_NAME + ", " + COL_WR_ROUTINE_NAME + "));");
 
         // Create table settings
         sqLiteDatabase.execSQL("CREATE TABLE " + TABLE_S_GOAL + " ("
@@ -214,7 +157,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         // Preset meals
         // -> Format: index + name + 6 main values + 22 optional values
-        // -> ('index', 'name', 'category', cal, fat, fatsat, carbs, sugar, protein, salt, fiber, cholesterin, creatine, ca, fe, k_potassium, mg, mn, na_sodium, phosphor, zn, vita, vitb1, b2, b3, b5, b6, b7, b11, b12, c, e, k, h)
+        // -> ('index', 'name', 'category', cal, fat, fat, sat, carbs, sugar, protein, salt, fiber, cholesteron, creatine, ca, fe, k_potassium, mg, mn, na_sodium, phosphor, zn, vita, vitb1, b2, b3, b5, b6, b7, b11, b12, c, e, k, h)
         // -> Preset meals indices have always 1 digit more (7 digits in total) than user created meals to prevent overlaps
         sqLiteDatabase.execSQL("INSERT INTO " + TABLE_PM + " VALUES('000000000', 'Apple (100 g)', 'Fruits and Vegetables', 52, 0.17, 0, 13.81, 10.39, 0.26, 0, 2.4, 0, 0, 6, 0.12, 107, 5, 0.035, 1, 11, 0.04, 0.003, 0.017, 0.026, 0.091, 0.061, 0.041, 0, 0, 0, 4.6, 0.18, 0.022, 0)");
         sqLiteDatabase.execSQL("INSERT INTO " + TABLE_PM + " VALUES('000000001', 'Banana (100 g)', 'Fruits and Vegetables', 95.0, 0.33, 0.0, 22.84, 12.23, 1.0, 0.0, 2.6, 0.0, 0.0, 5.0, 0.26, 358.0, 27.0, 0.0, 0.0, 22.0, 0.15, 0.003, 0.031, 0.073, 0.665, 0.334, 0.367, 0.0, 0.0, 0.0, 8.7, 0.0, 0.0, 0.0)");
@@ -230,21 +173,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         sqLiteDatabase.execSQL("INSERT INTO " + TABLE_PMC + " VALUES('Convenience Foods');");
         sqLiteDatabase.execSQL("INSERT INTO " + TABLE_PMC + " VALUES('Supplements');");
         sqLiteDatabase.execSQL("INSERT INTO " + TABLE_PMC + " VALUES('Custom');");
-
-        // Workout plan names
-        sqLiteDatabase.execSQL("INSERT INTO " + TABLE_WP + " VALUES('Example Workout Plan')");
-        sqLiteDatabase.execSQL("INSERT INTO " + TABLE_WP + " VALUES('My Workout Plan')");
-
-        // Workout routine names
-        sqLiteDatabase.execSQL("INSERT INTO " + TABLE_WR + " VALUES('Example Workout Plan', 'Push Day')");
-        sqLiteDatabase.execSQL("INSERT INTO " + TABLE_WR + " VALUES('Example Workout Plan', 'Pull Day')");
-        sqLiteDatabase.execSQL("INSERT INTO " + TABLE_WR + " VALUES('Example Workout Plan', 'Leg Day')");
-
-        // Workout exercises
-        sqLiteDatabase.execSQL("INSERT INTO " + TABLE_WE + " VALUES('Example Workout Plan', 'Push Day', 'Chest Press', 3, 6, 20)");
-        sqLiteDatabase.execSQL("INSERT INTO " + TABLE_WE + " VALUES('Example Workout Plan', 'Push Day', 'Shoulder Press', 3, 6, 20)");
-        sqLiteDatabase.execSQL("INSERT INTO " + TABLE_WE + " VALUES('Example Workout Plan', 'Pull Day', 'Lat Pull Down', 3, 8, 20)");
-        sqLiteDatabase.execSQL("INSERT INTO " + TABLE_WE + " VALUES('Example Workout Plan', 'Leg Day', 'Leg Press', 3, 6, 20)");
 
         // Settings
         // -> (index, calories, carbs, fat, protein). First value is index. Must always be 0.
@@ -265,10 +193,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + TABLE_PM);
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + TABLE_PMC);
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + TABLE_CM);
-        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + TABLE_BD);
-        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + TABLE_WE);
-        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + TABLE_WR);
-        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + TABLE_WP);
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + TABLE_S_GOAL);
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + TABLE_S_LANG);
 
@@ -488,154 +412,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
     }
 
-    // Workout Query's -----------------------------------------------------------------------------
-
-    public Cursor getWorkoutPlans() {
-        SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
-        Cursor cursor = null;
-
-        if (sqLiteDatabase != null) {
-            cursor = sqLiteDatabase.rawQuery("SELECT DISTINCT * FROM " + TABLE_WP + ";", null);
-        }
-
-        return cursor;
-    }
-
-    public Cursor getWorkoutRoutines(String planName) {
-        SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
-        Cursor cursor = null;
-
-        if (sqLiteDatabase != null) {
-            // cursor = sqLiteDatabase.rawQuery("SELECT DISTINCT " + COL_WE_ROUTINE_NAME + " FROM " + TABLE_WE + " WHERE " + COL_WE_PLAN_NAME + "='" + plan +"';", null);
-            cursor = sqLiteDatabase.rawQuery("SELECT DISTINCT " + COL_WR_ROUTINE_NAME + " FROM " + TABLE_WR + " WHERE " + COL_WR_PLAN_NAME + "='" + planName + "';", null);
-        }
-
-        return cursor;
-    }
-
-    public Cursor getWorkoutExercises(String plan, String routine) {
-        SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
-        Cursor cursor = null;
-
-        if (sqLiteDatabase != null) {
-            cursor = sqLiteDatabase.rawQuery(
-                    "SELECT " + COL_WE_EXERCISE_NAME + ", " + COL_WE_SETS + ", " + COL_WE_REPETITIONS + ", " + COL_WE_WEIGHT +
-                            " FROM " + TABLE_WE +
-                            " WHERE " + COL_WE_PLAN_NAME + "='" + plan + "' AND " + COL_WE_ROUTINE_NAME + "='" + routine +"';",
-                    null);
-        }
-
-        return cursor;
-    }
-
-    public void addWorkoutPlan(String planName) {
-        SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
-        if (sqLiteDatabase != null) {
-            sqLiteDatabase.execSQL("INSERT OR REPLACE INTO " + TABLE_WP + " VALUES('" + planName + "')");
-        }
-    }
-
-    public void addWorkoutRoutine(String planName, String routineName) {
-        SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
-        if (sqLiteDatabase != null) {
-            ContentValues cv = new ContentValues();
-            cv.put(COL_WR_PLAN_NAME, planName);
-            cv.put(COL_WR_ROUTINE_NAME, routineName);
-
-            sqLiteDatabase.replaceOrThrow(TABLE_WR, null, cv);
-        }
-    }
-
-    public void addWorkoutExercise(String planName, String routineName, String exerciseName, int sets, int repetitions, double weight) {
-        // Get database
-        SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
-
-        // Create content values to put into the database
-        ContentValues cv = new ContentValues();
-        cv.put(COL_WE_PLAN_NAME, planName);
-        cv.put(COL_WE_ROUTINE_NAME, routineName);
-        cv.put(COL_WE_EXERCISE_NAME, exerciseName);
-        cv.put(COL_WE_SETS, sets);
-        cv.put(COL_WE_REPETITIONS, repetitions);
-        cv.put(COL_WE_WEIGHT, weight);
-
-        long result = sqLiteDatabase.replaceOrThrow(TABLE_WE, null, cv);
-        if (result == -1) {
-            Toast.makeText(context, "Failed to save", Toast.LENGTH_SHORT).show();
-        } else {
-            Toast.makeText(context, "Saved", Toast.LENGTH_SHORT).show();
-        }
-    }
-
-    public void updateWorkoutPlanName(String oldPlanName, String newPlanName) {
-        SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
-
-        if (sqLiteDatabase != null) {
-            // Remove old plan name from table "plans"
-            sqLiteDatabase.delete(TABLE_WP, COL_WP_NAME + "= ?", new String[] {oldPlanName});
-
-            // Add new plan name to table "plans"
-            ContentValues cv = new ContentValues();
-            cv.put(COL_WP_NAME, newPlanName);
-            sqLiteDatabase.insertOrThrow(TABLE_WP, null, cv);
-
-            // Update plan names in table "exercises"
-            cv = new ContentValues();
-            cv.put(COL_WE_PLAN_NAME, newPlanName);
-            sqLiteDatabase.update(TABLE_WE, cv, COL_WE_PLAN_NAME + "= ?", new String[]{oldPlanName});
-
-            // Update plan names in table "routines"
-            cv = new ContentValues();
-            cv.put(COL_WR_PLAN_NAME, newPlanName);
-            sqLiteDatabase.update(TABLE_WR, cv, COL_WR_PLAN_NAME + "= ?", new String[]{oldPlanName});
-        }
-    }
-
-    public void updateWorkoutRoutineName(String planName, String oldRoutineName, String newRoutineName) {
-        SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
-
-        if (sqLiteDatabase != null) {
-            // Update routine name in table "routines"
-            ContentValues cv = new ContentValues();
-            cv.put(COL_WR_ROUTINE_NAME, newRoutineName);
-            sqLiteDatabase.update(TABLE_WR, cv, COL_WR_PLAN_NAME + "= ? AND " + COL_WR_ROUTINE_NAME + "= ?", new String[] {planName, oldRoutineName});
-
-            // Update routine names in table "exercises"
-            cv = new ContentValues();
-            cv.put(COL_WE_ROUTINE_NAME, newRoutineName);
-            sqLiteDatabase.update(TABLE_WE, cv, COL_WE_ROUTINE_NAME + "= ?", new String[]{oldRoutineName});
-        }
-    }
-
-    public void deleteWorkoutPlan(String planName) {
-        SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
-
-        // Remove plan name from table "plans"
-        sqLiteDatabase.delete(TABLE_WP, COL_WP_NAME + "= ?", new String[] {planName});
-
-        // Remove all entries for this plan in table "exercises"
-        sqLiteDatabase.delete(TABLE_WE, COL_WE_PLAN_NAME + "= ?", new String[] {planName});
-    }
-
-    public void deleteWorkoutRoutine(String planName, String routineName) {
-        SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
-
-        // Remove routine name from table "routines"
-        sqLiteDatabase.delete(TABLE_WR, COL_WR_PLAN_NAME + "= ? AND " + COL_WR_ROUTINE_NAME + "= ?", new String[] {planName, routineName});
-
-        // Remove all entries for this routine in table "exercises"
-        sqLiteDatabase.delete(TABLE_WE, COL_WE_PLAN_NAME + "= ? AND " + COL_WE_ROUTINE_NAME + "= ?", new String[] {planName, routineName});
-    }
-
-    public void deleteWorkoutExercise(String planName, String routineName, String exerciseName) {
-        // Get database
-        SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
-        if (sqLiteDatabase != null) {
-            sqLiteDatabase.delete(TABLE_WE, COL_WE_PLAN_NAME + "= ? AND " + COL_WE_ROUTINE_NAME + "= ? AND " + COL_WE_EXERCISE_NAME + "= ?", new String[] {planName, routineName, exerciseName});
-            // sqLiteDatabase.rawQuery("DELETE FROM " + TABLE_NAME_WE + " WHERE " + COL_E_PLAN_NAME + "='" + planName + "' AND " + COL_E_ROUTINE_NAME + "='" + routineName + "' AND " + COL_E_EXERCISE_NAME + "='" + exerciseName +"';", null);
-        }
-
-    }
 
     // Settings Query's ----------------------------------------------------------------------------
 
@@ -650,21 +426,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                     "SELECT " + COL_S_GOAL_CALORIES + ", " + COL_S_GOAL_FAT + ", " + COL_S_GOAL_CARBS + ", " + COL_S_GOAL_PROTEIN +
                     " FROM " + TABLE_S_GOAL +
                     " WHERE " + COL_S_INDEX + "=0;",
-                    null);
-        }
-
-        return cursor;
-    }
-
-    public Cursor getSettingsLanguage() {
-        // -> Read settings from table "settings_lang"
-
-        SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
-        Cursor cursor = null;
-
-        if (sqLiteDatabase != null) {
-            cursor = sqLiteDatabase.rawQuery(
-                    "SELECT " + COL_S_LANG + " FROM " + TABLE_S_LANG + " WHERE " + COL_S_INDEX + "=0;",
                     null);
         }
 
@@ -707,36 +468,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             Toast.makeText(context, "Failed to save settings", Toast.LENGTH_SHORT).show();
         } else {
             Toast.makeText(context, "Saved settings. Close App to apply changes.", Toast.LENGTH_SHORT).show();
-        }
-    }
-
-    // Body-Data Query's ---------------------------------------------------------------------------
-
-    public void addDataBody(String date, double weight, double chest, double belly, double butt,
-                            double waist, double arm_r, double arm_l, double leg_r, double leg_l){
-        // Get database
-        SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
-
-        // Create content values to put into the database
-        ContentValues cv = new ContentValues();
-
-        cv.put(COLUMN_BD_DATE, date);
-        cv.put(COLUMN_BD_WEIGHT, weight);
-        cv.put(COLUMN_BD_CHEST, chest);
-        cv.put(COLUMN_BD_BELLY, belly);
-        cv.put(COLUMN_BD_BUTT, butt);
-        cv.put(COLUMN_BD_WAIST, waist);
-        cv.put(COLUMN_BD_ARM_R, arm_r);
-        cv.put(COLUMN_BD_ARM_L, arm_l);
-        cv.put(COLUMN_BD_LEG_R, leg_r);
-        cv.put(COLUMN_BD_LEG_L, leg_l);
-
-        // Insert data into dadabase
-        long result = sqLiteDatabase.replaceOrThrow(TABLE_BD, null, cv);
-        if (result == -1) {
-            Toast.makeText(context, "Failed to save data", Toast.LENGTH_SHORT).show();
-        } else {
-            Toast.makeText(context, "Saved", Toast.LENGTH_SHORT).show();
         }
     }
 

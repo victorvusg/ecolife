@@ -21,10 +21,9 @@ import com.ecolife.R;
 
 
 
-public class Fragment_Settings extends Fragment implements AdapterView.OnItemSelectedListener {
+public class FragmentSettings extends Fragment implements AdapterView.OnItemSelectedListener {
 
     private double[] dataGoals;
-    private String[] languages;
     private String currentLanguage;
     private boolean savePossible = false;
     private boolean firstSelect = true;
@@ -93,11 +92,6 @@ public class Fragment_Settings extends Fragment implements AdapterView.OnItemSel
             dataGoals = new double[] {0, 0, 0, 0};
         }
         cursorGoals.close();
-
-        // Languages
-        languages = new String[] {
-                getResources().getString(R.string.lang_en)
-        };
     }
 
     @Override
@@ -125,14 +119,6 @@ public class Fragment_Settings extends Fragment implements AdapterView.OnItemSel
         EditText editTextProtein = getView().findViewById(R.id.editTextSettingsGoalsProtein);
         editTextProtein.setText(convertDataToText(dataGoals[3]));
         editTextProtein.addTextChangedListener(new textWatcher(3));
-
-
-        // Language settings spinner
-        Spinner spinner = getView().findViewById(R.id.spinnerLanguages);
-        spinner.setOnItemSelectedListener(this);
-        ArrayAdapter adapterCategories = new ArrayAdapter(getContext(), R.layout.spinner_item_purple_middle, languages);
-        adapterCategories.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(adapterCategories);
 
         // Button
         saveButton = getView().findViewById(R.id.buttonSaveSettings);

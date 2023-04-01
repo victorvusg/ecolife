@@ -14,9 +14,9 @@ import android.view.MenuItem;
 import com.ecolife.fragments.FragmentNutrition;
 
 import com.ecolife.data.DatabaseHelper;
+import com.ecolife.fragments.FragmentSettings;
 import com.ecolife.fragments.FragmentStatistic;
-import com.ecolife.fragments.Fragment_Workout;
-import com.ecolife.fragments.Fragment_Settings;
+import com.ecolife.fragments.FragmentWorkout;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
@@ -48,30 +48,13 @@ public class ActivityMain extends AppCompatActivity {
     }
 
     private void setFragmentWorkout() {
-        Fragment_Workout fragment = new Fragment_Workout();
+        FragmentWorkout fragment = new FragmentWorkout();
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, fragment).commit();
     }
 
     private void setFragmentSettings() {
-        Fragment_Settings fragment = new Fragment_Settings();
+        FragmentSettings fragment = new FragmentSettings();
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, fragment).commit();
-    }
-
-    private static void updateLanguage(Context context, String language) {
-
-        if (language.equals("system")) {
-            return;
-        }
-
-        Locale locale = new Locale(language);
-        Locale.setDefault(locale);
-
-        Resources resources = context.getResources();
-
-        Configuration configuration = resources.getConfiguration();
-        configuration.locale = locale;
-
-        resources.updateConfiguration(configuration, resources.getDisplayMetrics());
     }
 
 
@@ -82,14 +65,6 @@ public class ActivityMain extends AppCompatActivity {
 
         // Database
         databaseHelper = new DatabaseHelper(ActivityMain.this);
-
-        // Update language
-        Cursor cursor = databaseHelper.getSettingsLanguage();
-        if (cursor.getCount() > 0) {
-            cursor.moveToFirst();
-            updateLanguage(this, cursor.getString(0));
-        }
-        cursor.close();
 
         // -----------------------------------------------------------------------------------------
         // Get data if activity was started by another activity
