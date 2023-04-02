@@ -25,7 +25,7 @@ import java.util.List;
 import java.util.UUID;
 
 
-public class Activity_Meals_CreateEditPreset extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
+public class ActivityMealsCreateEditPreset extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
     /**
      * This activity lets the user create new meal-presets or edit already existing ones.
@@ -121,7 +121,7 @@ public class Activity_Meals_CreateEditPreset extends AppCompatActivity implement
         setContentView(R.layout.activity_meals_createeditpreset);
 
         // Connect to database
-        databaseHelper = new DatabaseHelper(Activity_Meals_CreateEditPreset.this);
+        databaseHelper = new DatabaseHelper(ActivityMealsCreateEditPreset.this);
 
         // Set up spinner for categories -----------------------------------------------------------
         mealCategories = loadMealCategoriesFromDatabase();
@@ -254,7 +254,7 @@ public class Activity_Meals_CreateEditPreset extends AppCompatActivity implement
         cancelButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(view.getContext(), Activity_Meals_AddDailyEntry.class);
+                Intent intent = new Intent(view.getContext(), ActivityMealsAddDailyEntry.class);
                 if (date != null) {
                     intent.putExtra("date", date);
                 }

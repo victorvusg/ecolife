@@ -10,42 +10,22 @@
         android:theme="@style/Theme.Ecolife">
 
         <activity
-            android:name="com.ecolife.activities.Activity_Workout_EditRoutines"
+            android:name="com.ecolife.activities.ActivityMealsMealsOfDay"
             android:exported="false"
             android:screenOrientation="sensorPortrait"
             android:parentActivityName="com.ecolife.ActivityMain" />
         <activity
-            android:name="com.ecolife.activities.Activity_Workout_EditPlans"
+            android:name="com.ecolife.activities.ActivityMealsAddDailyEntry"
             android:exported="false"
             android:screenOrientation="sensorPortrait"
             android:parentActivityName="com.ecolife.ActivityMain" />
         <activity
-            android:name="com.ecolife.activities.Activity_Meals_MealsOfDay"
+            android:name="com.ecolife.activities.ActivityMealsCreateEditPreset"
             android:exported="false"
             android:screenOrientation="sensorPortrait"
-            android:parentActivityName="com.ecolife.ActivityMain" />
+            android:parentActivityName="com.ecolife.activities.ActivityMealsAddDailyEntry" />
         <activity
-            android:name="com.ecolife.activities.Activity_Workout_CreateEditExercise"
-            android:exported="false"
-            android:screenOrientation="sensorPortrait"
-            android:parentActivityName="com.ecolife.ActivityMain" />
-        <activity
-            android:name="com.ecolife.activities.Activity_Meals_AddDailyEntry"
-            android:exported="false"
-            android:screenOrientation="sensorPortrait"
-            android:parentActivityName="com.ecolife.ActivityMain" />
-        <activity
-            android:name="com.ecolife.activities.Activity_Meals_CreateEditPreset"
-            android:exported="false"
-            android:screenOrientation="sensorPortrait"
-            android:parentActivityName="com.ecolife.activities.Activity_Meals_AddDailyEntry" />
-        <activity
-            android:name="com.ecolife.activities.Activity_Calendar"
-            android:exported="false"
-            android:screenOrientation="sensorPortrait"
-            android:parentActivityName="com.ecolife.ActivityMain" />
-        <activity
-            android:name="com.ecolife.activities.Activity_EditBodyStats"
+            android:name="com.ecolife.activities.ActivityCalendar"
             android:exported="false"
             android:screenOrientation="sensorPortrait"
             android:parentActivityName="com.ecolife.ActivityMain" />

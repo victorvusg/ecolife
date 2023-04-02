@@ -21,11 +21,10 @@ import com.ecolife.R;
 
 
 
-public class Fragment_Settings extends Fragment implements AdapterView.OnItemSelectedListener {
+public class FragmentSettings extends Fragment {
 
     private double[] dataGoals;
     private String[] languages;
-    private String currentLanguage;
     private boolean savePossible = false;
     private boolean firstSelect = true;
 
@@ -127,13 +126,6 @@ public class Fragment_Settings extends Fragment implements AdapterView.OnItemSel
         editTextProtein.addTextChangedListener(new textWatcher(3));
 
 
-        // Language settings spinner
-        Spinner spinner = getView().findViewById(R.id.spinnerLanguages);
-        spinner.setOnItemSelectedListener(this);
-        ArrayAdapter adapterCategories = new ArrayAdapter(getContext(), R.layout.spinner_item_purple_middle, languages);
-        adapterCategories.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(adapterCategories);
-
         // Button
         saveButton = getView().findViewById(R.id.buttonSaveSettings);
         saveButton.setVisibility(View.INVISIBLE);
@@ -147,34 +139,10 @@ public class Fragment_Settings extends Fragment implements AdapterView.OnItemSel
                     saveButton.setVisibility(View.INVISIBLE);
 
                     ((ActivityMain) requireContext()).databaseHelper.setSettingsGoals(dataGoals[0], dataGoals[1], dataGoals[2], dataGoals[3]);
-                    ((ActivityMain) requireContext()).databaseHelper.setSettingsLanguage(currentLanguage);
 
                 }
             }
         });
     }
 
-    // Methods from imported spinner interface -----------------------------------------------------
-    @Override
-    public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
-        // Guard clause against the automatic item select on creation
-        if (firstSelect) {
-            firstSelect = false;
-            return;
-        }
-
-        // Set value
-        switch (position) {
-            case 0: currentLanguage = "de"; break;
-            case 1: currentLanguage = "en"; break;
-        }
-
-        // Update button
-        enableSaveButton();
-    }
-
-    @Override
-    public void onNothingSelected(AdapterView<?> adapterView) {
-        // Pass
-    }
 }

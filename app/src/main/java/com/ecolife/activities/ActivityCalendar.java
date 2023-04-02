@@ -17,7 +17,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
-public class Activity_Calendar extends AppCompatActivity {
+public class ActivityCalendar extends AppCompatActivity {
 
     /**
      * This activity is called by pressing the calendar-button in the FragmentNutrition. It will display

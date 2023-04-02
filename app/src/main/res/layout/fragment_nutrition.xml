@@ -10,46 +10,6 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <!-- Header with date and calendar button -->
-        <LinearLayout
-            android:layout_marginTop="16dp"
-            android:id="@+id/header"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
-            android:background="@drawable/shape_box_round_middle"
-            android:orientation="horizontal">
-
-            <!-- Date text -->
-            <TextView
-                android:id="@+id/textViewDBNDate"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginStart="20dp"
-                android:layout_weight="1"
-                android:background="@color/middle_purple"
-                android:text="05.02.2022"
-                android:textColor="@color/text_middle"
-                android:textSize="20sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <ImageButton
-                android:id="@+id/buttonDBNCalendar"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_gravity="end"
-                android:layout_marginEnd="20dp"
-                android:backgroundTint="#00FFFFFF"
-                android:src="@drawable/ic_baseline_calendar_month_24"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:tint="@color/text_middle" />
-
-        </LinearLayout>
-
         <!-- Welcome Section -->
         <LinearLayout
             android:layout_width="match_parent"
@@ -248,19 +208,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:orientation="horizontal">
-
-                <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/buttonDashboardNutritionAddMeal"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:background="@drawable/shape_box_round_light"
-                    android:text="@string/dn_button_add"
-                    android:textColor="@color/text_high" />
-
-                <Space
-                    android:layout_width="10dp"
-                    android:layout_height="match_parent" />
 
                 <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/buttonEatenMeals"

@@ -14,8 +14,7 @@ import android.view.MenuItem;
 import com.ecolife.fragments.FragmentNutrition;
 
 import com.ecolife.data.DatabaseHelper;
-import com.ecolife.fragments.Fragment_Workout;
-import com.ecolife.fragments.Fragment_Settings;
+import com.ecolife.fragments.FragmentSettings;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
@@ -38,35 +37,9 @@ public class ActivityMain extends AppCompatActivity {
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, fragment).commit();
     }
 
-    private void setFragmentBodyStats() {
-        // Pass
-    }
-
-    private void setFragmentWorkout() {
-        Fragment_Workout fragment = new Fragment_Workout();
-        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, fragment).commit();
-    }
-
     private void setFragmentSettings() {
-        Fragment_Settings fragment = new Fragment_Settings();
+        FragmentSettings fragment = new FragmentSettings();
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, fragment).commit();
-    }
-
-    private static void updateLanguage(Context context, String language) {
-
-        if (language.equals("system")) {
-            return;
-        }
-
-        Locale locale = new Locale(language);
-        Locale.setDefault(locale);
-
-        Resources resources = context.getResources();
-
-        Configuration configuration = resources.getConfiguration();
-        configuration.locale = locale;
-
-        resources.updateConfiguration(configuration, resources.getDisplayMetrics());
     }
 
 
@@ -78,15 +51,6 @@ public class ActivityMain extends AppCompatActivity {
         // Database
         databaseHelper = new DatabaseHelper(ActivityMain.this);
 
-        // Update language
-        Cursor cursor = databaseHelper.getSettingsLanguage();
-        if (cursor.getCount() > 0) {
-            cursor.moveToFirst();
-            updateLanguage(this, cursor.getString(0));
-        }
-        cursor.close();
-
-        // -----------------------------------------------------------------------------------------
         // Get data if activity was started by another activity
         Intent intent = getIntent();
 
@@ -110,14 +74,6 @@ public class ActivityMain extends AppCompatActivity {
                 break;
 
             case 1:
-                setFragmentBodyStats();
-                break;
-
-            case 2:
-                setFragmentWorkout();
-                break;
-
-            case 3:
                 setFragmentSettings();
                 break;
 
@@ -139,24 +95,10 @@ public class ActivityMain extends AppCompatActivity {
                         }
                         return true;
 
-                    case R.id.nav_bar_stats:
-                        if (currentFragmentID != 1) {
-                            setFragmentBodyStats();
-                            currentFragmentID = 1;
-                        }
-                        return true;
-
-                    case R.id.nav_bar_exersises:
-                        if (currentFragmentID != 2) {
-                            setFragmentWorkout();
-                            currentFragmentID = 2;
-                        }
-                        return true;
-
                     case R.id.nav_bar_settings:
-                        if (currentFragmentID != 3) {
+                        if (currentFragmentID != 1) {
                             setFragmentSettings();
-                            currentFragmentID = 3;
+                            currentFragmentID = 1;
                         }
                         return true;
                 }

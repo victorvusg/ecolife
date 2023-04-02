@@ -8,19 +8,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.ProgressBar;
-import android.widget.TableLayout;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.ecolife.ActivityMain;
-import com.ecolife.activities.Activity_Calendar;
 import com.ecolife.R;
-import com.ecolife.activities.Activity_Meals_AddDailyEntry;
-import com.ecolife.activities.Activity_Meals_MealsOfDay;
+import com.ecolife.activities.ActivityMealsMealsOfDay;
 
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
@@ -145,10 +141,6 @@ public class FragmentNutrition extends Fragment {
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        // Date
-        TextView textDate = view.findViewById(R.id.textViewDBNDate);
-        textDate.setText(date);
-
         // Set values for main-dashboard
         ProgressBar progressBarMain = getView().findViewById(R.id.progressBarDBNCaloriesMain);
         TextView textProgressMain = getView().findViewById(R.id.textViewDNCaloriesMain);
@@ -192,47 +184,16 @@ public class FragmentNutrition extends Fragment {
         TextView textViewDetailsProtein = getView().findViewById(R.id.textViewDBNDetailsProtein);
         textViewDetailsProtein.setText(convertDataToDoubleText(dataFood[5]));
 
-        // Set buttons
-        Button buttonAddMeal = getView().findViewById(R.id.buttonDashboardNutritionAddMeal);
-        buttonAddMeal.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(view.getContext(), Activity_Meals_AddDailyEntry.class);
-                intent.putExtra("date", date);
-                intent.putExtra("fragmentID", 0);
-                // intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);  // Start activity without animation
-                startActivity(intent);
-            }
-        });
-
         Button buttonShowEatenMeals = getView().findViewById(R.id.buttonEatenMeals);
         buttonShowEatenMeals.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(view.getContext(), Activity_Meals_MealsOfDay.class);
+                Intent intent = new Intent(view.getContext(), ActivityMealsMealsOfDay.class);
                 intent.putExtra("date", date);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);  // Start activity without animation
                 startActivity(intent);
             }
         });
-
-        ImageButton buttonCalendar = getView().findViewById(R.id.buttonDBNCalendar);
-        buttonCalendar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(view.getContext(), Activity_Calendar.class);
-                intent.putExtra("date", date);
-                intent.putExtra("fragmentID", 0);
-                intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);  // Start activity without animation
-                startActivity(intent);
-            }
-        });
-
-//        ScrollView mainLayout = view.findViewById(R.id.scrollViewMainLayout);
-//        mainLayout.setVisibility(View.VISIBLE);
-//
-//        FrameLayout loadingLayout = view.findViewById(R.id.loadingLayout);
-//        loadingLayout.setVisibility(View.GONE);
     }
 
 }
