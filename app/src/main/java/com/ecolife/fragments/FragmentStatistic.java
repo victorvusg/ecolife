@@ -76,13 +76,12 @@ public class FragmentStatistic extends Fragment {
                 .getConsumedMealsSums(date.format(now));
         if (cursorDataFood.getCount() > 0) {
             cursorDataFood.moveToFirst();
-            dataFood = new double[6];
-            for (int i = 0; i < 6; i++) {
+            dataFood = new double[5];
+            for (int i = 0; i < 5; i++) {
                 dataFood[i] = cursorDataFood.getDouble(i);
             }
-
         } else {
-            dataFood = new double[] {0, 0, 0, 0, 0, 0};
+            dataFood = new double[] {0, 0, 0, 0, 0};
         }
         cursorDataFood.close();
 
@@ -91,14 +90,13 @@ public class FragmentStatistic extends Fragment {
             cursorSettings.moveToFirst();
             dataGoals = new double[] {
                     cursorSettings.getDouble(0),  // Goal Calories
-                    cursorSettings.getDouble(1),  // Goal Fat
-                    cursorSettings.getDouble(2),  // Goal Carbohydrates
-                    cursorSettings.getDouble(3), // Goal Protein
-                    cursorSettings.getDouble(4),  // Goal Protein
-                    cursorSettings.getDouble(5),  // Goal Protein
+                    cursorSettings.getDouble(1),  // Goal Protein
+                    cursorSettings.getDouble(2),  // Goal Sat Fat
+                    cursorSettings.getDouble(3), // Goal Carbohydrates
+                    cursorSettings.getDouble(4),  // Goal Water
             };
         } else {
-            dataGoals = new double[] {2000, 2000, 2000, 2000};
+            dataGoals = new double[] {2000, 2000, 2000, 2000, 2000};
         }
         cursorSettings.close();
 
@@ -125,33 +123,28 @@ public class FragmentStatistic extends Fragment {
         textDate.setText(date);
 
         // Set values for details-dashboard
-        TextView textViewDetailsCal = getView().findViewById(R.id.textViewDBNDetailsCalories);
-        textViewDetailsCal.setText(convertDataToDoubleText(dataFood[0]));
 
-        TextView textViewDetailsFat = getView().findViewById(R.id.textViewDBNDetailsFat);
-        textViewDetailsFat.setText(convertDataToDoubleText(dataFood[1]));
+        int[] views = {
+                R.id.textViewDetailsCalories,
+                R.id.textViewDetailsProtein,
+                R.id.textViewDetailsFatSat,
+                R.id.textViewDetailsCarbs,
+                R.id.textViewDetailsWater
+        };
 
-        TextView textViewDetailsFatSat = getView().findViewById(R.id.textViewDBNDetailsFatSat);
-        textViewDetailsFatSat.setText(convertDataToDoubleText(dataFood[2]));
+        for (int i = 0; i < views.length; i++) {
+            TextView tw = getView().findViewById(i);
+            tw.setText(convertDataToDoubleText(dataFood[i]));
+        }
 
-        TextView textViewDetailsCarbs = getView().findViewById(R.id.textViewDBNDetailsCarbs);
-        textViewDetailsCarbs.setText(convertDataToDoubleText(dataFood[3]));
-
-        TextView textViewDetailsSugar = getView().findViewById(R.id.textViewDBNDetailsSugar);
-        textViewDetailsSugar.setText(convertDataToDoubleText(dataFood[4]));
-
-        TextView textViewDetailsProtein = getView().findViewById(R.id.textViewDBNDetailsProtein);
-        textViewDetailsProtein.setText(convertDataToDoubleText(dataFood[5]));
-
-
-        ImageButton buttonCalendar = getView().findViewById(R.id.buttonDBNCalendar);
+        ImageButton buttonCalendar = getView().findViewById(R.id.buttonCalendar);
         buttonCalendar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(view.getContext(), ActivityCalendar.class);
                 intent.putExtra("date", date);
                 intent.putExtra("fragmentID", 0);
-                intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);  // Start activity without animation
+                intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                 startActivity(intent);
             }
         });

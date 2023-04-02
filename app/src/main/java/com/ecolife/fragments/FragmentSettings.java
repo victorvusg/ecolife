@@ -80,7 +80,6 @@ public class FragmentSettings extends Fragment {
         if (cursorGoals.getCount() > 0) {
             cursorGoals.moveToFirst();
             dataGoals = new double[] {
-                    cursorGoals.getDouble(0),
                     cursorGoals.getDouble(1),
                     cursorGoals.getDouble(2),
                     cursorGoals.getDouble(3),
@@ -88,7 +87,7 @@ public class FragmentSettings extends Fragment {
                     cursorGoals.getDouble(5)
             };
         } else {
-            dataGoals = new double[] {0, 0, 0, 0, 0, 0};
+            dataGoals = new double[] {0, 0, 0, 0, 0};
         }
         cursorGoals.close();
     }
@@ -104,30 +103,20 @@ public class FragmentSettings extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
 
         // Nutrition goal settings
-        EditText editTextCalories = getView().findViewById(R.id.editTextSettingsGoalsCal);
-        editTextCalories.setText(convertDataToText(dataGoals[0]));
-        editTextCalories.addTextChangedListener(new textWatcher(0));
 
-        EditText editTextProtein = getView().findViewById(R.id.editTextSettingsGoalsProtein);
-        editTextProtein.setText(convertDataToText(dataGoals[1]));
-        editTextProtein.addTextChangedListener(new textWatcher(1));
+        int[] views = {
+            R.id.editTextSettingsGoalsCal,
+            R.id.editTextSettingsGoalsProtein,
+            R.id.editTextSettingsGoalsSatFat,
+            R.id.editTextSettingsGoalsCarbs,
+            R.id.editTextSettingsGoalsWater
+        };
 
-        EditText editTextFat = getView().findViewById(R.id.editTextSettingsGoalsFat);
-        editTextFat.setText(convertDataToText(dataGoals[2]));
-        editTextFat.addTextChangedListener(new textWatcher(2));
-
-        EditText editTextSatFat = getView().findViewById(R.id.editTextSettingsGoalsSatFat);
-        editTextSatFat.setText(convertDataToText(dataGoals[3]));
-        editTextSatFat.addTextChangedListener(new textWatcher(3));
-
-        EditText editTextCarbs = getView().findViewById(R.id.editTextSettingsGoalsCarbs);
-        editTextCarbs.setText(convertDataToText(dataGoals[4]));
-        editTextCarbs.addTextChangedListener(new textWatcher(4));
-
-        EditText editWater = getView().findViewById(R.id.editTextSettingsGoalsWater);
-        editWater.setText(convertDataToText(dataGoals[5]));
-        editWater.addTextChangedListener(new textWatcher(5));
-
+        for (int i = 0; i < 5; i++) {
+            EditText edText = getView().findViewById(views[i]);
+            edText.setText(convertDataToText(dataGoals[i]));
+            edText.addTextChangedListener(new textWatcher(i));
+        }
 
         // Button
         saveButton = getView().findViewById(R.id.buttonSaveSettings);

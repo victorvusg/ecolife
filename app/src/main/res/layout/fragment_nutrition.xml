@@ -13,15 +13,24 @@
         <!-- Welcome Section -->
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            >
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginVertical="16dp"
-                android:layout_marginHorizontal="16dp"
-                android:text="@string/welcome_section_title"
+                android:layout_marginTop="32dp"
+                android:layout_marginHorizontal="8dp"
+                android:text="@string/welcome_section_title_name"
                 android:textColor="@color/text_low"
-                android:textSize="20sp" />
+                android:textSize="28sp" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:layout_marginHorizontal="8dp"
+                android:text="@string/welcome_section_title_message"
+                android:textColor="@color/text_low"
+                android:textSize="28sp" />
 
             <!-- Section -->
         </LinearLayout>
@@ -61,7 +70,7 @@
 
                     <!-- Circular-progress-indicator showing total calories -->
                     <com.google.android.material.progressindicator.CircularProgressIndicator
-                        android:id="@+id/progressBarDBNCaloriesMain"
+                        android:id="@+id/progressBarCalories"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
@@ -81,7 +90,7 @@
                         android:orientation="vertical">
 
                         <TextView
-                            android:id="@+id/textViewDNCaloriesMain"
+                            android:id="@+id/textViewCalories"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
@@ -107,34 +116,25 @@
                     android:layout_marginBottom="10dp"
                     android:stretchColumns="*">
 
+                    <!-- Protein and Fat -->
                     <TableRow>
-
-                        <TextView
-                            android:id="@+id/trackCarbohydratesTitle"
-                            android:layout_width="0dp"
-                            android:text="@string/carbs"
-                            android:textAlignment="center"
-                            android:textColor="@color/text_middle" />
-
                         <TextView
                             android:id="@+id/trackProteinTitle"
                             android:layout_width="0dp"
                             android:text="@string/protein"
                             android:textAlignment="center"
                             android:textColor="@color/text_middle" />
-
                         <TextView
-                            android:id="@+id/trackFatTitle"
+                            android:id="@+id/trackSatFatTitle"
                             android:layout_width="0dp"
-                            android:text="@string/fat"
+                            android:text="@string/fat_sat"
                             android:textAlignment="center"
                             android:textColor="@color/text_middle" />
                     </TableRow>
 
                     <TableRow android:layout_marginTop="10dp">
-
                         <ProgressBar
-                            android:id="@+id/progressBarDBNCarbsMain"
+                            android:id="@+id/progressBarProtein"
                             style="?android:attr/progressBarStyleHorizontal"
                             android:layout_width="0dp"
                             android:layout_marginStart="10dp"
@@ -145,22 +145,8 @@
                             android:progressBackgroundTintMode="src_over"
                             android:progressTint="@color/pop_orange"
                             android:scaleY="1.5" />
-
                         <ProgressBar
-                            android:id="@+id/progressBarDBNProteinMain"
-                            style="?android:attr/progressBarStyleHorizontal"
-                            android:layout_width="0dp"
-                            android:layout_marginStart="10dp"
-                            android:layout_marginEnd="10dp"
-                            android:max="100"
-                            android:progress="0"
-                            android:progressBackgroundTint="@color/light_purple"
-                            android:progressBackgroundTintMode="src_over"
-                            android:progressTint="@color/pop_orange"
-                            android:scaleY="1.5" />
-
-                        <ProgressBar
-                            android:id="@+id/progressBarDBNFatMain"
+                            android:id="@+id/progressBarSatFat"
                             style="?android:attr/progressBarStyleHorizontal"
                             android:layout_width="0dp"
                             android:layout_marginStart="10dp"
@@ -174,25 +160,76 @@
                     </TableRow>
 
                     <TableRow android:layout_marginTop="10dp">
-
                         <TextView
-                            android:id="@+id/textViewProgressCarbohydrates"
+                            android:id="@+id/textViewProgressProtein"
                             android:layout_width="0dp"
                             android:text="0 g"
                             android:textAlignment="center"
                             android:textColor="@color/text_middle" />
-
                         <TextView
-                            android:id="@+id/textViewProgressDBNProteinMain"
+                            android:id="@+id/textViewProgressSatFat"
                             android:layout_width="0dp"
                             android:text="0 g"
                             android:textAlignment="center"
                             android:textColor="@color/text_middle" />
+                    </TableRow>
 
+                    <!-- Carbohydrate and Water -->
+                    <TableRow
+                        android:layout_marginTop="48dp"
+                        >
                         <TextView
-                            android:id="@+id/textViewProgressDBNFatMain"
+                            android:id="@+id/trackCarboTitle"
+                            android:layout_width="0dp"
+                            android:text="@string/carbs"
+                            android:textAlignment="center"
+                            android:textColor="@color/text_middle" />
+                        <TextView
+                            android:id="@+id/trackWaterTitle"
+                            android:layout_width="0dp"
+                            android:text="@string/water"
+                            android:textAlignment="center"
+                            android:textColor="@color/text_middle" />
+                    </TableRow>
+
+                    <TableRow android:layout_marginTop="10dp">
+                        <ProgressBar
+                            android:id="@+id/progressBarCarbo"
+                            style="?android:attr/progressBarStyleHorizontal"
+                            android:layout_width="0dp"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginEnd="10dp"
+                            android:max="100"
+                            android:progress="0"
+                            android:progressBackgroundTint="@color/light_purple"
+                            android:progressBackgroundTintMode="src_over"
+                            android:progressTint="@color/pop_orange"
+                            android:scaleY="1.5" />
+                        <ProgressBar
+                            android:id="@+id/progressBarWater"
+                            style="?android:attr/progressBarStyleHorizontal"
+                            android:layout_width="0dp"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginEnd="10dp"
+                            android:max="100"
+                            android:progress="0"
+                            android:progressBackgroundTint="@color/light_purple"
+                            android:progressBackgroundTintMode="src_over"
+                            android:progressTint="@color/pop_orange"
+                            android:scaleY="1.5" />
+                    </TableRow>
+
+                    <TableRow android:layout_marginTop="10dp">
+                        <TextView
+                            android:id="@+id/textViewProgressCarbo"
                             android:layout_width="0dp"
                             android:text="0 g"
+                            android:textAlignment="center"
+                            android:textColor="@color/text_middle" />
+                        <TextView
+                            android:id="@+id/textViewProgressWater"
+                            android:layout_width="0dp"
+                            android:text="0 ml"
                             android:textAlignment="center"
                             android:textColor="@color/text_middle" />
                     </TableRow>
@@ -206,7 +243,7 @@
                 android:id="@+id/sectionButtons"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="48dp"
                 android:orientation="horizontal">
 
                 <androidx.appcompat.widget.AppCompatButton
@@ -223,237 +260,6 @@
 
         </LinearLayout>
 
-        <!-- Section details -->
-        <LinearLayout
-            android:id="@+id/sectionNutritionDetails"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
-            android:layout_marginTop="10dp"
-            android:orientation="vertical">
-
-            <!-- Section title -->
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:text="@string/dn_header_02"
-                android:textColor="@color/text_low"
-                android:textSize="20sp" />
-
-            <!-- Container for table layouts -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/shape_box_round_middle"
-                android:orientation="vertical">
-
-                <!-- Main table layout -->
-                <TableLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <TableRow
-                        android:layout_marginTop="10dp"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="30dp"
-                            android:layout_weight="1"
-                            android:text="@string/calories"
-                            android:textAlignment="viewStart"
-                            android:textColor="@color/text_middle"
-                            android:layout_marginStart="20dp"/>
-
-                        <TextView
-                            android:id="@+id/textViewDBNDetailsCalories"
-                            android:layout_width="match_parent"
-                            android:layout_height="30dp"
-                            android:layout_weight="2"
-                            android:text="0"
-                            android:textAlignment="center"
-                            android:textColor="@color/text_middle"/>
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="30dp"
-                            android:layout_weight="1"
-                            android:text="kcal"
-                            android:textAlignment="textEnd"
-                            android:textColor="@color/text_middle"
-                            android:layout_marginEnd="20dp"/>
-
-                    </TableRow>
-
-                    <TableRow
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="30dp"
-                            android:layout_weight="1"
-                            android:text="@string/protein"
-                            android:textAlignment="viewStart"
-                            android:textColor="@color/text_middle"
-                            android:layout_marginStart="20dp"/>
-
-                        <TextView
-                            android:id="@+id/textViewDBNDetailsProtein"
-                            android:layout_width="match_parent"
-                            android:layout_height="30dp"
-                            android:layout_weight="2"
-                            android:text="0"
-                            android:textAlignment="center"
-                            android:textColor="@color/text_middle"/>
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="30dp"
-                            android:layout_weight="1"
-                            android:text="g"
-                            android:textAlignment="textEnd"
-                            android:textColor="@color/text_middle"
-                            android:layout_marginEnd="20dp"/>
-                    </TableRow>
-
-                    <TableRow
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="30dp"
-                            android:layout_weight="1"
-                            android:text="@string/fat"
-                            android:textAlignment="viewStart"
-                            android:textColor="@color/text_middle"
-                            android:layout_marginStart="20dp"/>
-
-                        <TextView
-                            android:id="@+id/textViewDBNDetailsFat"
-                            android:layout_width="match_parent"
-                            android:layout_height="30dp"
-                            android:layout_weight="2"
-                            android:text="0"
-                            android:textAlignment="center"
-                            android:textColor="@color/text_middle"/>
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="30dp"
-                            android:layout_weight="1"
-                            android:text="g"
-                            android:textAlignment="textEnd"
-                            android:textColor="@color/text_middle"
-                            android:layout_marginEnd="20dp"/>
-
-                    </TableRow>
-
-                    <TableRow
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="30dp"
-                            android:layout_weight="1"
-                            android:text="@string/fat_sat"
-                            android:textAlignment="viewStart"
-                            android:textColor="@color/text_middle"
-                            android:layout_marginStart="20dp"/>
-
-                        <TextView
-                            android:id="@+id/textViewDBNDetailsFatSat"
-                            android:layout_width="match_parent"
-                            android:layout_height="30dp"
-                            android:layout_weight="2"
-                            android:text="0"
-                            android:textAlignment="center"
-                            android:textColor="@color/text_middle"/>
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="30dp"
-                            android:layout_weight="1"
-                            android:text="g"
-                            android:textAlignment="textEnd"
-                            android:textColor="@color/text_middle"
-                            android:layout_marginEnd="20dp"/>
-                    </TableRow>
-
-                    <TableRow
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="30dp"
-                            android:layout_weight="1"
-                            android:text="@string/carbs"
-                            android:textAlignment="viewStart"
-                            android:textColor="@color/text_middle"
-                            android:layout_marginStart="20dp"/>
-
-                        <TextView
-                            android:id="@+id/textViewDBNDetailsCarbs"
-                            android:layout_width="match_parent"
-                            android:layout_height="30dp"
-                            android:layout_weight="2"
-                            android:text="0"
-                            android:textAlignment="center"
-                            android:textColor="@color/text_middle"/>
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="30dp"
-                            android:layout_weight="1"
-                            android:text="g"
-                            android:textAlignment="textEnd"
-                            android:textColor="@color/text_middle"
-                            android:layout_marginEnd="20dp"/>
-                    </TableRow>
-
-                    <TableRow
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="30dp"
-                            android:layout_weight="1"
-                            android:text="@string/water"
-                            android:textAlignment="viewStart"
-                            android:textColor="@color/text_middle"
-                            android:layout_marginStart="20dp"/>
-
-                        <TextView
-                            android:id="@+id/textViewDBNDetailsWater"
-                            android:layout_width="match_parent"
-                            android:layout_height="30dp"
-                            android:layout_weight="2"
-                            android:text="0"
-                            android:textAlignment="center"
-                            android:textColor="@color/text_middle"/>
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="30dp"
-                            android:layout_weight="1"
-                            android:text="g"
-                            android:textAlignment="textEnd"
-                            android:textColor="@color/text_middle"
-                            android:layout_marginEnd="20dp"/>
-                    </TableRow>
-
-                </TableLayout>
-
-            </LinearLayout>
-
-        </LinearLayout>
 
     </LinearLayout>
 

@@ -29,7 +29,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     private static final String PRESET_MEALS_COLUMN_CALORIES = "calories";
     private static final String PRESET_MEALS_COLUMN_PROTEIN = "protein";
-    private static final String PRESET_MEALS_COLUMN_FAT = "total_fat";
     private static final String PRESET_MEALS_COLUMN_SAT_FAT = "sat_fat";
     private static final String PRESET_MEALS_COLUMN_CARBOHYDRATES = "carbohydrates";
     private static final String PRESET_MEALS_COLUMN_WATER = "water";
@@ -40,7 +39,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String CONSUMED_MEAL_TABLE_NAME = "consumed_meals";
     private static final String CONSUMED_MEAL_COLUMN_DATE = "date";
     private static final String CONSUMED_MEAL_COLUMN_AMOUNT = "amount";
-    private static final String CONSUMED_MEAL_COLUMN_PRESET_ID = "preset_id";
 
     /**
      * Table: "Settings"
@@ -48,7 +46,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String SETTINGS_TABLE_NAME = "settings_goals";
     private static final String SETTINGS_COLUMN_CALORIES_GOAL = "calories_goal";
     private static final String SETTINGS_COLUMN_PROTEIN_GOAL = "protein_goal";
-    private static final String SETTINGS_COLUMN_FAT_GOAL = "fat_goal";
     private static final String SETTINGS_COLUMN_SAT_FAT_GOAL = "sat_fat_goal";
     private static final String SETTINGS_COLUMN_CARBOHYDRATES_GOAL = "carbohydrates_goal";
     private static final String SETTINGS_COLUMN_WATER_GOAL = "water_goal";
@@ -76,7 +73,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                  + PRESET_MEALS_COLUMN_MEAL_NAME + " TEXT, "
                  + PRESET_MEALS_COLUMN_CALORIES + " REAL, "
                  + PRESET_MEALS_COLUMN_PROTEIN + " REAL, "
-                 + PRESET_MEALS_COLUMN_FAT + " REAL, "
                 + PRESET_MEALS_COLUMN_SAT_FAT + " REAL, "
                 + PRESET_MEALS_COLUMN_CARBOHYDRATES + " REAL, "
                 + PRESET_MEALS_COLUMN_WATER + " REAL);"
@@ -97,7 +93,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 + DATABASE_COLUMN_INDEX + " INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "
                 + SETTINGS_COLUMN_CALORIES_GOAL + " REAL, "
                 + SETTINGS_COLUMN_PROTEIN_GOAL + " REAL, "
-                + SETTINGS_COLUMN_FAT_GOAL + " REAL, "
                 + SETTINGS_COLUMN_SAT_FAT_GOAL + " REAL, "
                 + SETTINGS_COLUMN_CARBOHYDRATES_GOAL + " REAL, "
                 + SETTINGS_COLUMN_WATER_GOAL + " REAL);");
@@ -215,7 +210,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                             "SUM (" + PRESET_MEALS_TABLE_NAME + "." + PRESET_MEALS_COLUMN_CALORIES + " * " + CONSUMED_MEAL_TABLE_NAME + "." + CONSUMED_MEAL_COLUMN_AMOUNT + "), " +
                             "SUM (" + PRESET_MEALS_TABLE_NAME + "." + PRESET_MEALS_COLUMN_PROTEIN + " * " + CONSUMED_MEAL_TABLE_NAME + "." + CONSUMED_MEAL_COLUMN_AMOUNT + "), " +
                             "SUM (" + PRESET_MEALS_TABLE_NAME + "." + PRESET_MEALS_COLUMN_SAT_FAT + " * " + CONSUMED_MEAL_TABLE_NAME + "." + CONSUMED_MEAL_COLUMN_AMOUNT + "), " +
-                            "SUM (" + PRESET_MEALS_TABLE_NAME + "." + PRESET_MEALS_COLUMN_SAT_FAT + " * " + CONSUMED_MEAL_TABLE_NAME + "." + CONSUMED_MEAL_COLUMN_AMOUNT + "), " +
                             "SUM (" + PRESET_MEALS_TABLE_NAME + "." + PRESET_MEALS_COLUMN_CARBOHYDRATES + " * " + CONSUMED_MEAL_TABLE_NAME + "." + CONSUMED_MEAL_COLUMN_AMOUNT + "), " +
                             "SUM (" + PRESET_MEALS_TABLE_NAME + "." + PRESET_MEALS_COLUMN_WATER + " * " + CONSUMED_MEAL_TABLE_NAME + "." + CONSUMED_MEAL_COLUMN_AMOUNT + ") " +
 
@@ -238,7 +232,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         String[] nutritionNames = {
                 PRESET_MEALS_COLUMN_CALORIES,
                 PRESET_MEALS_COLUMN_PROTEIN,
-                PRESET_MEALS_COLUMN_FAT,
                 PRESET_MEALS_COLUMN_SAT_FAT,
                 PRESET_MEALS_COLUMN_CARBOHYDRATES,
                 PRESET_MEALS_COLUMN_WATER
@@ -306,7 +299,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             cursor = sqLiteDatabase.rawQuery(
                     "SELECT *" +
                     " FROM " + SETTINGS_TABLE_NAME +
-                    " WHERE " + DATABASE_COLUMN_INDEX + "=0;",
+                    " WHERE " + DATABASE_COLUMN_INDEX + "=1;",
                     null);
         }
 
@@ -333,15 +326,17 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         String[] goalNames = {
             SETTINGS_COLUMN_CALORIES_GOAL,
             SETTINGS_COLUMN_PROTEIN_GOAL,
-            SETTINGS_COLUMN_FAT_GOAL,
             SETTINGS_COLUMN_SAT_FAT_GOAL,
             SETTINGS_COLUMN_CARBOHYDRATES_GOAL,
             SETTINGS_COLUMN_WATER_GOAL,
         };
 
+
         for (int i = 0; i < goalNames.length; i++) {
             contentValues.put(goalNames[i], goals[i]);
         }
+        contentValues.put(DATABASE_COLUMN_INDEX, 1);
+
 
         long result = sqLiteDatabase.replaceOrThrow(SETTINGS_TABLE_NAME, null, contentValues);
         if (result == -1) {

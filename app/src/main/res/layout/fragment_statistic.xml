@@ -37,7 +37,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <ImageButton
-                android:id="@+id/buttonDBNCalendar"
+                android:id="@+id/buttonCalendar"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_gravity="end"
@@ -96,7 +96,7 @@
                             android:layout_marginStart="20dp"/>
 
                         <TextView
-                            android:id="@+id/textViewDBNDetailsCalories"
+                            android:id="@+id/textViewDetailsCalories"
                             android:layout_width="match_parent"
                             android:layout_height="30dp"
                             android:layout_weight="2"
@@ -123,13 +123,13 @@
                             android:layout_width="wrap_content"
                             android:layout_height="30dp"
                             android:layout_weight="1"
-                            android:text="@string/fat"
+                            android:text="@string/fat_sat"
                             android:textAlignment="viewStart"
                             android:textColor="@color/text_middle"
                             android:layout_marginStart="20dp"/>
 
                         <TextView
-                            android:id="@+id/textViewDBNDetailsFat"
+                            android:id="@+id/textViewDetailsFat"
                             android:layout_width="match_parent"
                             android:layout_height="30dp"
                             android:layout_weight="2"
@@ -162,7 +162,7 @@
                             android:layout_marginStart="20dp"/>
 
                         <TextView
-                            android:id="@+id/textViewDBNDetailsFatSat"
+                            android:id="@+id/textViewDetailsFatSat"
                             android:layout_width="match_parent"
                             android:layout_height="30dp"
                             android:layout_weight="2"
@@ -194,7 +194,7 @@
                             android:layout_marginStart="20dp"/>
 
                         <TextView
-                            android:id="@+id/textViewDBNDetailsCarbs"
+                            android:id="@+id/textViewDetailsCarbs"
                             android:layout_width="match_parent"
                             android:layout_height="30dp"
                             android:layout_weight="2"
@@ -226,7 +226,7 @@
                             android:layout_marginStart="20dp"/>
 
                         <TextView
-                            android:id="@+id/textViewDBNDetailsSugar"
+                            android:id="@+id/textViewDetailsWater"
                             android:layout_width="match_parent"
                             android:layout_height="30dp"
                             android:layout_weight="2"
@@ -258,7 +258,7 @@
                             android:layout_marginStart="20dp"/>
 
                         <TextView
-                            android:id="@+id/textViewDBNDetailsProtein"
+                            android:id="@+id/textViewDetailsProtein"
                             android:layout_width="match_parent"
                             android:layout_height="30dp"
                             android:layout_weight="2"
