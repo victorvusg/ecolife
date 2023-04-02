@@ -3,11 +3,7 @@ package com.ecolife;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Context;
 import android.content.Intent;
-import android.content.res.Configuration;
-import android.content.res.Resources;
-import android.database.Cursor;
 import android.os.Bundle;
 import android.view.MenuItem;
 
@@ -72,17 +68,16 @@ public class ActivityMain extends AppCompatActivity {
             case 0:
                 setFragmentFood(date);
                 break;
-
             case 1:
                 setFragmentSettings();
                 break;
-
             default:
                 break;
         }
 
-        // -----------------------------------------------------------------------------------------
-        // Setup navigation bar
+        /**
+         * Set up nav bar
+         */
         BottomNavigationView navBar = findViewById(R.id.bottom_navigation);
         navBar.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
@@ -94,7 +89,6 @@ public class ActivityMain extends AppCompatActivity {
                             currentFragmentID = 0;
                         }
                         return true;
-
                     case R.id.nav_bar_settings:
                         if (currentFragmentID != 1) {
                             setFragmentSettings();

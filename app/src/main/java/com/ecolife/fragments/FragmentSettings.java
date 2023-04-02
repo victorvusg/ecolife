@@ -7,11 +7,8 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Spinner;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -24,9 +21,7 @@ import com.ecolife.R;
 public class FragmentSettings extends Fragment {
 
     private double[] dataGoals;
-    private String[] languages;
     private boolean savePossible = false;
-    private boolean firstSelect = true;
 
     private Button saveButton;
 
@@ -92,11 +87,6 @@ public class FragmentSettings extends Fragment {
             dataGoals = new double[] {0, 0, 0, 0};
         }
         cursorGoals.close();
-
-        // Languages
-        languages = new String[] {
-                getResources().getString(R.string.lang_en)
-        };
     }
 
     @Override

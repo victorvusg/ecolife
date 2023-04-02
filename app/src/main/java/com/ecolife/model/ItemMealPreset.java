@@ -1,10 +1,11 @@
 package com.ecolife.model;
 
+/**
+ * Item for Adapter_MealPreset.
+ */
 public class ItemMealPreset {
 
-    /*
-    Item for Adapter_MealPreset.
-     */
+
 
     private String _mealTitle;
     private String _uuid;
