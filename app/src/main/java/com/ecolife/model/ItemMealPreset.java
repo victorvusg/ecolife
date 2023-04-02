@@ -1,4 +1,4 @@
-package com.ecolife.recyclerview;
+package com.ecolife.model;
 
 public class ItemMealPreset {
 

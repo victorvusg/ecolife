@@ -1,4 +1,4 @@
-package com.ecolife.recyclerview;
+package com.ecolife.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -13,6 +13,7 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.ecolife.R;
+import com.ecolife.model.ItemMealPreset;
 
 import java.util.List;
 

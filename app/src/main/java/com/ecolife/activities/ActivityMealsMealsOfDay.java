@@ -21,8 +21,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.ecolife.ActivityMain;
 import com.ecolife.R;
 import com.ecolife.data.DatabaseHelper;
-import com.ecolife.recyclerview.AdapterMealPresets;
-import com.ecolife.recyclerview.ItemMealPreset;
+import com.ecolife.adapter.AdapterMealPresets;
+import com.ecolife.model.ItemMealPreset;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.text.DecimalFormat;

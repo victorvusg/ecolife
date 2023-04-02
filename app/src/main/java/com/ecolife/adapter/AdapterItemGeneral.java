@@ -1,4 +1,4 @@
-package com.ecolife.recyclerview;
+package com.ecolife.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -12,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.ecolife.R;
+import com.ecolife.model.ItemGeneral;
 
 import java.util.List;
 
@@ -53,8 +54,6 @@ public class AdapterItemGeneral extends RecyclerView.Adapter<AdapterItemGeneral.
         this.itemsList = itemsList;
         this.interfaceItemEdit = interfaceItemEdit;
     }
-
-    // Functions for this class --------------------------------------------------------------------
 
     @NonNull
     @Override
