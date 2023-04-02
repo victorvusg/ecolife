@@ -16,7 +16,7 @@ import com.ecolife.R;
 
 import java.util.List;
 
-public class Adapter_MealPresets extends RecyclerView.Adapter<Adapter_MealPresets.Viewholder> {
+public class AdapterMealPresets extends RecyclerView.Adapter<AdapterMealPresets.Viewholder> {
 
     /*
     Adapter for RecyclerView in Activity_AddMeal. Used to display Item_MealPreset.
@@ -59,10 +59,10 @@ public class Adapter_MealPresets extends RecyclerView.Adapter<Adapter_MealPreset
     // ---------------------------------------------------------------------------------------------
     // Constructor of this class
 
-    private List<Item_MealPreset> mealPresetsList;
+    private List<ItemMealPreset> mealPresetsList;
     private mealPresetItemInterface itemInterface;
     private Context context;
-    public Adapter_MealPresets(List<Item_MealPreset> mealPresetsList, mealPresetItemInterface itemInterface, Context context) {
+    public AdapterMealPresets(List<ItemMealPreset> mealPresetsList, mealPresetItemInterface itemInterface, Context context) {
         this.mealPresetsList = mealPresetsList;
         this.itemInterface = itemInterface;
         this.context = context;
@@ -97,7 +97,7 @@ public class Adapter_MealPresets extends RecyclerView.Adapter<Adapter_MealPreset
     @Override
     public void onBindViewHolder(@NonNull Viewholder holder, int position) {
         // Get the data-class based on position
-        Item_MealPreset mealPreset = mealPresetsList.get(position);
+        ItemMealPreset mealPreset = mealPresetsList.get(position);
 
         // Set item views based on views and data-class
         holder.textViewMealTitle.setText(mealPreset.getMealTitle());  // Title

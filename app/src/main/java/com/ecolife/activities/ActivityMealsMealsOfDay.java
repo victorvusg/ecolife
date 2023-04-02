@@ -21,8 +21,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.ecolife.ActivityMain;
 import com.ecolife.R;
 import com.ecolife.data.DatabaseHelper;
-import com.ecolife.recyclerview.Adapter_MealPresets;
-import com.ecolife.recyclerview.Item_MealPreset;
+import com.ecolife.recyclerview.AdapterMealPresets;
+import com.ecolife.recyclerview.ItemMealPreset;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.text.DecimalFormat;
@@ -33,7 +33,7 @@ import java.util.HashMap;
 import java.util.Locale;
 
 
-public class ActivityMealsMealsOfDay extends AppCompatActivity implements Adapter_MealPresets.mealPresetItemInterface {
+public class ActivityMealsMealsOfDay extends AppCompatActivity implements AdapterMealPresets.mealPresetItemInterface {
 
     /**
      * This activity displays all meals that have been eaten at the selected date.
@@ -46,8 +46,8 @@ public class ActivityMealsMealsOfDay extends AppCompatActivity implements Adapte
     private Button saveButton;
     private Button cancelButton;
 
-    private ArrayList<Item_MealPreset> mealsList;
-    private Adapter_MealPresets adapter;
+    private ArrayList<ItemMealPreset> mealsList;
+    private AdapterMealPresets adapter;
     private HashMap<String, Double> mealsStart = new HashMap<>();
 
     private DatabaseHelper databaseHelper;
@@ -89,14 +89,14 @@ public class ActivityMealsMealsOfDay extends AppCompatActivity implements Adapte
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         // Load data from database -----------------------------------------------------------------
-        mealsList = new ArrayList<Item_MealPreset>();
+        mealsList = new ArrayList<ItemMealPreset>();
 
         databaseHelper = new DatabaseHelper(ActivityMealsMealsOfDay.this);
         Cursor cursor = databaseHelper.getConsumedMeals(date);
 
         if (cursor.getCount() > 0) {
             while (cursor.moveToNext()) {
-                mealsList.add(cursor.getPosition(), new Item_MealPreset(
+                mealsList.add(cursor.getPosition(), new ItemMealPreset(
                         cursor.getString(1),  // Title
                         cursor.getString(0),  // UUID
                         (int) cursor.getDouble(2),  // Calories
@@ -108,7 +108,7 @@ public class ActivityMealsMealsOfDay extends AppCompatActivity implements Adapte
         }
         cursor.close();
 
-        adapter = new Adapter_MealPresets(mealsList, this, getApplicationContext());
+        adapter = new AdapterMealPresets(mealsList, this, getApplicationContext());
 
         RecyclerView recyclerViewMeals = findViewById(R.id.recyclerViewMealsEaten);
         recyclerViewMeals.setAdapter(adapter);
@@ -134,7 +134,7 @@ public class ActivityMealsMealsOfDay extends AppCompatActivity implements Adapte
                 if (savePossible) {
                     savePossible = false;
 
-                    for (Item_MealPreset currentMeal : mealsList) {
+                    for (ItemMealPreset currentMeal : mealsList) {
                         String currentUUID = currentMeal.getMealUUID();
                         double currentAmount = currentMeal.getAmount();
                         double startAmount = mealsStart.get(currentUUID);

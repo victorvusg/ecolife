@@ -15,7 +15,7 @@ import com.ecolife.R;
 
 import java.util.List;
 
-public class Adapter_Item_General_001 extends RecyclerView.Adapter<Adapter_Item_General_001.Viewholder> {
+public class AdapterItemGeneral extends RecyclerView.Adapter<AdapterItemGeneral.Viewholder> {
 
     /**
      * This class is the recyclerview-adapter for the item item_005.
@@ -46,10 +46,10 @@ public class Adapter_Item_General_001 extends RecyclerView.Adapter<Adapter_Item_
 
     // Constructor of this class -------------------------------------------------------------------
 
-    private List<Item_General_001> itemsList;
+    private List<ItemGeneral> itemsList;
     private Interface_Item_Edit interfaceItemEdit;
 
-    public Adapter_Item_General_001(List<Item_General_001> itemsList, Interface_Item_Edit interfaceItemEdit) {
+    public AdapterItemGeneral(List<ItemGeneral> itemsList, Interface_Item_Edit interfaceItemEdit) {
         this.itemsList = itemsList;
         this.interfaceItemEdit = interfaceItemEdit;
     }
@@ -72,7 +72,7 @@ public class Adapter_Item_General_001 extends RecyclerView.Adapter<Adapter_Item_
     @Override
     public void onBindViewHolder(@NonNull Viewholder holder, int position) {
         // Get the data-class based on position
-        Item_General_001 item = itemsList.get(position);
+        ItemGeneral item = itemsList.get(position);
 
         // Set item views based on views and data-class
         String itemTitle = item.getTitle();

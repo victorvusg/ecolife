@@ -1,10 +1,10 @@
 package com.ecolife.recyclerview;
 
-public class Item_General_001 {
+public class ItemGeneral {
 
     private String title;
 
-    public Item_General_001(String title) {
+    public ItemGeneral(String title) {
         this.title = title;
     }
 

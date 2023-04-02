@@ -132,7 +132,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         sqLiteDatabase.execSQL("CREATE TABLE " + TABLE_PMC + " (" + COL_PMC_NAME + " TEXT PRIMARY KEY);");
 
-        // Create table dailymeals
+        // Create table daily meals
         sqLiteDatabase.execSQL("CREATE TABLE " + TABLE_CM + " ("
                 + COL_CM_DATE + " TEXT, "
                 + COL_CM_INDEX + " TEXT, "
