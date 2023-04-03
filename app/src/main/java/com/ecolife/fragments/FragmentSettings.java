@@ -15,6 +15,7 @@ import androidx.fragment.app.Fragment;
 
 import com.ecolife.ActivityMain;
 import com.ecolife.R;
+import com.ecolife.utils.Common;
 
 public class FragmentSettings extends Fragment {
 
@@ -46,16 +47,6 @@ public class FragmentSettings extends Fragment {
 
             // Update background resource of save button
             enableSaveButton();
-        }
-    }
-
-    private String convertDataToText(double value) {
-        // Convert given double to string.
-        // Check if double value has ".0" decimals. If yes cut it out.
-        if (value % 1 == 0) {
-            return String.valueOf((int) value);
-        } else {
-            return String.valueOf(value);
         }
     }
 
@@ -97,22 +88,19 @@ public class FragmentSettings extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         // Nutrition goal settings
-        EditText editTextCalories = getView().findViewById(R.id.editTextSettingsGoalsCal);
-        editTextCalories.setText(convertDataToText(dataGoals[0]));
-        editTextCalories.addTextChangedListener(new textWatcher(0));
 
-        EditText editTextFat = getView().findViewById(R.id.editTextSettingsGoalsFat);
-        editTextFat.setText(convertDataToText(dataGoals[1]));
-        editTextFat.addTextChangedListener(new textWatcher(1));
+        int[] editViews = {
+            R.id.editTextSettingsGoalsCal,
+            R.id.editTextSettingsGoalsFat,
+            R.id.editTextSettingsGoalsCarbs,
+            R.id.editTextSettingsGoalsProtein
+        };
 
-        EditText editTextCarbs = getView().findViewById(R.id.editTextSettingsGoalsCarbs);
-        editTextCarbs.setText(convertDataToText(dataGoals[2]));
-        editTextCarbs.addTextChangedListener(new textWatcher(2));
-
-        EditText editTextProtein = getView().findViewById(R.id.editTextSettingsGoalsProtein);
-        editTextProtein.setText(convertDataToText(dataGoals[3]));
-        editTextProtein.addTextChangedListener(new textWatcher(3));
-
+        for (int i = 0; i < editViews.length; i++) {
+            EditText editTextCalories = getView().findViewById(editViews[i]);
+            editTextCalories.setText(Common.convertDataToText(dataGoals[i]));
+            editTextCalories.addTextChangedListener(new textWatcher(i));
+        }
 
         // Button
         saveButton = getView().findViewById(R.id.buttonSaveSettings);

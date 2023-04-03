@@ -24,11 +24,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.ecolife.ActivityMain;
 import com.ecolife.R;
 import com.ecolife.data.DatabaseHelper;
-import com.ecolife.adapter.AdapterMealPresets;
+import com.ecolife.utils.AdapterMealPresets;
 import com.ecolife.model.ItemMealPreset;
+import com.ecolife.utils.Common;
 import com.google.android.material.snackbar.Snackbar;
 
-import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -57,18 +57,6 @@ public class ActivityMealsAddDailyEntry extends AppCompatActivity implements Ada
     private AdapterMealPresets adapterPresets;
 
     private DatabaseHelper databaseHelper;
-
-    private String convertDataToText(double value) {
-        // Convert given double to string.
-        if (value % 1 == 0) {
-            // -> Value has only .0 decimals. Cut it out by converting to int.
-            return String.valueOf((int) value);
-        } else {
-            // -> Value has decimals. Round up to 2 decimal-digits.
-            DecimalFormat df = new DecimalFormat("#####.##");
-            return String.valueOf(df.format(value));
-        }
-    }
 
     private String[] loadMealCategoriesFromDatabase() {
         Cursor cursorCat = databaseHelper.getPresetMealCategories();
@@ -272,7 +260,7 @@ public class ActivityMealsAddDailyEntry extends AppCompatActivity implements Ada
 
         EditText editTextPlanName = view.findViewById(R.id.dialogEditText);
         if (mealsPresetList.get(itemPosition).getAmount() != 0) {
-            editTextPlanName.setText(convertDataToText(mealsPresetList.get(itemPosition).getAmount()));
+            editTextPlanName.setText(Common.convertDataToText(mealsPresetList.get(itemPosition).getAmount()));
         }
         editTextPlanName.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
 

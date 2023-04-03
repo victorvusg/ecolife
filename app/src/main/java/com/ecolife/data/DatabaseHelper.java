@@ -48,21 +48,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String COL_S_GOAL_CARBS = "goal_carbs";
     private static final String COL_S_GOAL_PROTEIN = "goal_protein";
 
-    private static final String COL_S_LANG = "language";
-
-
     // Constructor ---------------------------------------------------------------------------------
     public DatabaseHelper(@Nullable Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
         this.context = context;
     }
 
-    // Class default overwrite methods -------------------------------------------------------------
 
-    /** This method will be called upon creation of the database. This method will create all the
-     * necessary tables inside the database and prepopulate some tables.
-     *
-     * @param sqLiteDatabase: SQLiteDatabase that is created
+    /**
+     * @param sqLiteDatabase
      */
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
@@ -100,12 +94,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         // Add preset data to tables ---------------------------------------------------------------
 
-        // Preset meals
-        // -> Format: index + name + 6 main values + 22 optional values
-        // -> ('index', 'name', 'category', cal, fat, fatsat, carbs, sugar, protein, salt, fiber, cholesterin, creatine, ca, fe, k_potassium, mg, mn, na_sodium, phosphor, zn, vita, vitb1, b2, b3, b5, b6, b7, b11, b12, c, e, k, h)
-        // -> Preset meals indices have always 1 digit more (7 digits in total) than user created meals to prevent overlaps
-        sqLiteDatabase.execSQL("INSERT INTO " + TABLE_PM + " VALUES('000000000', 'Apple (100 g)', 'Fruits and Vegetables', 52, 0.17, 0, 13.81, 10.39, 0.26, 0, 2.4, 0, 0, 6, 0.12, 107, 5, 0.035, 1, 11, 0.04, 0.003, 0.017, 0.026, 0.091, 0.061, 0.041, 0, 0, 0, 4.6, 0.18, 0.022, 0)");
-        sqLiteDatabase.execSQL("INSERT INTO " + TABLE_PM + " VALUES('000000001', 'Banana (100 g)', 'Fruits and Vegetables', 95.0, 0.33, 0.0, 22.84, 12.23, 1.0, 0.0, 2.6, 0.0, 0.0, 5.0, 0.26, 358.0, 27.0, 0.0, 0.0, 22.0, 0.15, 0.003, 0.031, 0.073, 0.665, 0.334, 0.367, 0.0, 0.0, 0.0, 8.7, 0.0, 0.0, 0.0)");
+        sqLiteDatabase.execSQL("INSERT INTO " + TABLE_PM + " VALUES('000000000', 'Apple (100 g)', 'Fruits and Vegetables', 52, 0.17, 0, 13.81, 10.39, 0.26)");
+        sqLiteDatabase.execSQL("INSERT INTO " + TABLE_PM + " VALUES('000000001', 'Banana (100 g)', 'Fruits and Vegetables', 95.0, 0.33, 0.0, 22.84, 12.23, 1.0)");
 
         // Add meal categories
         sqLiteDatabase.execSQL("INSERT INTO " + TABLE_PMC + " VALUES('Fruits and Vegetables');");
@@ -120,16 +110,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         sqLiteDatabase.execSQL("INSERT INTO " + TABLE_PMC + " VALUES('Custom');");
 
         // Settings
-        // -> (index, calories, carbs, fat, protein). First value is index. Must always be 0.
-        sqLiteDatabase.execSQL("INSERT INTO " + TABLE_S_GOAL + " VALUES(0, 2500, 200, 100, 160)");
-
+        sqLiteDatabase.execSQL("INSERT INTO " + TABLE_S_GOAL + " VALUES(0, 2500, 200, 100, 80)");
     }
 
-    /** This method will be called upon upgrading the database from one version to a higher one.
+    /**
      *
-     * @param sqLiteDatabase: SQLiteDatabase; The SQLiteDatabase to upgrade.
-     * @param oldVersion: Integer; The old version number of the database to upgrade from.
-     * @param newVersion: Integer; The new version number of the database to upgrade to.
+     * @param sqLiteDatabase
+     * @param oldVersion
+     * @param newVersion
      */
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int oldVersion, int newVersion) {
@@ -144,43 +132,52 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
 
-    // Meals Query's -------------------------------------------------------------------------------
-
+    /**
+     *
+     * @return index, name, calories from table "foods" in ascending order by name
+     */
     public Cursor getPresetMealsSimpleAllCategories() {
-        // -> Return index, name, calories from table "foods" in ascending order by name
-
         SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
         Cursor cursor = null;
 
         if (sqLiteDatabase != null) {
             cursor = sqLiteDatabase.rawQuery(
-                    "SELECT " + COL_PM_INDEX + ", " + COL_PM_NAME + ", " + COL_PM_CALORIES + " FROM " + TABLE_PM + " ORDER BY " + COL_PM_NAME +  " ASC LIMIT 100;",
-                    null
+                "SELECT " + COL_PM_INDEX + ", " + COL_PM_NAME + ", " + COL_PM_CALORIES
+                    + " FROM " + TABLE_PM + " ORDER BY " + COL_PM_NAME +  " ASC LIMIT 100;",
+                null
             );
         }
-
         return cursor;
     }
 
+    /**
+     * index, name, calories from specified category table "foods" in ascending order by name
+     * @param category
+     * @return
+     */
     public Cursor getPresetMealsSimpleFromCategory(String category) {
-        // -> Return index, name, calories from specified category table "foods" in ascending order by name
-
         SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
         Cursor cursor = null;
 
         if (sqLiteDatabase != null) {
             cursor = sqLiteDatabase.rawQuery(
-                    "SELECT " + COL_PM_INDEX + ", " + COL_PM_NAME + ", " + COL_PM_CALORIES + " FROM " + TABLE_PM + " WHERE " + COL_PM_CATEGORY + "='" + category + "'" + " ORDER BY " + COL_PM_NAME +  " ASC;",
-                    null
+                "SELECT " + COL_PM_INDEX + ", " + COL_PM_NAME + ", " + COL_PM_CALORIES
+                + " FROM " + TABLE_PM
+                + " WHERE " + COL_PM_CATEGORY + "='" + category + "'"
+                + " ORDER BY " + COL_PM_NAME
+                +  " ASC;",
+            null
             );
         }
-
         return cursor;
     }
 
+    /**
+     * Returns all Details for a preset meal with given UUID
+     * @param foodUUID
+     * @return
+     */
     public Cursor getPresetMealDetails(String foodUUID) {
-        // -> Returns all Details for a preset meal with given UUID
-
         SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
         Cursor cursor = null;
 
@@ -191,9 +188,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return cursor;
     }
 
+    /**
+     * Returns all Details for a preset meal with given UUID
+     * @return
+     */
     public Cursor getPresetMealCategories() {
-        // -> Returns all Details for a preset meal with given UUID
-
         SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
         Cursor cursor = null;
 
@@ -204,9 +203,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return cursor;
     }
 
+    /**
+     * index, name, calories, amount for all consumed meals for a given date
+     * @param date
+     * @return
+     */
     public Cursor getConsumedMeals(String date) {
-        // -> Returns index, name, calories, amount for all consumed meals for a given date
-
         SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
         Cursor cursor = null;
 
@@ -224,9 +226,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return cursor;
     }
 
+    /**
+     * Returns sum of all details of all consumed meals for a given date
+     * @param date
+     * @return
+     */
     public Cursor getConsumedMealsSums(String date) {
-        // -> Returns sum of all details of all consumed meals for a given date
-
         SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
         Cursor cursor = null;
 
@@ -249,9 +254,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return cursor;
     }
 
+    /**
+     * Inserts new preset meal to database
+     * @param uuid
+     * @param name
+     * @param category
+     * @param data
+     */
     public void addOrReplacePresetMeal(String uuid, String name, String category, double[] data) {
-        // -> Inserts new preset meal to database
-
         // Get database
         SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
 
@@ -278,6 +288,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     }
 
+    /**
+     *
+     * @param date
+     * @param mealUUID
+     * @param amount
+     */
     public void addOrReplaceConsumedMeal(String date, String mealUUID, double amount) {
         SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
@@ -289,6 +305,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         sqLiteDatabase.replaceOrThrow(TABLE_CM, null, cv);
     }
 
+    /**
+     *
+     * @param date
+     * @param mealUUID
+     */
     public void removeConsumedMeal(String date, String mealUUID) {
         SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
         if (sqLiteDatabase != null) {
@@ -296,7 +317,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
     }
 
-
+    /**
+     *
+     * @return
+     */
     public Cursor getSettingsGoals() {
         SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
         Cursor cursor = null;
@@ -311,6 +335,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return cursor;
     }
 
+    /**
+     *
+     * @param goalCalories
+     * @param goalFat
+     * @param goalCarbs
+     * @param goalProtein
+     */
     public void setSettingsGoals(double goalCalories, double goalFat, double goalCarbs, double goalProtein) {
         // Get database
         SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();

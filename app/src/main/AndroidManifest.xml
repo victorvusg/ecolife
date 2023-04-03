@@ -25,11 +25,6 @@
             android:screenOrientation="sensorPortrait"
             android:parentActivityName="com.ecolife.activities.ActivityMealsAddDailyEntry" />
         <activity
-            android:name="com.ecolife.activities.ActivityCalendar"
-            android:exported="false"
-            android:screenOrientation="sensorPortrait"
-            android:parentActivityName="com.ecolife.ActivityMain" />
-        <activity
             android:name="com.ecolife.ActivityMain"
             android:screenOrientation="sensorPortrait"
             android:exported="true">

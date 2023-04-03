@@ -18,6 +18,7 @@ import androidx.appcompat.widget.Toolbar;
 
 import com.ecolife.R;
 import com.ecolife.data.DatabaseHelper;
+import com.ecolife.utils.Common;
 
 import java.text.DecimalFormat;
 import java.util.Arrays;
@@ -35,7 +36,7 @@ public class ActivityMealsCreateEditPreset extends AppCompatActivity implements 
     private String mealUUID;
     private String[] mealCategories;
     private String selectedMealCategory;
-    private double[] mealData = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+    private double[] mealData = {0, 0, 0, 0, 0, 0};
     private boolean savePossible = false;
     private String date;
     private String mode = "create";
@@ -102,18 +103,6 @@ public class ActivityMealsCreateEditPreset extends AppCompatActivity implements 
         return loadedCategories;
     }
 
-    private String convertDataToText(double value) {
-        // Convert given double to string.
-        if (value % 1 == 0) {
-            // -> Value has only .0 decimals. Cut it out by converting to int.
-            return String.valueOf((int) value);
-        } else {
-            // -> Value has decimals. Round up to 2 decimal-digits.
-            DecimalFormat df = new DecimalFormat("#####.##");
-            return String.valueOf(df.format(value));
-        }
-    }
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -151,15 +140,12 @@ public class ActivityMealsCreateEditPreset extends AppCompatActivity implements 
                     mealName = cursorData.getString(1);
                     selectedMealCategory = cursorData.getString(2);
                     mealData = new double[]{
-                            cursorData.getDouble(3), cursorData.getDouble(4),
-                            cursorData.getDouble(5), cursorData.getDouble(6), cursorData.getDouble(7), cursorData.getDouble(8),
-                            cursorData.getDouble(9), cursorData.getDouble(10), cursorData.getDouble(11), cursorData.getDouble(12),
-                            cursorData.getDouble(13), cursorData.getDouble(14), cursorData.getDouble(15), cursorData.getDouble(16),
-                            cursorData.getDouble(17), cursorData.getDouble(18), cursorData.getDouble(19), cursorData.getDouble(20),
-                            cursorData.getDouble(21), cursorData.getDouble(22), cursorData.getDouble(23), cursorData.getDouble(24),
-                            cursorData.getDouble(25), cursorData.getDouble(26), cursorData.getDouble(27), cursorData.getDouble(28),
-                            cursorData.getDouble(29), cursorData.getDouble(30), cursorData.getDouble(31), cursorData.getDouble(32),
-                            cursorData.getDouble(33)
+                            cursorData.getDouble(3),
+                            cursorData.getDouble(4),
+                            cursorData.getDouble(5),
+                            cursorData.getDouble(6),
+                            cursorData.getDouble(7),
+                            cursorData.getDouble(8),
                     };
                 }
                 cursorData.close();
@@ -178,32 +164,21 @@ public class ActivityMealsCreateEditPreset extends AppCompatActivity implements 
         }
         editTextMealName.addTextChangedListener(new textWatcher(0));
 
-        // TODO: Add new edit texts for new items
-        EditText editTextCalories = findViewById(R.id.editTextCalories);
-        editTextCalories.setHint(convertDataToText(mealData[0]));
-        editTextCalories.addTextChangedListener(new textWatcher(1));
+        int[] editTextWatchers = {
+            R.id.editTextCalories,
+            R.id.editTextFat,
+            R.id.editTextFatSat,
+            R.id.editTextCarbs,
+            R.id.editTextSugar,
+            R.id.editTextProtein
+        };
 
-        EditText editTextFat = findViewById(R.id.editTextFat);
-        editTextFat.setHint(convertDataToText(mealData[1]));
-        editTextFat.addTextChangedListener(new textWatcher(2));
+        for (int i = 0; i < editTextWatchers.length; i++) {
+            EditText editTextCalories = findViewById(editTextWatchers[i]);
+            editTextCalories.setHint(Common.convertDataToText(mealData[i]));
+            editTextCalories.addTextChangedListener(new textWatcher(i + 1));
+        }
 
-        EditText editTexFatSat = findViewById(R.id.editTextFatSat);
-        editTexFatSat.setHint(convertDataToText(mealData[2]));
-        editTexFatSat.addTextChangedListener(new textWatcher(3));
-
-        EditText editTextCarbs = findViewById(R.id.editTextCarbs);
-        editTextCarbs.setHint(convertDataToText(mealData[3]));
-        editTextCarbs.addTextChangedListener(new textWatcher(4));
-
-        EditText editTextSugar = findViewById(R.id.editTextSugar);
-        editTextSugar.setHint(convertDataToText(mealData[4]));
-        editTextSugar.addTextChangedListener(new textWatcher(5));
-
-        EditText editTextProtein = findViewById(R.id.editTextProtein);
-        editTextProtein.setHint(convertDataToText(mealData[5]));
-        editTextProtein.addTextChangedListener(new textWatcher(6));
-
-        // -----------------------------------------------------------------------------------------
         // Set up toolbar
         Toolbar toolbarActivityCreateMeal = (Toolbar) findViewById(R.id.toolbarActivityCreateMeal);
         if (mode.equals("create")) {
@@ -216,7 +191,6 @@ public class ActivityMealsCreateEditPreset extends AppCompatActivity implements 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
-        // -----------------------------------------------------------------------------------------
         // Set up buttons
         saveButton = findViewById(R.id.buttonSaveNewMeal);
         saveButton.setOnClickListener(new View.OnClickListener() {
@@ -233,7 +207,6 @@ public class ActivityMealsCreateEditPreset extends AppCompatActivity implements 
 
                     // If UUID does not exist, create one
                     if (mealUUID == null) {
-                        // Get only first 8 digits from UUID (no need for long "123e4567-e89b-42d3-a456-556642440000")
                         mealUUID = UUID.randomUUID().toString().substring(0, 8);
                     }
 
@@ -258,7 +231,6 @@ public class ActivityMealsCreateEditPreset extends AppCompatActivity implements 
                 if (date != null) {
                     intent.putExtra("date", date);
                 }
-                // intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);  // Start activity without animation
                 startActivity(intent);
             }
         });
@@ -271,7 +243,13 @@ public class ActivityMealsCreateEditPreset extends AppCompatActivity implements 
         super.onDestroy();
     }
 
-    // Methods from imported spinner interface -----------------------------------------------------
+    /**
+     * Methods from imported spinner interface
+     * @param adapterView
+     * @param view
+     * @param position
+     * @param l
+     */
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
         selectedMealCategory = mealCategories[position];

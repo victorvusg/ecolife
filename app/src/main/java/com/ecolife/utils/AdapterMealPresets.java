@@ -1,4 +1,4 @@
-package com.ecolife.adapter;
+package com.ecolife.utils;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -69,19 +69,6 @@ public class AdapterMealPresets extends RecyclerView.Adapter<AdapterMealPresets.
         this.context = context;
     }
 
-    // ---------------------------------------------------------------------------------------------
-    // Functions for this class
-
-    private String convertDataToText(double value) {
-        // Convert given double to string.
-        // Check if double value has ".0" decimals. If yes cut it out.
-        if (value % 1 == 0) {
-            return String.valueOf((int) value);
-        } else {
-            return String.valueOf(value);
-        }
-    }
-
     @NonNull
     @Override
     public Viewholder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -103,7 +90,7 @@ public class AdapterMealPresets extends RecyclerView.Adapter<AdapterMealPresets.
         // Set item views based on views and data-class
         holder.textViewMealTitle.setText(mealPreset.getMealTitle());  // Title
         holder.textViewCalories.setText(String.valueOf(mealPreset.getCalories()));  // Calories
-        holder.textViewAmount.setText(convertDataToText(mealPreset.getAmount()));
+        holder.textViewAmount.setText(Common.convertDataToText(mealPreset.getAmount()));
 
         if (mealPreset.getAmount() > 0) {
             holder.buttonAdd.setColorFilter(ContextCompat.getColor(context, R.color.text_middle));
@@ -126,8 +113,6 @@ public class AdapterMealPresets extends RecyclerView.Adapter<AdapterMealPresets.
         holder.buttonAdd.setOnClickListener(view -> {
             // Increase amount
             mealPreset.setAmount(mealPreset.getAmount() + 1);
-            // holder.editTextAmount.setText(convertDataToText(mealPreset.getAmount()));
-
             holder.itemInterface.updateItemAmount(holder.getAdapterPosition(), mealPreset.getMealUUID(), mealPreset.getAmount());
         });
 
