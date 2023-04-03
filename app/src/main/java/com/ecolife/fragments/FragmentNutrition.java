@@ -48,19 +48,16 @@ public class FragmentNutrition extends Fragment {
     }
 
     /**
-     *
+     * Convert given double to string
      * @param value
      * @return
      */
     private String convertDataToDoubleText(double value) {
-        // Convert given double to string.
-        if (value % 1 == 0) {
-            // -> Value has only .0 decimals. Cut it out by converting to int.
-            return String.valueOf((int) value);
+        if (value % 1 != 0) {
+            DecimalFormat decimalFormat = new DecimalFormat("#####.##");
+            return decimalFormat.format(value);
         } else {
-            // -> Value has decimals. Round up to 2 decimal-digits.
-            DecimalFormat df = new DecimalFormat("#####.##");
-            return String.valueOf(df.format(value));
+            return String.valueOf((int) value);
         }
     }
 
@@ -72,7 +69,6 @@ public class FragmentNutrition extends Fragment {
     private String convertDataToIntText(double value) {
         return String.valueOf((int) value);
     }
-
 
     /**
      *
@@ -93,22 +89,25 @@ public class FragmentNutrition extends Fragment {
         DateTimeFormatter date = DateTimeFormatter.ofPattern("dd-MM-yyyy");
         LocalDateTime now = LocalDateTime.now();
 
-        // Load data from database
+        // Get today nutrients from databases
         Cursor cursorDataFood = ((ActivityMain) requireContext())
                 .databaseHelper
                 .getConsumedMealsSums(date.format(now));
+
+        // Store data to class variable "dataFood", if no data, fallback with 0
         if (cursorDataFood.getCount() > 0) {
             cursorDataFood.moveToFirst();
-            dataFood = new double[31];
-            for (int i = 0; i <= 30; i++) {
+            dataFood = new double[6];
+            for (int i = 0; i < 6; i++) {
                 dataFood[i] = cursorDataFood.getDouble(i);
             }
-
         } else {
-            dataFood = new double[] {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+            dataFood = new double[] {0, 0, 0, 0, 0, 0, 0};
         }
         cursorDataFood.close();
 
+
+        // Get goals from database, fallback with 1
         Cursor cursorSettings = ((ActivityMain) requireContext()).databaseHelper.getSettingsGoals();
         if (cursorSettings.getCount() > 0) {
             cursorSettings.moveToFirst();
@@ -119,14 +118,14 @@ public class FragmentNutrition extends Fragment {
                     cursorSettings.getDouble(3)  // Goal Protein
             };
         } else {
-            dataGoals = new double[] {2000, 2000, 2000, 2000};
+            dataGoals = new double[] {1, 1, 1, 1};
         }
         cursorSettings.close();
 
     }
 
     /**
-     *
+     * Inflate the layout for this fragment
      * @param inflater
      * @param container
      * @param savedInstanceState
@@ -135,13 +134,18 @@ public class FragmentNutrition extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_nutrition, container, false);
     }
 
+    /**
+     *
+     * @param view
+     * @param savedInstanceState
+     */
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        // Set values for main-dashboard
+
+        // Dashboard view
         ProgressBar progressBarMain = getView().findViewById(R.id.progressBarDBNCaloriesMain);
         TextView textProgressMain = getView().findViewById(R.id.textViewDNCaloriesMain);
         ObjectAnimator.ofInt(progressBarMain, "progress", percentOf(dataFood[0], dataGoals[0])).start();
@@ -165,25 +169,23 @@ public class FragmentNutrition extends Fragment {
         String textProtein = convertDataToIntText(dataFood[5]) + " g";
         textProgressProtein.setText(textProtein);
 
-        // Set values for details-dashboard
-        TextView textViewDetailsCal = getView().findViewById(R.id.textViewDBNDetailsCalories);
-        textViewDetailsCal.setText(convertDataToDoubleText(dataFood[0]));
 
-        TextView textViewDetailsFat = getView().findViewById(R.id.textViewDBNDetailsFat);
-        textViewDetailsFat.setText(convertDataToDoubleText(dataFood[1]));
+        // Table view
+        int[] tableViews = {
+                R.id.textViewDBNDetailsCalories,
+                R.id.textViewDBNDetailsFat,
+                R.id.textViewDBNDetailsFatSat,
+                R.id.textViewDBNDetailsCarbs,
+                R.id.textViewDBNDetailsSugar,
+                R.id.textViewDBNDetailsProtein
+        };
 
-        TextView textViewDetailsFatSat = getView().findViewById(R.id.textViewDBNDetailsFatSat);
-        textViewDetailsFatSat.setText(convertDataToDoubleText(dataFood[2]));
+        for (int i = 0; i < tableViews.length; i++) {
+            TextView textViewDetailsCal = getView().findViewById(tableViews[i]);
+            textViewDetailsCal.setText(convertDataToDoubleText(dataFood[i]));
+        }
 
-        TextView textViewDetailsCarbs = getView().findViewById(R.id.textViewDBNDetailsCarbs);
-        textViewDetailsCarbs.setText(convertDataToDoubleText(dataFood[3]));
-
-        TextView textViewDetailsSugar = getView().findViewById(R.id.textViewDBNDetailsSugar);
-        textViewDetailsSugar.setText(convertDataToDoubleText(dataFood[4]));
-
-        TextView textViewDetailsProtein = getView().findViewById(R.id.textViewDBNDetailsProtein);
-        textViewDetailsProtein.setText(convertDataToDoubleText(dataFood[5]));
-
+        // Initialize button view today view
         Button buttonShowEatenMeals = getView().findViewById(R.id.buttonEatenMeals);
         buttonShowEatenMeals.setOnClickListener(new View.OnClickListener() {
             @Override

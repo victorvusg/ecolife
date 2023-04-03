@@ -30,31 +30,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String COL_PM_CARBS = "carbs";
     private static final String COL_PM_SUGAR = "sugar";
     private static final String COL_PM_PROTEIN = "protein";
-    private static final String COL_PM_SALT = "salt";
-    private static final String COL_PM_FIBER = "fiber";
-    private static final String COL_PM_CHOL = "cholesterin";  // in mg
-    private static final String COL_PM_CREATINE = "creatine";
-    private static final String COL_PM_CA = "calcium";  // in mg
-    private static final String COL_PM_FE = "iron";  // in mg
-    private static final String COL_PM_K = "kalium";  // in mg
-    private static final String COL_PM_MG = "magnesium";  // in mg
-    private static final String COL_PM_MN = "mangan";  // in mg
-    private static final String COL_PM_NA = "natrium";  // in mg
-    private static final String COL_PM_P = "phosphor";  // in mg
-    private static final String COL_PM_ZN = "zinc";  // in mg
-    private static final String COL_PM_VIT_A = "vit_a"; // in mg
-    private static final String COL_PM_VIT_B1 = "vit_b1"; // in mg
-    private static final String COL_PM_VIT_B2 = "vit_b2"; // in mg
-    private static final String COL_PM_VIT_B3 = "vit_b3";  // (Niacin) in mg
-    private static final String COL_PM_VIT_B5 = "vit_b5";  // (Pantothensäure) in mg
-    private static final String COL_PM_VIT_B6 = "vit_b6";  // in mg
-    private static final String COL_PM_VIT_B7 = "vit_b7";  // (Biotin) in mg
-    private static final String COL_PM_VIT_B11 = "vit_b11";  // (Folsäure, B9) in mg
-    private static final String COL_PM_VIT_B12 = "vit_b12";  // in mg
-    private static final String COL_PM_VIT_C = "vit_c";  // in mg
-    private static final String COL_PM_VIT_E = "vit_e";  // in mg
-    private static final String COL_PM_VIT_K = "vit_k";  // in mg
-    private static final String COL_PM_VIT_H = "vit_h";  // (Biotin) in mg
 
     private static final String TABLE_PMC = "meal_categories";
     private static final String COL_PMC_NAME = "name";
@@ -102,32 +77,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                  + COL_PM_FAT_SAT + " REAL, "
                  + COL_PM_CARBS + " REAL, "
                  + COL_PM_SUGAR + " REAL, "
-                 + COL_PM_PROTEIN + " REAL, "
-                 + COL_PM_SALT + " REAL, "
-                 + COL_PM_FIBER + " REAL, "
-                 + COL_PM_CHOL + " REAL, "
-                 + COL_PM_CREATINE + " REAL, "
-                 + COL_PM_CA + " REAL, "
-                 + COL_PM_FE + " REAL, "
-                 + COL_PM_K + " REAL, "
-                 + COL_PM_MG + " REAL, "
-                 + COL_PM_MN + " REAL, "
-                 + COL_PM_NA + " REAL, "
-                 + COL_PM_P + " REAL, "
-                 + COL_PM_ZN + " REAL, "
-                 + COL_PM_VIT_A + " REAL, "
-                 + COL_PM_VIT_B1 + " REAL, "
-                 + COL_PM_VIT_B2 + " REAL, "
-                 + COL_PM_VIT_B3 + " REAL, "
-                 + COL_PM_VIT_B5 + " REAL, "
-                 + COL_PM_VIT_B6 + " REAL, "
-                 + COL_PM_VIT_B7 + " REAL, "
-                 + COL_PM_VIT_B11 + " REAL, "
-                 + COL_PM_VIT_B12 + " REAL, "
-                 + COL_PM_VIT_C + " REAL, "
-                 + COL_PM_VIT_E + " REAL, "
-                 + COL_PM_VIT_K + " REAL, "
-                 + COL_PM_VIT_H + " REAL);"
+                 + COL_PM_PROTEIN + " REAL);"
         );
 
         sqLiteDatabase.execSQL("CREATE TABLE " + TABLE_PMC + " (" + COL_PMC_NAME + " TEXT PRIMARY KEY);");
@@ -281,9 +231,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         Cursor cursor = null;
 
         if (sqLiteDatabase != null) {
-
-            // SELECT (food.calories * dailymeals.amount) [other columns here] FROM dailymeals LEFT JOIN food ON dailymeals.food_index=food.food_index WHERE dailymeals.date=date;
-            // Returns -> | food.food_index | food.name | food.cal | food.fat | food.fat_sat | food.carbs | food.sugar | food.protein | dailymeals.amount |
             cursor = sqLiteDatabase.rawQuery(
                     "SELECT " +
                             "SUM (" + TABLE_PM + "." + COL_PM_CALORIES + " * " + TABLE_CM + "." + COL_CM_AMOUNT + "), " +
@@ -291,35 +238,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                             "SUM (" + TABLE_PM + "." + COL_PM_FAT_SAT + " * " + TABLE_CM + "." + COL_CM_AMOUNT + "), " +
                             "SUM (" + TABLE_PM + "." + COL_PM_CARBS + " * " + TABLE_CM + "." + COL_CM_AMOUNT + "), " +
                             "SUM (" + TABLE_PM + "." + COL_PM_SUGAR + " * " + TABLE_CM + "." + COL_CM_AMOUNT + "), " +
-                            "SUM (" + TABLE_PM + "." + COL_PM_PROTEIN + " * " + TABLE_CM + "." + COL_CM_AMOUNT + "), " +
-
-                            "SUM (" + TABLE_PM + "." + COL_PM_SALT + " * " + TABLE_CM + "." + COL_CM_AMOUNT + "), " +
-                            "SUM (" + TABLE_PM + "." + COL_PM_FIBER + " * " + TABLE_CM + "." + COL_CM_AMOUNT + "), " +
-                            "SUM (" + TABLE_PM + "." + COL_PM_CHOL + " * " + TABLE_CM + "." + COL_CM_AMOUNT + "), " +
-                            "SUM (" + TABLE_PM + "." + COL_PM_CREATINE + " * " + TABLE_CM + "." + COL_CM_AMOUNT + "), " +
-
-                            "SUM (" + TABLE_PM + "." + COL_PM_CA + " * " + TABLE_CM + "." + COL_CM_AMOUNT + "), " +
-                            "SUM (" + TABLE_PM + "." + COL_PM_FE + " * " + TABLE_CM + "." + COL_CM_AMOUNT + "), " +
-                            "SUM (" + TABLE_PM + "." + COL_PM_K + " * " + TABLE_CM + "." + COL_CM_AMOUNT + "), " +
-                            "SUM (" + TABLE_PM + "." + COL_PM_MG + " * " + TABLE_CM + "." + COL_CM_AMOUNT + "), " +
-                            "SUM (" + TABLE_PM + "." + COL_PM_MN + " * " + TABLE_CM + "." + COL_CM_AMOUNT + "), " +
-                            "SUM (" + TABLE_PM + "." + COL_PM_NA + " * " + TABLE_CM + "." + COL_CM_AMOUNT + "), " +
-                            "SUM (" + TABLE_PM + "." + COL_PM_P + " * " + TABLE_CM + "." + COL_CM_AMOUNT + "), " +
-                            "SUM (" + TABLE_PM + "." + COL_PM_ZN + " * " + TABLE_CM + "." + COL_CM_AMOUNT + "), " +
-
-                            "SUM (" + TABLE_PM + "." + COL_PM_VIT_A + " * " + TABLE_CM + "." + COL_CM_AMOUNT + "), " +
-                            "SUM (" + TABLE_PM + "." + COL_PM_VIT_B1 + " * " + TABLE_CM + "." + COL_CM_AMOUNT + "), " +
-                            "SUM (" + TABLE_PM + "." + COL_PM_VIT_B2 + " * " + TABLE_CM + "." + COL_CM_AMOUNT + "), " +
-                            "SUM (" + TABLE_PM + "." + COL_PM_VIT_B3 + " * " + TABLE_CM + "." + COL_CM_AMOUNT + "), " +
-                            "SUM (" + TABLE_PM + "." + COL_PM_VIT_B5 + " * " + TABLE_CM + "." + COL_CM_AMOUNT + "), " +
-                            "SUM (" + TABLE_PM + "." + COL_PM_VIT_B6 + " * " + TABLE_CM + "." + COL_CM_AMOUNT + "), " +
-                            "SUM (" + TABLE_PM + "." + COL_PM_VIT_B7 + " * " + TABLE_CM + "." + COL_CM_AMOUNT + "), " +
-                            "SUM (" + TABLE_PM + "." + COL_PM_VIT_B11 + " * " + TABLE_CM + "." + COL_CM_AMOUNT + "), " +
-                            "SUM (" + TABLE_PM + "." + COL_PM_VIT_B12 + " * " + TABLE_CM + "." + COL_CM_AMOUNT + "), " +
-                            "SUM (" + TABLE_PM + "." + COL_PM_VIT_C + " * " + TABLE_CM + "." + COL_CM_AMOUNT + "), " +
-                            "SUM (" + TABLE_PM + "." + COL_PM_VIT_E + " * " + TABLE_CM + "." + COL_CM_AMOUNT + "), " +
-                            "SUM (" + TABLE_PM + "." + COL_PM_VIT_K + " * " + TABLE_CM + "." + COL_CM_AMOUNT + "), " +
-                            "SUM (" + TABLE_PM + "." + COL_PM_VIT_H + " * " + TABLE_CM + "." + COL_CM_AMOUNT + ") " +
+                            "SUM (" + TABLE_PM + "." + COL_PM_PROTEIN + " * " + TABLE_CM + "." + COL_CM_AMOUNT + ") " +
 
                             "FROM " + TABLE_CM + " " +
                             "LEFT JOIN " + TABLE_PM + " ON " + TABLE_CM + "." + COL_CM_INDEX + "=" + TABLE_PM + "." + COL_PM_INDEX + " " +
@@ -348,31 +267,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         cv.put(COL_PM_CARBS, data[3]);
         cv.put(COL_PM_SUGAR, data[4]);
         cv.put(COL_PM_PROTEIN, data[5]);
-        cv.put(COL_PM_SALT, data[6]);
-        cv.put(COL_PM_FIBER, data[7]);
-        cv.put(COL_PM_CHOL, data[8]);
-        cv.put(COL_PM_CREATINE, data[9]);
-        cv.put(COL_PM_CA, data[10]);
-        cv.put(COL_PM_FE, data[11]);
-        cv.put(COL_PM_K, data[12]);
-        cv.put(COL_PM_MG, data[13]);
-        cv.put(COL_PM_MN, data[14]);
-        cv.put(COL_PM_NA, data[15]);
-        cv.put(COL_PM_P, data[16]);
-        cv.put(COL_PM_ZN, data[17]);
-        cv.put(COL_PM_VIT_A, data[18]);
-        cv.put(COL_PM_VIT_B1, data[19]);
-        cv.put(COL_PM_VIT_B2, data[20]);
-        cv.put(COL_PM_VIT_B3, data[21]);
-        cv.put(COL_PM_VIT_B5, data[22]);
-        cv.put(COL_PM_VIT_B6, data[23]);
-        cv.put(COL_PM_VIT_B7, data[24]);
-        cv.put(COL_PM_VIT_B11, data[25]);
-        cv.put(COL_PM_VIT_B12, data[26]);
-        cv.put(COL_PM_VIT_C, data[27]);
-        cv.put(COL_PM_VIT_E, data[28]);
-        cv.put(COL_PM_VIT_K, data[29]);
-        cv.put(COL_PM_VIT_H, data[30]);
 
         // Insert data into database
         long result = sqLiteDatabase.replaceOrThrow(TABLE_PM, null, cv);

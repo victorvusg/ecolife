@@ -17,8 +17,8 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginVertical="24dp"
-                android:layout_marginHorizontal="24dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginHorizontal="8dp"
                 android:text="@string/welcome_section_title"
                 android:textColor="@color/text_low"
                 android:textSize="20sp" />
@@ -40,7 +40,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginVertical="12dp"
+                android:layout_marginBottom="8dp"
                 android:text="@string/dn_header_01"
                 android:textColor="@color/text_low"
                 android:textSize="20sp" />
@@ -213,6 +213,7 @@
                     android:id="@+id/buttonEatenMeals"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
                     android:layout_weight="1"
                     android:background="@drawable/shape_box_round_light"
                     android:text="@string/dn_button_edit"
@@ -238,6 +239,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
+                android:layout_marginBottom="8dp"
                 android:text="@string/dn_header_02"
                 android:textColor="@color/text_low"
                 android:textSize="20sp" />

@@ -3,6 +3,7 @@ package com.ecolife.model;
 /**
  * General Data Model
  */
+
 public class ItemGeneral {
 
     private String title;

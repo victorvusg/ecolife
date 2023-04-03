@@ -17,7 +17,7 @@
     <string name="protein_g">Protein [g]</string>
 
     <!-- Welcome Section -->
-    <string name="welcome_section_title">Have a good day!</string>
+    <string name="welcome_section_title">Hi Victor, Have a good day!</string>
 
     <!-- Dashboard Nutrition -->
     <string name="dn_header_01">Today\'s Overview</string>

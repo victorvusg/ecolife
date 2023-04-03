@@ -16,8 +16,6 @@ import androidx.fragment.app.Fragment;
 import com.ecolife.ActivityMain;
 import com.ecolife.R;
 
-
-
 public class FragmentSettings extends Fragment {
 
     private double[] dataGoals;
