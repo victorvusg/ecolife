@@ -18,7 +18,7 @@ import com.ecolife.model.ItemMealPreset;
 import java.util.List;
 
 /**
- * Adapter for RecyclerView in ActivityAddMeal. Used to display Item_MealPreset.
+ * Adapter for RecyclerView in ActivityAddMeal. Used to display ItemMealPreset.
  */
 public class AdapterMealPresets extends RecyclerView.Adapter<AdapterMealPresets.Viewholder> {
 
@@ -71,7 +71,7 @@ public class AdapterMealPresets extends RecyclerView.Adapter<AdapterMealPresets.
         LayoutInflater inflater = LayoutInflater.from(context);
 
         // Inflate custom layout
-        View viewMealPreset = inflater.inflate(R.layout.recyclerview_item_mealpreset, parent, false);
+        View viewMealPreset = inflater.inflate(R.layout.item_mealpreset, parent, false);
 
         // Return new holder instance
         return new Viewholder(viewMealPreset, itemInterface);

@@ -87,8 +87,8 @@ public class FragmentSettings extends Fragment {
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        // Nutrition goal settings
 
+        // Set nutrition goal settings
         int[] editViews = {
             R.id.editTextSettingsGoalsCal,
             R.id.editTextSettingsGoalsFat,
