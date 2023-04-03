@@ -101,6 +101,10 @@ public class EcoLifeActivityEditPreset extends AppCompatActivity implements Adap
     }
 
 
+    /**
+     * Initialize Activity
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

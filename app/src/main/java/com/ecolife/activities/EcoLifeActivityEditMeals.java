@@ -50,6 +50,10 @@ public class EcoLifeActivityEditMeals extends AppCompatActivity implements Adapt
 
     private SQLiteDatabase SQLiteDatabase;
 
+    /**
+     * Setup Activity
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -180,8 +184,11 @@ public class EcoLifeActivityEditMeals extends AppCompatActivity implements Adapt
     }
 
 
-    // Methods from imported interface -------------------------------------------------------------
-
+    /**
+     * @param itemPosition
+     * @param mealUUID
+     * @param newAmount
+     */
     @Override
     public void updateItemAmount(int itemPosition, String mealUUID, double newAmount) {
 
@@ -199,6 +206,10 @@ public class EcoLifeActivityEditMeals extends AppCompatActivity implements Adapt
         // Pass
     }
 
+    /**
+     * On change amount of item
+     * @param itemPosition
+     */
     @Override
     public void onAmountClick(int itemPosition) {
         // Show dialog to edit amount

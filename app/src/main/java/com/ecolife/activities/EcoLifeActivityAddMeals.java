@@ -105,8 +105,10 @@ public class EcoLifeActivityAddMeals extends AppCompatActivity implements Adapte
     }
 
 
-    // Overwrite class default methods -------------------------------------------------------------
-
+    /**
+     * This it the function to set up activity
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -146,8 +148,6 @@ public class EcoLifeActivityAddMeals extends AppCompatActivity implements Adapte
         adapterCategories.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapterCategories);
 
-        // Create meals for recycler view ----------------------------------------------------------
-
         // Load preset meals from database
         mealsPresetList = loadPresetMealsFromDatabase(mealCategories[currentCategoryIndex]);
 
@@ -157,7 +157,7 @@ public class EcoLifeActivityAddMeals extends AppCompatActivity implements Adapte
         recyclerViewMeals.setAdapter(adapterPresets);
         recyclerViewMeals.setLayoutManager(new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false));
 
-        // Update loading-layout -------------------------------------------------------------------
+        // Update loading-layout
         noEntries = findViewById(R.id.textViewNoEntries);
         if (mealsPresetList.isEmpty()) {
             noEntries.setVisibility(View.VISIBLE);
@@ -218,15 +218,21 @@ public class EcoLifeActivityAddMeals extends AppCompatActivity implements Adapte
 
     }
 
+    /**
+     * This is a hooks to setup activity
+     */
     @Override
     protected void onDestroy() {
         SQLiteDatabase.close();
         super.onDestroy();
     }
 
-
-    // Methods from imported interface -------------------------------------------------------------
-
+    /**
+     * Update amount of item on list
+     * @param itemPosition
+     * @param mealUUID
+     * @param newAmount
+     */
     @Override
     public void updateItemAmount(int itemPosition, String mealUUID, double newAmount) {
         if (!savePossible) {
@@ -237,6 +243,10 @@ public class EcoLifeActivityAddMeals extends AppCompatActivity implements Adapte
         adapterPresets.notifyItemChanged(itemPosition);  // Update view
     }
 
+    /**
+     * Handle event on click row using UUID to determine item
+     * @param mealUUID
+     */
     @Override
     public void onItemClick(String mealUUID) {
         // Start new activity Activity_CreateMeal
@@ -249,6 +259,10 @@ public class EcoLifeActivityAddMeals extends AppCompatActivity implements Adapte
         startActivity(intent);
     }
 
+    /**
+     * On change mount handler
+     * @param itemPosition
+     */
     @Override
     public void onAmountClick(int itemPosition) {
         // Show dialog to edit amount
@@ -291,8 +305,12 @@ public class EcoLifeActivityAddMeals extends AppCompatActivity implements Adapte
     }
 
 
-    // Methods from imported spinner interface -----------------------------------------------------
-
+    /**
+     * @param adapterView
+     * @param view
+     * @param position
+     * @param l
+     */
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
         if (position == currentCategoryIndex) {
@@ -321,6 +339,9 @@ public class EcoLifeActivityAddMeals extends AppCompatActivity implements Adapte
         recyclerViewMeals.setLayoutManager(new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false));
     }
 
+    /**
+     * @param adapterView
+     */
     @Override
     public void onNothingSelected(AdapterView<?> adapterView) {
         // Pass

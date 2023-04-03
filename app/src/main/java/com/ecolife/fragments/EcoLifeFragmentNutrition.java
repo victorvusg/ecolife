@@ -4,8 +4,6 @@ import android.animation.ObjectAnimator;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.database.Cursor;
-import android.graphics.Color;
-import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,8 +20,6 @@ import com.ecolife.R;
 import com.ecolife.activities.EcoLifeActivityEditMeals;
 import com.ecolife.utils.Common;
 import com.google.android.material.progressindicator.CircularProgressIndicator;
-
-import org.w3c.dom.Text;
 
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
