@@ -2,5 +2,4 @@
 <resources>
     <style name="DialogStyle" parent="Theme.AppCompat.Light.Dialog">
     </style>
-
 </resources>

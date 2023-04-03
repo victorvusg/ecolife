@@ -2,8 +2,10 @@ package com.ecolife.fragments;
 
 import android.animation.ObjectAnimator;
 import android.content.Intent;
+import android.content.res.ColorStateList;
 import android.database.Cursor;
 import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,6 +21,9 @@ import com.ecolife.ActivityMain;
 import com.ecolife.R;
 import com.ecolife.activities.EcoLifeActivityEditMeals;
 import com.ecolife.utils.Common;
+import com.google.android.material.progressindicator.CircularProgressIndicator;
+
+import org.w3c.dom.Text;
 
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
@@ -137,17 +142,29 @@ public class EcoLifeFragmentNutrition extends Fragment {
 
         int[] dataIndex = {0, 1, 3, 5};
 
-        for (int i = 0; i <= 3; i++) {
+        CircularProgressIndicator progressCircleIndicator = getView().findViewById(progressViews[0]);
+        TextView textCircleProgress = getView().findViewById(textProgressViews[0]);
+        int circlePercentage = Common.percentOf(dataFood[dataIndex[0]], dataGoals[0]);
+        ObjectAnimator.ofInt(progressCircleIndicator, "progress", circlePercentage).start();
+        textCircleProgress.setText(convertDataToIntText(dataFood[dataIndex[0]]));
+        if (circlePercentage >= 100) {
+            TextView message = getView().findViewById(R.id.sectionCaloriesMessage);
+            message.setTextColor(Common.getColorByPercentage(100));
+            message.setVisibility(View.VISIBLE);
+        }
+        progressCircleIndicator.setIndicatorColor(Common.getColorByPercentage(circlePercentage));
+
+
+
+        for (int i = 1; i <= 3; i++) {
             ProgressBar progressBarMain = getView().findViewById(progressViews[i]);
             TextView textProgressMain = getView().findViewById(textProgressViews[i]);
             int percentage = Common.percentOf(dataFood[dataIndex[i]], dataGoals[i]);
             ObjectAnimator.ofInt(progressBarMain, "progress", percentage).start();
-            if (percentage >= 100 ) progressBarMain
-                    .getProgressDrawable()
-                    .setColorFilter(Color.parseColor("#B00020"), android.graphics.PorterDuff.Mode.SRC_IN);
 
+            progressBarMain.setProgressTintList(ColorStateList
+                    .valueOf(Common.getColorByPercentage(percentage)));
             textProgressMain.setText(convertDataToIntText(dataFood[dataIndex[i]]));
-            textProgressMain.setTextColor(Color.parseColor("#B00020"));
         }
 
         // Table view
