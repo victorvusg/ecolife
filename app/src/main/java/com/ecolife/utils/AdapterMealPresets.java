@@ -17,11 +17,10 @@ import com.ecolife.model.ItemMealPreset;
 
 import java.util.List;
 
+/**
+ * Adapter for RecyclerView in ActivityAddMeal. Used to display Item_MealPreset.
+ */
 public class AdapterMealPresets extends RecyclerView.Adapter<AdapterMealPresets.Viewholder> {
-
-    /*
-    Adapter for RecyclerView in Activity_AddMeal. Used to display Item_MealPreset.
-     */
 
     public class Viewholder extends RecyclerView.ViewHolder {
 
@@ -36,29 +35,25 @@ public class AdapterMealPresets extends RecyclerView.Adapter<AdapterMealPresets.
         public Viewholder(@NonNull View itemView, mealPresetItemInterface itemInterface) {
             super(itemView);
 
-            textViewMealTitle = (TextView) itemView.findViewById(R.id.textRVAddMealTitle);
-            textViewCalories = (TextView) itemView.findViewById(R.id.textViewRVAddMealCalories);
-            textViewAmount = (TextView) itemView.findViewById(R.id.mealAmount);
-            buttonAdd = (ImageButton) itemView.findViewById(R.id.buttonRVAddMealAdd);
-            buttonRemove = (ImageButton) itemView.findViewById(R.id.buttonRVAddMealSubtract);
-            mealPresetFrame = (LinearLayout) itemView.findViewById(R.id.linearLayoutMealPreset);
+            textViewMealTitle = itemView.findViewById(R.id.textRVAddMealTitle);
+            textViewCalories = itemView.findViewById(R.id.textViewRVAddMealCalories);
+            textViewAmount = itemView.findViewById(R.id.mealAmount);
+            buttonAdd = itemView.findViewById(R.id.buttonRVAddMealAdd);
+            buttonRemove = itemView.findViewById(R.id.buttonRVAddMealSubtract);
+            mealPresetFrame = itemView.findViewById(R.id.linearLayoutMealPreset);
 
             this.itemInterface = itemInterface;
         }
     }
 
-    // ---------------------------------------------------------------------------------------------
-    // Public interface for methods called by meal-preset items
-    // -> Implemented in Activity_AddMeal
-
+    /**
+     *
+     */
     public interface mealPresetItemInterface {
         void onItemClick(String mealUUID);
         void onAmountClick(int itemPosition);
         void updateItemAmount(int itemPosition, String mealUUID, double newAmount);
     }
-
-    // ---------------------------------------------------------------------------------------------
-    // Constructor of this class
 
     private List<ItemMealPreset> mealPresetsList;
     private mealPresetItemInterface itemInterface;

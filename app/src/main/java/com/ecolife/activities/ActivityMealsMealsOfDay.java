@@ -138,7 +138,7 @@ public class ActivityMealsMealsOfDay extends AppCompatActivity implements Adapte
                         mealsStart.replace(currentUUID, currentAmount);
                     }
 
-                    saveButton.setBackgroundResource(R.drawable.shape_box_round_light);
+                    saveButton.setBackgroundResource(R.drawable.ecoapp_shape_box_round_light);
                     saveButton.setTextColor(getColor(R.color.text_middle));
                     cancelButton.setText(R.string.button_text_back);
                     Snackbar.make(view, "Saved", Snackbar.LENGTH_SHORT).show();
@@ -187,7 +187,7 @@ public class ActivityMealsMealsOfDay extends AppCompatActivity implements Adapte
 
         if (!savePossible) {
             savePossible = true;
-            saveButton.setBackgroundResource(R.drawable.shape_box_round_pop);
+            saveButton.setBackgroundResource(R.drawable.ecoapp_shape_box_round_pop);
             saveButton.setTextColor(getColor(R.color.text_high));
         }
 
@@ -230,7 +230,7 @@ public class ActivityMealsMealsOfDay extends AppCompatActivity implements Adapte
 
                 if (!savePossible) {
                     savePossible = true;
-                    saveButton.setBackgroundResource(R.drawable.shape_box_round_pop);
+                    saveButton.setBackgroundResource(R.drawable.ecoapp_shape_box_round_pop);
                     saveButton.setTextColor(getColor(R.color.text_high));
                 }
             }

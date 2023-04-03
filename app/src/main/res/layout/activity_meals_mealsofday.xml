@@ -56,7 +56,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:layout_marginEnd="10dp"
-            android:background="@drawable/shape_box_round_light"
+            android:background="@drawable/ecoapp_shape_box_round_light"
             android:textColor="@color/text_middle"
             android:text="@string/dn_button_add" />
 
@@ -76,7 +76,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:background="@drawable/shape_box_round_light"
+                android:background="@drawable/ecoapp_shape_box_round_light"
                 android:textColor="@color/text_middle"
                 android:text="@string/button_text_cancel" />
 
@@ -89,7 +89,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:background="@drawable/shape_box_round_light"
+                android:background="@drawable/ecoapp_shape_box_round_light"
                 android:textColor="@color/text_middle"
                 android:text="@string/button_text_save" />
         </LinearLayout>

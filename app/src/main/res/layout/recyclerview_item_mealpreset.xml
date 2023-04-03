@@ -12,7 +12,7 @@
         android:layout_height="match_parent"
         android:gravity="center"
         android:orientation="vertical"
-        android:background="@drawable/shape_box_round_middle"
+        android:background="@drawable/ecoapp_shape_box_round_middle"
         android:layout_weight="1">
 
         <TextView
@@ -60,7 +60,7 @@
             android:layout_height="48dp"
             android:backgroundTint="#00FFFFFF"
             app:tint="@color/text_middle"
-            android:src="@drawable/ic_baseline_remove_circle_24" />
+            android:src="@drawable/ecoapp_remove_circle_24" />
 
         <TextView
             android:id="@+id/mealAmount"
@@ -81,7 +81,7 @@
             android:layout_height="48dp"
             android:backgroundTint="#00FFFFFF"
             app:tint="@color/text_middle"
-            android:src="@drawable/ic_baseline_add_circle_24" />
+            android:src="@drawable/ecoapp_add_circle_24" />
 
     </LinearLayout>
 

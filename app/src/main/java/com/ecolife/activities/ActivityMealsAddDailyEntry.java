@@ -195,7 +195,7 @@ public class ActivityMealsAddDailyEntry extends AppCompatActivity implements Ada
                         }
                     }
 
-                    saveButton.setBackgroundResource(R.drawable.shape_box_round_light);
+                    saveButton.setBackgroundResource(R.drawable.ecoapp_shape_box_round_light);
                     cancelButton.setText("Back");
                     Snackbar.make(view, "Saved", Snackbar.LENGTH_SHORT).show();
                 }
@@ -231,7 +231,7 @@ public class ActivityMealsAddDailyEntry extends AppCompatActivity implements Ada
     public void updateItemAmount(int itemPosition, String mealUUID, double newAmount) {
         if (!savePossible) {
             savePossible = true;
-            saveButton.setBackgroundResource(R.drawable.shape_box_round_pop);
+            saveButton.setBackgroundResource(R.drawable.ecoapp_shape_box_round_pop);
             saveButton.setTextColor(getColor(R.color.text_high));
         }
         adapterPresets.notifyItemChanged(itemPosition);  // Update view
@@ -280,7 +280,7 @@ public class ActivityMealsAddDailyEntry extends AppCompatActivity implements Ada
 
                 if (!savePossible) {
                     savePossible = true;
-                    saveButton.setBackgroundResource(R.drawable.shape_box_round_pop);
+                    saveButton.setBackgroundResource(R.drawable.ecoapp_shape_box_round_pop);
                     saveButton.setTextColor(getColor(R.color.text_high));
                 }
             }

@@ -49,7 +49,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/shape_box_round_middle"
+                android:background="@drawable/ecoapp_shape_box_round_middle"
                 android:orientation="vertical">
 
                 <!-- Circular-progress-indicator-->
@@ -215,7 +215,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
                     android:layout_weight="1"
-                    android:background="@drawable/shape_box_round_light"
+                    android:background="@drawable/ecoapp_shape_box_round_light"
                     android:text="@string/dn_button_edit"
                     android:textColor="@color/text_high" />
 
@@ -248,7 +248,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/shape_box_round_middle"
+                android:background="@drawable/ecoapp_shape_box_round_middle"
                 android:orientation="vertical">
 
                 <!-- Main table layout -->

@@ -34,7 +34,7 @@
             <TableLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/shape_box_round_middle">
+                android:background="@drawable/ecoapp_shape_box_round_middle">
 
                 <TableRow
                     android:layout_width="match_parent"
@@ -163,7 +163,7 @@
         android:layout_marginRight="10dp"
         android:layout_marginLeft="10dp"
         android:layout_marginBottom="10dp"
-        android:background="@drawable/shape_box_round_light"
+        android:background="@drawable/ecoapp_shape_box_round_light"
         android:textColor="@color/text_middle"
         android:text="@string/button_text_save" />
 </LinearLayout>

@@ -48,7 +48,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:background="@drawable/shape_box_round_middle"
+                android:background="@drawable/ecoapp_shape_box_round_middle"
                 android:gravity="center"
                 android:orientation="horizontal">
 
@@ -84,7 +84,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:background="@drawable/shape_box_round_middle">
+                android:background="@drawable/ecoapp_shape_box_round_middle">
 
                 <Spinner
                     android:id="@+id/spinnerMealCategory"
@@ -112,7 +112,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:stretchColumns="*"
-                android:background="@drawable/shape_box_round_middle">
+                android:background="@drawable/ecoapp_shape_box_round_middle">
 
                 <TableRow
                     android:layout_marginTop="2dp"
@@ -328,7 +328,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:background="@drawable/shape_box_round_light"
+            android:background="@drawable/ecoapp_shape_box_round_light"
             android:textColor="@color/text_middle"
             android:text="@string/button_text_cancel" />
 
@@ -341,7 +341,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:background="@drawable/shape_box_round_light"
+            android:background="@drawable/ecoapp_shape_box_round_light"
             android:textColor="@color/text_middle"
             android:text="@string/button_text_save" />
 

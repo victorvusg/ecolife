@@ -17,8 +17,8 @@ import androidx.fragment.app.Fragment;
 import com.ecolife.ActivityMain;
 import com.ecolife.R;
 import com.ecolife.activities.ActivityMealsMealsOfDay;
+import com.ecolife.utils.Common;
 
-import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -34,32 +34,6 @@ public class FragmentNutrition extends Fragment {
     private String date;
     private double[] dataFood;
     private double[] dataGoals;
-
-    /**
-     * This method uses to calculate percentage of a value
-     * @param current Current value to calculate percentage
-     * @param max Maximum value of value
-     * @return integer value of percentage
-     */
-    private int percentOf(double current, double max) {
-        // If max is equal to 0, a invalid value then return 0
-        if (max == 0) return 0;
-        return (int) ((current / max) * 100);
-    }
-
-    /**
-     * Convert given double to string
-     * @param value
-     * @return
-     */
-    private String convertDataToDoubleText(double value) {
-        if (value % 1 != 0) {
-            DecimalFormat decimalFormat = new DecimalFormat("#####.##");
-            return decimalFormat.format(value);
-        } else {
-            return String.valueOf((int) value);
-        }
-    }
 
     /**
      * This method uses to convert a floating number to rounded string number
@@ -146,29 +120,28 @@ public class FragmentNutrition extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
 
         // Dashboard view
-        ProgressBar progressBarMain = getView().findViewById(R.id.progressBarDBNCaloriesMain);
-        TextView textProgressMain = getView().findViewById(R.id.textViewDNCaloriesMain);
-        ObjectAnimator.ofInt(progressBarMain, "progress", percentOf(dataFood[0], dataGoals[0])).start();
-        textProgressMain.setText(convertDataToIntText(dataFood[0]));
+        int[] progressViews = {
+                R.id.progressBarDBNCaloriesMain,
+                R.id.progressBarDBNFatMain,
+                R.id.progressBarDBNCarbsMain,
+                R.id.progressBarDBNProteinMain
+        };
 
-        ProgressBar progressBarFat = getView().findViewById(R.id.progressBarDBNFatMain);
-        TextView textProgressFat = getView().findViewById(R.id.textViewProgressDBNFatMain);
-        ObjectAnimator.ofInt(progressBarFat, "progress", percentOf(dataFood[1], dataGoals[1])).start();
-        String textFat = convertDataToIntText(dataFood[1]) + " g";
-        textProgressFat.setText(textFat);
+        int[] textProgressViews = {
+                R.id.textViewDNCaloriesMain,
+                R.id.textViewProgressDBNFatMain,
+                R.id.textViewProgressCarbohydrates,
+                R.id.textViewProgressDBNProteinMain
+        };
 
-        ProgressBar progressBarCarbohydrates = getView().findViewById(R.id.progressBarDBNCarbsMain);
-        TextView textProgressCarbohydrates = getView().findViewById(R.id.textViewProgressCarbohydrates);
-        ObjectAnimator.ofInt(progressBarCarbohydrates, "progress", percentOf(dataFood[3], dataGoals[2])).start();
-        String textCarbohydrates = convertDataToIntText(dataFood[3]) + " g";
-        textProgressCarbohydrates.setText(textCarbohydrates);
+        int[] dataIndex = {0, 1, 3, 5};
 
-        ProgressBar progressBarProtein = getView().findViewById(R.id.progressBarDBNProteinMain);
-        TextView textProgressProtein = getView().findViewById(R.id.textViewProgressDBNProteinMain);
-        ObjectAnimator.ofInt(progressBarProtein, "progress", percentOf(dataFood[5], dataGoals[3])).start();
-        String textProtein = convertDataToIntText(dataFood[5]) + " g";
-        textProgressProtein.setText(textProtein);
-
+        for (int i = 0; i <= 3; i++) {
+            ProgressBar progressBarMain = getView().findViewById(progressViews[i]);
+            TextView textProgressMain = getView().findViewById(textProgressViews[i]);
+            ObjectAnimator.ofInt(progressBarMain, "progress", Common.percentOf(dataFood[dataIndex[i]], dataGoals[i])).start();
+            textProgressMain.setText(convertDataToIntText(dataFood[dataIndex[i]]));
+        }
 
         // Table view
         int[] tableViews = {
@@ -182,7 +155,7 @@ public class FragmentNutrition extends Fragment {
 
         for (int i = 0; i < tableViews.length; i++) {
             TextView textViewDetailsCal = getView().findViewById(tableViews[i]);
-            textViewDetailsCal.setText(convertDataToDoubleText(dataFood[i]));
+            textViewDetailsCal.setText(Common.convertDataToText(dataFood[i]));
         }
 
         // Initialize button view today view

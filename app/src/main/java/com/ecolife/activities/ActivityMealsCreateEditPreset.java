@@ -20,18 +20,15 @@ import com.ecolife.R;
 import com.ecolife.data.DatabaseHelper;
 import com.ecolife.utils.Common;
 
-import java.text.DecimalFormat;
 import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 
 
+/**
+ * This activity lets the user create new meal-presets or edit already existing ones.
+ */
 public class ActivityMealsCreateEditPreset extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
-
-    /**
-     * This activity lets the user create new meal-presets or edit already existing ones.
-     */
-
     private String mealName;
     private String mealUUID;
     private String[] mealCategories;
@@ -79,7 +76,7 @@ public class ActivityMealsCreateEditPreset extends AppCompatActivity implements 
             }
 
             // Update background resource of save button
-            saveButton.setBackgroundResource(R.drawable.shape_box_round_pop);
+            saveButton.setBackgroundResource(R.drawable.ecoapp_shape_box_round_pop);
             saveButton.setTextColor(getColor(R.color.text_high));
             savePossible = true;
             cancelButton.setText(R.string.button_text_cancel);
@@ -216,7 +213,7 @@ public class ActivityMealsCreateEditPreset extends AppCompatActivity implements 
                     databaseHelper.close();
 
                     // Change button color
-                    saveButton.setBackgroundResource(R.drawable.shape_box_round_light);
+                    saveButton.setBackgroundResource(R.drawable.ecoapp_shape_box_round_light);
                     saveButton.setTextColor(getColor(R.color.text_middle));
                     cancelButton.setText(R.string.button_text_back);
                 }

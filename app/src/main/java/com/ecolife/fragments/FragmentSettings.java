@@ -51,7 +51,7 @@ public class FragmentSettings extends Fragment {
     }
 
     private void enableSaveButton() {
-        saveButton.setBackgroundResource(R.drawable.shape_box_round_pop);
+        saveButton.setBackgroundResource(R.drawable.ecoapp_shape_box_round_pop);
         saveButton.setTextColor(getContext().getColor(R.color.text_high));
         saveButton.setVisibility(View.VISIBLE);
         savePossible = true;
@@ -110,7 +110,7 @@ public class FragmentSettings extends Fragment {
             public void onClick(View view) {
                 if (savePossible) {
                     savePossible = false;
-                    saveButton.setBackgroundResource(R.drawable.shape_box_round_middle);
+                    saveButton.setBackgroundResource(R.drawable.ecoapp_shape_box_round_middle);
                     saveButton.setTextColor(getContext().getColor(R.color.text_middle));
                     saveButton.setVisibility(View.INVISIBLE);
 
