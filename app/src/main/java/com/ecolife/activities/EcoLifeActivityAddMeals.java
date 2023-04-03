@@ -23,7 +23,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.ecolife.ActivityMain;
 import com.ecolife.R;
-import com.ecolife.data.SQLiteDatabase;
+import com.ecolife.database.SQLiteDatabase;
 import com.ecolife.utils.AdapterMealPresets;
 import com.ecolife.model.ItemMealPreset;
 import com.ecolife.utils.Common;
@@ -174,7 +174,7 @@ public class EcoLifeActivityAddMeals extends AppCompatActivity implements Adapte
             @Override
             public void onClick(View view) {
                 // Start new activity Activity_CreateMeal
-                Intent intent = new Intent(view.getContext(), EcoLifeActivityEditPreset.class);
+                Intent intent = new Intent(view.getContext(), EcoLifeActivityEditPresetMeal.class);
                 if (date != null) {
                     intent.putExtra("date", date);
                 }
@@ -250,7 +250,7 @@ public class EcoLifeActivityAddMeals extends AppCompatActivity implements Adapte
     @Override
     public void onItemClick(String mealUUID) {
         // Start new activity Activity_CreateMeal
-        Intent intent = new Intent(getApplicationContext(), EcoLifeActivityEditPreset.class);
+        Intent intent = new Intent(getApplicationContext(), EcoLifeActivityEditPresetMeal.class);
         if (date != null) {
             intent.putExtra("date", date);
         }

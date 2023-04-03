@@ -9,7 +9,7 @@ import android.view.MenuItem;
 
 import com.ecolife.fragments.EcoLifeFragmentNutrition;
 
-import com.ecolife.data.SQLiteDatabase;
+import com.ecolife.database.SQLiteDatabase;
 import com.ecolife.fragments.EcoLifeFragmentSettings;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;

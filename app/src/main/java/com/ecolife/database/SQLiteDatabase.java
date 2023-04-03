@@ -1,4 +1,4 @@
-package com.ecolife.data;
+package com.ecolife.database;
 
 import android.content.ContentValues;
 import android.content.Context;

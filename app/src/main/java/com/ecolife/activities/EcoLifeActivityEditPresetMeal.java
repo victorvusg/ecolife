@@ -17,7 +17,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import com.ecolife.R;
-import com.ecolife.data.SQLiteDatabase;
+import com.ecolife.database.SQLiteDatabase;
 import com.ecolife.utils.Common;
 
 import java.util.Arrays;
@@ -28,7 +28,7 @@ import java.util.UUID;
 /**
  * This activity lets the user create new meal-presets or edit already existing ones.
  */
-public class EcoLifeActivityEditPreset extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
+public class EcoLifeActivityEditPresetMeal extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
     private String mealName;
     private String mealUUID;
     private String[] mealCategories;
@@ -111,7 +111,7 @@ public class EcoLifeActivityEditPreset extends AppCompatActivity implements Adap
         setContentView(R.layout.ecoapp_activity_edit_preset);
 
         // Connect to database
-        SQLiteDatabase = new SQLiteDatabase(EcoLifeActivityEditPreset.this);
+        SQLiteDatabase = new SQLiteDatabase(EcoLifeActivityEditPresetMeal.this);
 
         // Set up spinner for categories -----------------------------------------------------------
         mealCategories = loadMealCategoriesFromDatabase();

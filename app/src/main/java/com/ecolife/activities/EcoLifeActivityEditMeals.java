@@ -20,7 +20,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.ecolife.ActivityMain;
 import com.ecolife.R;
-import com.ecolife.data.SQLiteDatabase;
+import com.ecolife.database.SQLiteDatabase;
 import com.ecolife.utils.AdapterMealPresets;
 import com.ecolife.model.ItemMealPreset;
 import com.ecolife.utils.Common;
