@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.ecolife.activities.ActivityMealsAddDailyEntry"
+    tools:context="com.ecolife.activities.EcoLifeActivityEditMeals"
     android:orientation="vertical"
     android:background="@color/dark_purple">
 
@@ -15,7 +15,7 @@
         android:orientation="vertical">
 
         <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbarActivityAddMeal"
+            android:id="@+id/toolbarActivityMealsOfDay"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="0dp"
@@ -38,46 +38,31 @@
 
         <Space
             android:layout_width="match_parent"
-            android:layout_height="10dp"/>
-
-        <Spinner
-            android:id="@+id/spinnerMealPresetCategory"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
-            android:tooltipText="Select workout plan"/>
-
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="10dp"/>
+            android:layout_height="10dp" />
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerViewMealsPreset"
+            android:id="@+id/recyclerViewMealsEaten"
             android:layout_width="match_parent"
-            android:layout_height="500dp"
+            android:layout_height="540dp"
             android:layout_marginStart="10dp"/>
 
         <Space
             android:layout_width="match_parent"
-            android:layout_height="10dp"/>
+            android:layout_height="10dp" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/buttonAddMeal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginRight="10dp"
-            android:layout_marginLeft="10dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
             android:background="@drawable/ecoapp_shape_box_round_light"
-            android:text="@string/button_text_create_meal"
             android:textColor="@color/text_middle"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:text="@string/dn_button_add" />
 
         <Space
             android:layout_width="match_parent"
-            android:layout_height="10dp"/>
+            android:layout_height="10dp" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -107,9 +92,7 @@
                 android:background="@drawable/ecoapp_shape_box_round_light"
                 android:textColor="@color/text_middle"
                 android:text="@string/button_text_save" />
-
         </LinearLayout>
-
     </LinearLayout>
 
     <!-- Overlay text view -->
@@ -120,7 +103,7 @@
         android:layout_height="600dp"
         android:textAlignment="center"
         android:gravity="center"
-        android:text="No entries found"
+        android:text="@string/hint_no_entries"
         android:textSize="20sp"
         android:textColor="@color/text_middle"/>
 
@@ -148,5 +131,7 @@
             android:visibility="visible" />
 
     </FrameLayout>
+
+
 
 </FrameLayout>

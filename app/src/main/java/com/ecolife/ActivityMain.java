@@ -7,10 +7,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 
-import com.ecolife.fragments.FragmentNutrition;
+import com.ecolife.fragments.EcoLifeFragmentNutrition;
 
 import com.ecolife.data.DatabaseHelper;
-import com.ecolife.fragments.FragmentSettings;
+import com.ecolife.fragments.EcoLifeFragmentSettings;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
@@ -26,7 +26,7 @@ public class ActivityMain extends AppCompatActivity {
 
 
     private void setFragmentFood(String date) {
-        FragmentNutrition fragment = new FragmentNutrition();
+        EcoLifeFragmentNutrition fragment = new EcoLifeFragmentNutrition();
         Bundle args = new Bundle();
         args.putString("date", date);
         fragment.setArguments(args);
@@ -34,7 +34,7 @@ public class ActivityMain extends AppCompatActivity {
     }
 
     private void setFragmentSettings() {
-        FragmentSettings fragment = new FragmentSettings();
+        EcoLifeFragmentSettings fragment = new EcoLifeFragmentSettings();
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, fragment).commit();
     }
 
@@ -42,7 +42,7 @@ public class ActivityMain extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.ecoapp_activity_main);
 
         // Database
         databaseHelper = new DatabaseHelper(ActivityMain.this);

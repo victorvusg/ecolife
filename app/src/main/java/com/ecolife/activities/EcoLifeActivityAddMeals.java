@@ -35,7 +35,7 @@ import java.util.Date;
 import java.util.Locale;
 
 
-public class ActivityMealsAddDailyEntry extends AppCompatActivity implements AdapterMealPresets.mealPresetItemInterface, AdapterView.OnItemSelectedListener {
+public class EcoLifeActivityAddMeals extends AppCompatActivity implements AdapterMealPresets.mealPresetItemInterface, AdapterView.OnItemSelectedListener {
 
     /**
      * This activity displays all meal-presets and lets the user add them to the database
@@ -110,7 +110,7 @@ public class ActivityMealsAddDailyEntry extends AppCompatActivity implements Ada
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_meals_adddailyentry);
+        setContentView(R.layout.ecoapp_activity_meals_add);
 
         // Set loading-layout ----------------------------------------------------------------------
         FrameLayout loadingLayout = findViewById(R.id.loadingLayout);
@@ -134,7 +134,7 @@ public class ActivityMealsAddDailyEntry extends AppCompatActivity implements Ada
 
         // Set up categories spinner ---------------------------------------------------------------
 
-        databaseHelper = new DatabaseHelper(ActivityMealsAddDailyEntry.this);
+        databaseHelper = new DatabaseHelper(EcoLifeActivityAddMeals.this);
 
         // Load categories from database
         mealCategories = loadMealCategoriesFromDatabase();
@@ -142,7 +142,7 @@ public class ActivityMealsAddDailyEntry extends AppCompatActivity implements Ada
         // Set up spinner
         Spinner spinner = findViewById(R.id.spinnerMealPresetCategory);
         spinner.setOnItemSelectedListener(this);
-        ArrayAdapter adapterCategories = new ArrayAdapter(getApplicationContext(), R.layout.spinner_item_purple_dark, mealCategories);
+        ArrayAdapter adapterCategories = new ArrayAdapter(getApplicationContext(), R.layout.ecoapp_spinner_item_purple_dark, mealCategories);
         adapterCategories.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapterCategories);
 
@@ -174,7 +174,7 @@ public class ActivityMealsAddDailyEntry extends AppCompatActivity implements Ada
             @Override
             public void onClick(View view) {
                 // Start new activity Activity_CreateMeal
-                Intent intent = new Intent(view.getContext(), ActivityMealsCreateEditPreset.class);
+                Intent intent = new Intent(view.getContext(), EcoLifeActivityEditPreset.class);
                 if (date != null) {
                     intent.putExtra("date", date);
                 }
@@ -240,7 +240,7 @@ public class ActivityMealsAddDailyEntry extends AppCompatActivity implements Ada
     @Override
     public void onItemClick(String mealUUID) {
         // Start new activity Activity_CreateMeal
-        Intent intent = new Intent(getApplicationContext(), ActivityMealsCreateEditPreset.class);
+        Intent intent = new Intent(getApplicationContext(), EcoLifeActivityEditPreset.class);
         if (date != null) {
             intent.putExtra("date", date);
         }
@@ -255,7 +255,7 @@ public class ActivityMealsAddDailyEntry extends AppCompatActivity implements Ada
         AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.DialogStyle);
 
         LayoutInflater inflater = getLayoutInflater();
-        View view = inflater.inflate(R.layout.dialog_edittext, null);
+        View view = inflater.inflate(R.layout.ecoapp_dialog_edittext, null);
         builder.setView(view);
 
         EditText editTextPlanName = view.findViewById(R.id.dialogEditText);

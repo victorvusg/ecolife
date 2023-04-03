@@ -37,7 +37,7 @@ import java.util.Locale;
  * This activity displays all meals that have been eaten
  * This activity lets the user delete meals
  */
-public class ActivityMealsMealsOfDay extends AppCompatActivity implements AdapterMealPresets.mealPresetItemInterface {
+public class EcoLifeActivityEditMeals extends AppCompatActivity implements AdapterMealPresets.mealPresetItemInterface {
     private String date;
     private boolean savePossible = false;
 
@@ -53,7 +53,7 @@ public class ActivityMealsMealsOfDay extends AppCompatActivity implements Adapte
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_meals_mealsofday);
+        setContentView(R.layout.ecoapp_activity_meals_edit);
 
         FrameLayout loadingLayout = findViewById(R.id.loadingLayout);
         loadingLayout.setVisibility(View.VISIBLE);
@@ -77,7 +77,7 @@ public class ActivityMealsMealsOfDay extends AppCompatActivity implements Adapte
         // Load data from database -----------------------------------------------------------------
         mealsList = new ArrayList<ItemMealPreset>();
 
-        databaseHelper = new DatabaseHelper(ActivityMealsMealsOfDay.this);
+        databaseHelper = new DatabaseHelper(EcoLifeActivityEditMeals.this);
         Cursor cursor = databaseHelper.getConsumedMeals(date);
 
         if (cursor.getCount() > 0) {
@@ -164,7 +164,7 @@ public class ActivityMealsMealsOfDay extends AppCompatActivity implements Adapte
         buttonAddMeal.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), ActivityMealsAddDailyEntry.class);
+                Intent intent = new Intent(getApplicationContext(), EcoLifeActivityAddMeals.class);
                 if (date != null) {
                     intent.putExtra("date", date);
                 }
@@ -205,7 +205,7 @@ public class ActivityMealsMealsOfDay extends AppCompatActivity implements Adapte
         AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.DialogStyle);
 
         LayoutInflater inflater = getLayoutInflater();
-        View view = inflater.inflate(R.layout.dialog_edittext, null);
+        View view = inflater.inflate(R.layout.ecoapp_dialog_edittext, null);
         builder.setView(view);
 
         EditText editTextPlanName = view.findViewById(R.id.dialogEditText);

@@ -16,7 +16,7 @@ import androidx.fragment.app.Fragment;
 
 import com.ecolife.ActivityMain;
 import com.ecolife.R;
-import com.ecolife.activities.ActivityMealsMealsOfDay;
+import com.ecolife.activities.EcoLifeActivityEditMeals;
 import com.ecolife.utils.Common;
 
 import java.text.SimpleDateFormat;
@@ -29,7 +29,7 @@ import java.util.Locale;
 /**
  * This class is fragment for Nutrition
  */
-public class FragmentNutrition extends Fragment {
+public class EcoLifeFragmentNutrition extends Fragment {
 
     private String date;
     private double[] dataFood;
@@ -108,7 +108,7 @@ public class FragmentNutrition extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_nutrition, container, false);
+        return inflater.inflate(R.layout.ecoapp_fragment_nutrition, container, false);
     }
 
     /**
@@ -163,7 +163,7 @@ public class FragmentNutrition extends Fragment {
         buttonShowEatenMeals.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(view.getContext(), ActivityMealsMealsOfDay.class);
+                Intent intent = new Intent(view.getContext(), EcoLifeActivityEditMeals.class);
                 intent.putExtra("date", date);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);  // Start activity without animation
                 startActivity(intent);

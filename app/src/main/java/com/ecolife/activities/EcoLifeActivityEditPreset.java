@@ -28,7 +28,7 @@ import java.util.UUID;
 /**
  * This activity lets the user create new meal-presets or edit already existing ones.
  */
-public class ActivityMealsCreateEditPreset extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
+public class EcoLifeActivityEditPreset extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
     private String mealName;
     private String mealUUID;
     private String[] mealCategories;
@@ -104,10 +104,10 @@ public class ActivityMealsCreateEditPreset extends AppCompatActivity implements 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_meals_createeditpreset);
+        setContentView(R.layout.ecoapp_activity_edit_preset);
 
         // Connect to database
-        databaseHelper = new DatabaseHelper(ActivityMealsCreateEditPreset.this);
+        databaseHelper = new DatabaseHelper(EcoLifeActivityEditPreset.this);
 
         // Set up spinner for categories -----------------------------------------------------------
         mealCategories = loadMealCategoriesFromDatabase();
@@ -115,7 +115,7 @@ public class ActivityMealsCreateEditPreset extends AppCompatActivity implements 
 
         Spinner spinner = findViewById(R.id.spinnerMealCategory);
         spinner.setOnItemSelectedListener(this);
-        ArrayAdapter adapterCategories = new ArrayAdapter(getApplicationContext(), R.layout.spinner_item_purple_middle, mealCategories);
+        ArrayAdapter adapterCategories = new ArrayAdapter(getApplicationContext(), R.layout.ecoapp_spinner_item_purple_middle, mealCategories);
         adapterCategories.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapterCategories);
 
@@ -224,7 +224,7 @@ public class ActivityMealsCreateEditPreset extends AppCompatActivity implements 
         cancelButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(view.getContext(), ActivityMealsAddDailyEntry.class);
+                Intent intent = new Intent(view.getContext(), EcoLifeActivityAddMeals.class);
                 if (date != null) {
                     intent.putExtra("date", date);
                 }

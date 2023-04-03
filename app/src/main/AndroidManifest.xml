@@ -10,20 +10,20 @@
         android:theme="@style/Theme.Ecolife">
 
         <activity
-            android:name="com.ecolife.activities.ActivityMealsMealsOfDay"
+            android:name="com.ecolife.activities.EcoLifeActivityEditMeals"
             android:exported="false"
             android:screenOrientation="sensorPortrait"
             android:parentActivityName="com.ecolife.ActivityMain" />
         <activity
-            android:name="com.ecolife.activities.ActivityMealsAddDailyEntry"
+            android:name="com.ecolife.activities.EcoLifeActivityAddMeals"
             android:exported="false"
             android:screenOrientation="sensorPortrait"
             android:parentActivityName="com.ecolife.ActivityMain" />
         <activity
-            android:name="com.ecolife.activities.ActivityMealsCreateEditPreset"
+            android:name="com.ecolife.activities.EcoLifeActivityEditPreset"
             android:exported="false"
             android:screenOrientation="sensorPortrait"
-            android:parentActivityName="com.ecolife.activities.ActivityMealsAddDailyEntry" />
+            android:parentActivityName="com.ecolife.activities.EcoLifeActivityAddMeals" />
         <activity
             android:name="com.ecolife.ActivityMain"
             android:screenOrientation="sensorPortrait"

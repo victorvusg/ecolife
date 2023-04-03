@@ -17,7 +17,7 @@ import com.ecolife.ActivityMain;
 import com.ecolife.R;
 import com.ecolife.utils.Common;
 
-public class FragmentSettings extends Fragment {
+public class EcoLifeFragmentSettings extends Fragment {
 
     private double[] dataGoals;
     private boolean savePossible = false;
@@ -82,7 +82,7 @@ public class FragmentSettings extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_settings, container, false);
+        return inflater.inflate(R.layout.ecoapp_fragment_settings, container, false);
     }
 
     @Override

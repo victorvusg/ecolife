@@ -71,7 +71,7 @@ public class AdapterMealPresets extends RecyclerView.Adapter<AdapterMealPresets.
         LayoutInflater inflater = LayoutInflater.from(context);
 
         // Inflate custom layout
-        View viewMealPreset = inflater.inflate(R.layout.item_mealpreset, parent, false);
+        View viewMealPreset = inflater.inflate(R.layout.ecoapp_item_mealpreset, parent, false);
 
         // Return new holder instance
         return new Viewholder(viewMealPreset, itemInterface);
