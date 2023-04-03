@@ -3,6 +3,7 @@ package com.ecolife.fragments;
 import android.animation.ObjectAnimator;
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -65,7 +66,7 @@ public class EcoLifeFragmentNutrition extends Fragment {
 
         // Get today nutrients from databases
         Cursor cursorDataFood = ((ActivityMain) requireContext())
-                .databaseHelper
+                .SQLiteDatabase
                 .getConsumedMealsSums(date.format(now));
 
         // Store data to class variable "dataFood", if no data, fallback with 0
@@ -82,7 +83,7 @@ public class EcoLifeFragmentNutrition extends Fragment {
 
 
         // Get goals from database, fallback with 1
-        Cursor cursorSettings = ((ActivityMain) requireContext()).databaseHelper.getSettingsGoals();
+        Cursor cursorSettings = ((ActivityMain) requireContext()).SQLiteDatabase.getSettingsGoals();
         if (cursorSettings.getCount() > 0) {
             cursorSettings.moveToFirst();
             dataGoals = new double[] {
@@ -139,8 +140,14 @@ public class EcoLifeFragmentNutrition extends Fragment {
         for (int i = 0; i <= 3; i++) {
             ProgressBar progressBarMain = getView().findViewById(progressViews[i]);
             TextView textProgressMain = getView().findViewById(textProgressViews[i]);
-            ObjectAnimator.ofInt(progressBarMain, "progress", Common.percentOf(dataFood[dataIndex[i]], dataGoals[i])).start();
+            int percentage = Common.percentOf(dataFood[dataIndex[i]], dataGoals[i]);
+            ObjectAnimator.ofInt(progressBarMain, "progress", percentage).start();
+            if (percentage >= 100 ) progressBarMain
+                    .getProgressDrawable()
+                    .setColorFilter(Color.parseColor("#B00020"), android.graphics.PorterDuff.Mode.SRC_IN);
+
             textProgressMain.setText(convertDataToIntText(dataFood[dataIndex[i]]));
+            textProgressMain.setTextColor(Color.parseColor("#B00020"));
         }
 
         // Table view

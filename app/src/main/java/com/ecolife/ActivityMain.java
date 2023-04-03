@@ -9,7 +9,7 @@ import android.view.MenuItem;
 
 import com.ecolife.fragments.EcoLifeFragmentNutrition;
 
-import com.ecolife.data.DatabaseHelper;
+import com.ecolife.data.SQLiteDatabase;
 import com.ecolife.fragments.EcoLifeFragmentSettings;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
@@ -22,7 +22,7 @@ public class ActivityMain extends AppCompatActivity {
 
     public String date;
     private int currentFragmentID = 0;
-    public DatabaseHelper databaseHelper;
+    public SQLiteDatabase SQLiteDatabase;
 
 
     private void setFragmentFood(String date) {
@@ -45,7 +45,7 @@ public class ActivityMain extends AppCompatActivity {
         setContentView(R.layout.ecoapp_activity_main);
 
         // Database
-        databaseHelper = new DatabaseHelper(ActivityMain.this);
+        SQLiteDatabase = new SQLiteDatabase(ActivityMain.this);
 
         // Get data if activity was started by another activity
         Intent intent = getIntent();
@@ -103,7 +103,7 @@ public class ActivityMain extends AppCompatActivity {
 
     @Override
     protected void onDestroy() {
-        databaseHelper.close();
+        SQLiteDatabase.close();
         super.onDestroy();
     }
 

@@ -20,7 +20,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.ecolife.ActivityMain;
 import com.ecolife.R;
-import com.ecolife.data.DatabaseHelper;
+import com.ecolife.data.SQLiteDatabase;
 import com.ecolife.utils.AdapterMealPresets;
 import com.ecolife.model.ItemMealPreset;
 import com.ecolife.utils.Common;
@@ -48,7 +48,7 @@ public class EcoLifeActivityEditMeals extends AppCompatActivity implements Adapt
     private AdapterMealPresets adapter;
     private HashMap<String, Double> mealsStart = new HashMap<>();
 
-    private DatabaseHelper databaseHelper;
+    private SQLiteDatabase SQLiteDatabase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,8 +77,8 @@ public class EcoLifeActivityEditMeals extends AppCompatActivity implements Adapt
         // Load data from database -----------------------------------------------------------------
         mealsList = new ArrayList<ItemMealPreset>();
 
-        databaseHelper = new DatabaseHelper(EcoLifeActivityEditMeals.this);
-        Cursor cursor = databaseHelper.getConsumedMeals(date);
+        SQLiteDatabase = new SQLiteDatabase(EcoLifeActivityEditMeals.this);
+        Cursor cursor = SQLiteDatabase.getConsumedMeals(date);
 
         if (cursor.getCount() > 0) {
             while (cursor.moveToNext()) {
@@ -127,12 +127,12 @@ public class EcoLifeActivityEditMeals extends AppCompatActivity implements Adapt
 
                         if ((currentAmount > 0) && (currentAmount != startAmount)) {
                             // Delete entry
-                            databaseHelper.removeConsumedMeal(date, currentUUID);
+                            SQLiteDatabase.removeConsumedMeal(date, currentUUID);
                             // Add entry with new amount
-                            databaseHelper.addOrReplaceConsumedMeal(date, currentUUID, currentAmount);
+                            SQLiteDatabase.addOrReplaceConsumedMeal(date, currentUUID, currentAmount);
                         } else if (currentAmount <= 0) {
                             // Delete entry
-                            databaseHelper.removeConsumedMeal(date, currentUUID);
+                            SQLiteDatabase.removeConsumedMeal(date, currentUUID);
                         }
 
                         mealsStart.replace(currentUUID, currentAmount);
@@ -175,7 +175,7 @@ public class EcoLifeActivityEditMeals extends AppCompatActivity implements Adapt
 
     @Override
     protected void onDestroy() {
-        databaseHelper.close();
+        SQLiteDatabase.close();
         super.onDestroy();
     }
 

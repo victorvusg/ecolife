@@ -25,7 +25,6 @@ public class Common {
      * @return integer value of percentage
      */
     public static int percentOf(double current, double max) {
-        // If max is equal to 0, a invalid value then return 0
         if (max == 0) return 0;
         return (int) ((current / max) * 100);
     }

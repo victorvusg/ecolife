@@ -17,7 +17,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import com.ecolife.R;
-import com.ecolife.data.DatabaseHelper;
+import com.ecolife.data.SQLiteDatabase;
 import com.ecolife.utils.Common;
 
 import java.util.Arrays;
@@ -42,7 +42,7 @@ public class EcoLifeActivityEditPreset extends AppCompatActivity implements Adap
     private Button cancelButton;
     private EditText editTextMealName;
 
-    private DatabaseHelper databaseHelper;
+    private SQLiteDatabase SQLiteDatabase;
 
 
     private class textWatcher implements TextWatcher {
@@ -84,7 +84,7 @@ public class EcoLifeActivityEditPreset extends AppCompatActivity implements Adap
     }
 
     private String[] loadMealCategoriesFromDatabase() {
-        Cursor cursorCat = databaseHelper.getPresetMealCategories();
+        Cursor cursorCat = SQLiteDatabase.getPresetMealCategories();
         String[] loadedCategories = new String[0];
 
         if (cursorCat.getCount() > 0) {
@@ -107,7 +107,7 @@ public class EcoLifeActivityEditPreset extends AppCompatActivity implements Adap
         setContentView(R.layout.ecoapp_activity_edit_preset);
 
         // Connect to database
-        databaseHelper = new DatabaseHelper(EcoLifeActivityEditPreset.this);
+        SQLiteDatabase = new SQLiteDatabase(EcoLifeActivityEditPreset.this);
 
         // Set up spinner for categories -----------------------------------------------------------
         mealCategories = loadMealCategoriesFromDatabase();
@@ -130,7 +130,7 @@ public class EcoLifeActivityEditPreset extends AppCompatActivity implements Adap
                 mode = "edit";
 
                 String uuid = intent.getStringExtra("uuid");
-                Cursor cursorData = databaseHelper.getPresetMealDetails(uuid);
+                Cursor cursorData = SQLiteDatabase.getPresetMealDetails(uuid);
                 if (cursorData.getCount() > 0) {
                     cursorData.moveToFirst();
                     mealUUID = cursorData.getString(0);
@@ -209,8 +209,8 @@ public class EcoLifeActivityEditPreset extends AppCompatActivity implements Adap
 
 
                     // Save data to database
-                    databaseHelper.addOrReplacePresetMeal(mealUUID, mealName, selectedMealCategory, mealData);
-                    databaseHelper.close();
+                    SQLiteDatabase.addOrReplacePresetMeal(mealUUID, mealName, selectedMealCategory, mealData);
+                    SQLiteDatabase.close();
 
                     // Change button color
                     saveButton.setBackgroundResource(R.drawable.ecoapp_shape_box_round_light);
@@ -236,7 +236,7 @@ public class EcoLifeActivityEditPreset extends AppCompatActivity implements Adap
 
     @Override
     protected void onDestroy() {
-        databaseHelper.close();
+        SQLiteDatabase.close();
         super.onDestroy();
     }
 

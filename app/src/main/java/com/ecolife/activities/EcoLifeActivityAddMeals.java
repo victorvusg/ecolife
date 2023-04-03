@@ -23,7 +23,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.ecolife.ActivityMain;
 import com.ecolife.R;
-import com.ecolife.data.DatabaseHelper;
+import com.ecolife.data.SQLiteDatabase;
 import com.ecolife.utils.AdapterMealPresets;
 import com.ecolife.model.ItemMealPreset;
 import com.ecolife.utils.Common;
@@ -56,10 +56,10 @@ public class EcoLifeActivityAddMeals extends AppCompatActivity implements Adapte
     private ArrayList<ItemMealPreset> mealsPresetList;
     private AdapterMealPresets adapterPresets;
 
-    private DatabaseHelper databaseHelper;
+    private SQLiteDatabase SQLiteDatabase;
 
     private String[] loadMealCategoriesFromDatabase() {
-        Cursor cursorCat = databaseHelper.getPresetMealCategories();
+        Cursor cursorCat = SQLiteDatabase.getPresetMealCategories();
         String[] loadedCategories = new String[0];
 
         if (cursorCat.getCount() > 0) {
@@ -81,9 +81,9 @@ public class EcoLifeActivityAddMeals extends AppCompatActivity implements Adapte
         Cursor cursor;
 
         if (category.equals(allCategories)) {
-            cursor = databaseHelper.getPresetMealsSimpleAllCategories();
+            cursor = SQLiteDatabase.getPresetMealsSimpleAllCategories();
         } else {
-            cursor = databaseHelper.getPresetMealsSimpleFromCategory(category);
+            cursor = SQLiteDatabase.getPresetMealsSimpleFromCategory(category);
         }
 
         ArrayList<ItemMealPreset> loadedPresets = new ArrayList<ItemMealPreset>();
@@ -134,7 +134,7 @@ public class EcoLifeActivityAddMeals extends AppCompatActivity implements Adapte
 
         // Set up categories spinner ---------------------------------------------------------------
 
-        databaseHelper = new DatabaseHelper(EcoLifeActivityAddMeals.this);
+        SQLiteDatabase = new SQLiteDatabase(EcoLifeActivityAddMeals.this);
 
         // Load categories from database
         mealCategories = loadMealCategoriesFromDatabase();
@@ -191,7 +191,7 @@ public class EcoLifeActivityAddMeals extends AppCompatActivity implements Adapte
 
                     for (ItemMealPreset currentMeal : mealsPresetList) {
                         if (currentMeal.getAmount() > 0) {
-                            databaseHelper.addOrReplaceConsumedMeal(date, currentMeal.getMealUUID(), currentMeal.getAmount());
+                            SQLiteDatabase.addOrReplaceConsumedMeal(date, currentMeal.getMealUUID(), currentMeal.getAmount());
                         }
                     }
 
@@ -220,7 +220,7 @@ public class EcoLifeActivityAddMeals extends AppCompatActivity implements Adapte
 
     @Override
     protected void onDestroy() {
-        databaseHelper.close();
+        SQLiteDatabase.close();
         super.onDestroy();
     }
 

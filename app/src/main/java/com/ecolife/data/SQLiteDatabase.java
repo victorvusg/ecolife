@@ -3,13 +3,12 @@ package com.ecolife.data;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 
-public class DatabaseHelper extends SQLiteOpenHelper {
+public class SQLiteDatabase extends SQLiteOpenHelper {
 
     /**
      * This class contains all methods to access the database.
@@ -49,7 +48,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String COL_S_GOAL_PROTEIN = "goal_protein";
 
     // Constructor ---------------------------------------------------------------------------------
-    public DatabaseHelper(@Nullable Context context) {
+    public SQLiteDatabase(@Nullable Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
         this.context = context;
     }
@@ -59,7 +58,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
      * @param sqLiteDatabase
      */
     @Override
-    public void onCreate(SQLiteDatabase sqLiteDatabase) {
+    public void onCreate(android.database.sqlite.SQLiteDatabase sqLiteDatabase) {
         // Create table food-data
         sqLiteDatabase.execSQL(
                 "CREATE TABLE " + TABLE_PM + " ("
@@ -120,7 +119,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
      * @param newVersion
      */
     @Override
-    public void onUpgrade(SQLiteDatabase sqLiteDatabase, int oldVersion, int newVersion) {
+    public void onUpgrade(android.database.sqlite.SQLiteDatabase sqLiteDatabase, int oldVersion, int newVersion) {
         // Delete old tables
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + TABLE_PM);
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + TABLE_PMC);
@@ -137,7 +136,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
      * @return index, name, calories from table "foods" in ascending order by name
      */
     public Cursor getPresetMealsSimpleAllCategories() {
-        SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
+        android.database.sqlite.SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
         Cursor cursor = null;
 
         if (sqLiteDatabase != null) {
@@ -156,7 +155,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
      * @return
      */
     public Cursor getPresetMealsSimpleFromCategory(String category) {
-        SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
+        android.database.sqlite.SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
         Cursor cursor = null;
 
         if (sqLiteDatabase != null) {
@@ -178,7 +177,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
      * @return
      */
     public Cursor getPresetMealDetails(String foodUUID) {
-        SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
+        android.database.sqlite.SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
         Cursor cursor = null;
 
         if (sqLiteDatabase != null) {
@@ -193,7 +192,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
      * @return
      */
     public Cursor getPresetMealCategories() {
-        SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
+        android.database.sqlite.SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
         Cursor cursor = null;
 
         if (sqLiteDatabase != null) {
@@ -209,7 +208,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
      * @return
      */
     public Cursor getConsumedMeals(String date) {
-        SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
+        android.database.sqlite.SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
         Cursor cursor = null;
 
         if (sqLiteDatabase != null) {
@@ -232,7 +231,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
      * @return
      */
     public Cursor getConsumedMealsSums(String date) {
-        SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
+        android.database.sqlite.SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
         Cursor cursor = null;
 
         if (sqLiteDatabase != null) {
@@ -263,7 +262,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
      */
     public void addOrReplacePresetMeal(String uuid, String name, String category, double[] data) {
         // Get database
-        SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
+        android.database.sqlite.SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
 
         // Create content values to put into the database
         ContentValues cv = new ContentValues();
@@ -295,7 +294,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
      * @param amount
      */
     public void addOrReplaceConsumedMeal(String date, String mealUUID, double amount) {
-        SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
+        android.database.sqlite.SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
 
         cv.put(COL_CM_INDEX, mealUUID);
@@ -311,7 +310,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
      * @param mealUUID
      */
     public void removeConsumedMeal(String date, String mealUUID) {
-        SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
+        android.database.sqlite.SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
         if (sqLiteDatabase != null) {
             sqLiteDatabase.delete(TABLE_CM, COL_CM_INDEX + "= ? AND " + COL_CM_DATE + "= ?", new String[] {mealUUID, date});
         }
@@ -322,7 +321,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
      * @return
      */
     public Cursor getSettingsGoals() {
-        SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
+        android.database.sqlite.SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
         Cursor cursor = null;
 
         if (sqLiteDatabase != null) {
@@ -344,7 +343,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
      */
     public void setSettingsGoals(double goalCalories, double goalFat, double goalCarbs, double goalProtein) {
         // Get database
-        SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
+        android.database.sqlite.SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
 
         // Create content values to put into the database
         ContentValues cv = new ContentValues();
